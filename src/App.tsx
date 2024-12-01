@@ -69,20 +69,25 @@ const App: React.FC = () => {
           Movimento Artístico e Sociocultural
         </p>
         <p>
-          <span className="fa">&#xf16d;&nbsp;</span>
+          <i className="fa fa-instagram" aria-hidden="true"></i>
+          &nbsp;
           <a
             href="https://www.instagram.com/cento.quarenta/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            @cento.quarenta
+            cento.quarenta
           </a>
         </p>
         <p>
-          <span>&#9993; </span>
+          <i className="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;
           <a href="mailto:geral@140.pt">geral@140.pt</a>
         </p>
-        <p>&copy; 2024 Penafiel</p>
+        <p>
+          <i className="fa fa-copyright" aria-hidden="true"></i>
+          &nbsp;2024 Penafiel
+        </p>
       </footer>
     </>
   );
