@@ -5,8 +5,10 @@
 }
 
 .question {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  font-size: 3.2em;
+  font-size: 4em;
   line-height: 0.4;
   font-weight: 600;
   letter-spacing: 1px;
@@ -30,6 +32,14 @@ a {
 }
 a:hover {
   filter: drop-shadow(10px 3px 1px #61dafbaa);
+}
+
+img.logo-hover {
+  cursor: pointer;
+}
+
+img.logo-hover:hover {
+  transform: scale(1.5);
 }
 
 @keyframes rotate-spin1 {
@@ -58,6 +68,6 @@ a:hover {
 
 @media (prefers-reduced-motion: no-preference) {
   .rotate2 {
-    animation: rotate-spin2 infinite 20s linear;
+    animation: rotate-spin2 infinite 10s linear;
   }
 }
