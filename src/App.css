@@ -26,11 +26,11 @@
   margin-right: 150px;
 }
 
-a {
+.shadow-link {
   will-change: filter;
   transition: filter 200ms;
 }
-a:hover {
+.shadow-link:hover {
   filter: drop-shadow(10px 3px 1px #61dafbaa);
 }
 
@@ -53,7 +53,7 @@ img.logo-hover:hover {
 
 @media (prefers-reduced-motion: no-preference) {
   .rotate1 {
-    animation: rotate-spin1 infinite 20s linear;
+    animation: rotate-spin1 infinite 15s linear;
   }
 }
 
@@ -68,6 +68,22 @@ img.logo-hover:hover {
 
 @media (prefers-reduced-motion: no-preference) {
   .rotate2 {
-    animation: rotate-spin2 infinite 10s linear;
+    animation: rotate-spin2 infinite 8s linear;
   }
+}
+
+/* Footer styles */
+.footer {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1em;
+  line-height: 1.2;
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }

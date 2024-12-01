@@ -7,7 +7,7 @@ import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
 
 const logos = [logoB1, logoB2, logoW1, logoW2];
-const MAX_LOGOS = 10; // Limit the number of logos
+const MAX_LOGOS = 7; // Limit the number of logos
 const link = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
 const App: React.FC = () => {
@@ -39,18 +39,15 @@ const App: React.FC = () => {
 
   return (
     <>
-      {/* TODO footer */}
-      {/* <h1>Associação 140</h1> */}
-
-      <div className="question" ref={questionRef}>
+      <div className="question " ref={questionRef}>
         <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="rotate1 l1">E</p>
+          <p className="rotate1 l1 shadow-link">E</p>
         </a>
         <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="l2">AGORA</p>
+          <p className="l2 shadow-link">AGORA</p>
         </a>
         <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="rotate2 l3">?</p>
+          <p className="rotate2 l3 shadow-link">?</p>
         </a>
       </div>
 
@@ -62,6 +59,31 @@ const App: React.FC = () => {
           restrictedArea={restrictedArea}
         />
       ))}
+
+      <footer className="footer">
+        <p>
+          <strong>Associação 140</strong>
+        </p>
+        <p>
+          <span>&#8763; </span>
+          Movimento Artístico e Sociocultural
+        </p>
+        <p>
+          <span className="fa">&#xf16d;&nbsp;</span>
+          <a
+            href="https://www.instagram.com/cento.quarenta/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @cento.quarenta
+          </a>
+        </p>
+        <p>
+          <span>&#9993; </span>
+          <a href="mailto:geral@140.pt">geral@140.pt</a>
+        </p>
+        <p>&copy; 2024 Penafiel</p>
+      </footer>
     </>
   );
 };

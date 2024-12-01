@@ -61,6 +61,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
 
   return (
     <div
+      className="shadow-link"
       style={{
         position: 'absolute',
         zIndex: 1,
