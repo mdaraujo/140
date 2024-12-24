@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import RandomLogo from './components/RandomLogo';
-import logoB1 from '/logo_b_1.png';
-import logoB2 from '/logo_b_2.png';
+// import logoB1 from '/logo_b_1.png';
+// import logoB2 from '/logo_b_2.png';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
+import posterAteJa from '/ATE_JA.jpg';
 
-const logos = [logoB1, logoB2, logoW1, logoW2];
+const logos = [posterAteJa, posterAteJa, posterAteJa, logoW1, logoW2];
 const MAX_LOGOS = 7; // Limit the number of logos
 const link = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
@@ -14,6 +15,7 @@ const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
   const [restrictedArea, setRestrictedArea] = useState<DOMRect | null>(null);
   const questionRef = useRef<HTMLDivElement>(null);
+  const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
   // Add new logos at random intervals
   useEffect(() => {
@@ -37,9 +39,17 @@ const App: React.FC = () => {
     }
   }, []);
 
+  const openPopUp = () => {
+    setShowPopUp(true);
+  };
+
+  const closePopup = () => {
+    setShowPopUp(false);
+  };
+
   return (
     <>
-      <div className="question " ref={questionRef}>
+      {/* <div className="question " ref={questionRef}>
         <a href={link} target="_blank" rel="noopener noreferrer">
           <p className="rotate1 l1 shadow-link">E</p>
         </a>
@@ -49,6 +59,19 @@ const App: React.FC = () => {
         <a href={link} target="_blank" rel="noopener noreferrer">
           <p className="rotate2 l3 shadow-link">?</p>
         </a>
+      </div> */}
+
+      <div className="question " ref={questionRef}>
+        <p className="rotate1 l1 shadow-link" onClick={openPopUp}>
+          E
+        </p>
+        <p className="l2 shadow-link" onClick={openPopUp}>
+          AGORA
+        </p>
+
+        <p className="rotate2 l3 shadow-link" onClick={openPopUp}>
+          ?
+        </p>
       </div>
 
       {Array.from({ length: logoCount }).map((_, index) => (
@@ -60,6 +83,14 @@ const App: React.FC = () => {
         />
       ))}
 
+      {showPopUp && (
+        <div className="popup" onClick={closePopup}>
+          <div className="popup-content">
+            <img src={posterAteJa} alt="Pop-up Poster" />
+          </div>
+        </div>
+      )}
+
       <footer className="footer">
         <p>
           <strong>Associação 140</strong>
@@ -67,6 +98,14 @@ const App: React.FC = () => {
         <p>
           <span>&#8763; </span>
           Movimento Artístico e Sociocultural
+        </p>
+        <p>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdOoDJWoQyr5hBeSVZCLBmwwe8CDpKESzF9U27Fn8ZgM6R12Q/viewform"
+            target="_blank"
+          >
+            Junta-te à Associação 140
+          </a>
         </p>
         <p>
           <i className="fa fa-instagram" aria-hidden="true"></i>
