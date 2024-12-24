@@ -39,13 +39,13 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const openPopUp = () => {
+  function openPopUp() {
     setShowPopUp(true);
-  };
+  }
 
-  const closePopup = () => {
+  function closePopup() {
     setShowPopUp(false);
-  };
+  }
 
   return (
     <>
@@ -78,7 +78,7 @@ const App: React.FC = () => {
         <RandomLogo
           key={index}
           logos={logos}
-          link={link}
+          onClick={openPopUp}
           restrictedArea={restrictedArea}
         />
       ))}

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 interface RandomLogoProps {
   logos: string[];
-  link: string;
+  //link: string;
+  onClick: () => void;
   restrictedArea: DOMRect | null;
 }
 
@@ -13,7 +14,7 @@ interface Position {
 
 const RandomLogo: React.FC<RandomLogoProps> = ({
   logos,
-  link,
+  onClick,
   restrictedArea,
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
@@ -71,20 +72,21 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
         transition: 'top 0.5s ease, left 0.5s ease',
       }}
     >
-      <a href={link} target="_blank" rel="noopener noreferrer">
-        {currentLogo && (
-          <img
-            src={currentLogo}
-            alt="140 Logo"
-            style={{
-              width: '50px',
-              height: '50px',
-              transition: 'transform 0.3s ease',
-            }}
-            className="logo-hover"
-          />
-        )}
-      </a>
+      {/* <a href={link} target="_blank" rel="noopener noreferrer"> */}
+      {currentLogo && (
+        <img
+          src={currentLogo}
+          alt="140 Logo"
+          style={{
+            width: '50px',
+            height: 'auto',
+            transition: 'transform 0.3s ease',
+          }}
+          className="logo-hover"
+          onClick={onClick}
+        />
+      )}
+      {/* </a> */}
     </div>
   );
 };
