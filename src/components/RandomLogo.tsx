@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { MovingObject } from '../types/MovingObject';
 
 interface RandomLogoProps {
-  logos: string[];
+  movingObjects: MovingObject[];
   //link: string;
   onClick: () => void;
   restrictedArea: DOMRect | null;
@@ -13,12 +14,13 @@ interface Position {
 }
 
 const RandomLogo: React.FC<RandomLogoProps> = ({
-  logos,
+  movingObjects,
   onClick,
   restrictedArea,
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
-  const [currentLogo, setCurrentLogo] = useState<string>('');
+  const [currentMovingObject, setcurrentMovingObject] =
+    useState<MovingObject>();
 
   const getRandomPosition = (): Position => {
     let top, left;
@@ -36,13 +38,13 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
     return { top, left };
   };
 
-  const getRandomLogo = (): string =>
-    logos[Math.floor(Math.random() * logos.length)];
+  const getRandomLogo = (): MovingObject =>
+    movingObjects[Math.floor(Math.random() * movingObjects.length)];
 
   useEffect(() => {
     // Set initial position and logo
     setPosition(getRandomPosition());
-    setCurrentLogo(getRandomLogo());
+    setcurrentMovingObject(getRandomLogo());
 
     // Trigger move animation after the component mounts
     setTimeout(() => {
@@ -58,7 +60,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
     ); // Random interval between 2s and 5s
 
     return () => clearInterval(interval); // Cleanup interval
-  }, [logos, restrictedArea]);
+  }, [movingObjects, restrictedArea]);
 
   return (
     <div
@@ -72,10 +74,29 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
         transition: 'top 0.5s ease, left 0.5s ease',
       }}
     >
-      {/* <a href={link} target="_blank" rel="noopener noreferrer"> */}
-      {currentLogo && (
+      {currentMovingObject?.link && (
+        <a
+          href={currentMovingObject.link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src={currentMovingObject.image}
+            alt="140 Logo"
+            style={{
+              width: '50px',
+              height: 'auto',
+              transition: 'transform 0.3s ease',
+            }}
+            className="logo-hover"
+            onClick={onClick}
+          />
+        </a>
+      )}
+
+      {!currentMovingObject?.link && currentMovingObject?.image && (
         <img
-          src={currentLogo}
+          src={currentMovingObject.image}
           alt="140 Logo"
           style={{
             width: '50px',
@@ -86,7 +107,6 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
           onClick={onClick}
         />
       )}
-      {/* </a> */}
     </div>
   );
 };

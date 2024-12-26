@@ -6,10 +6,19 @@ import RandomLogo from './components/RandomLogo';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
 import posterAteJa from '/ATE_JA.jpeg';
+import { MovingObject } from './types/MovingObject';
 
-const logos = [posterAteJa, posterAteJa, posterAteJa, logoW1, logoW2];
-const MAX_LOGOS = 7; // Limit the number of logos
-// const link = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
+const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
+
+const movingObjects: MovingObject[] = [
+  { image: posterAteJa, link: null },
+  { image: posterAteJa, link: null },
+  { image: posterAteJa, link: null },
+  { image: posterAteJa, link: null },
+  { image: logoW1, link: formLink },
+  { image: logoW2, link: formLink },
+];
+const MAX_MOVING_OBJECTS = 7; // Limit the number of movingObjects
 
 const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
@@ -17,13 +26,13 @@ const App: React.FC = () => {
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
-  // Add new logos at random intervals
+  // Add new movingObjects at random intervals
   useEffect(() => {
-    if (logoCount <= MAX_LOGOS) {
+    if (logoCount <= MAX_MOVING_OBJECTS) {
       const interval = setInterval(
         () => {
           // Ensure we don't exceed the max
-          setLogoCount((count) => Math.min(count + 1, MAX_LOGOS));
+          setLogoCount((count) => Math.min(count + 1, MAX_MOVING_OBJECTS));
         },
         Math.random() * 3000 + 2000,
       ); // Random interval between 2s and 5s
@@ -77,7 +86,7 @@ const App: React.FC = () => {
       {Array.from({ length: logoCount }).map((_, index) => (
         <RandomLogo
           key={index}
-          logos={logos}
+          movingObjects={movingObjects}
           onClick={openPopUp}
           restrictedArea={restrictedArea}
         />
@@ -95,15 +104,9 @@ const App: React.FC = () => {
         <p>
           <strong>Associação 140</strong>
         </p>
+        <p>Movimento Artístico e Sociocultural</p>
         <p>
-          <span>&#8763; </span>
-          Movimento Artístico e Sociocultural
-        </p>
-        <p>
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdOoDJWoQyr5hBeSVZCLBmwwe8CDpKESzF9U27Fn8ZgM6R12Q/viewform"
-            target="_blank"
-          >
+          <a href={formLink} target="_blank">
             <strong>Torna-te sócio!</strong>
           </a>
         </p>
