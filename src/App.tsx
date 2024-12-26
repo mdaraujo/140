@@ -5,11 +5,11 @@ import RandomLogo from './components/RandomLogo';
 // import logoB2 from '/logo_b_2.png';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
-import posterAteJa from '/ATE_JA.jpg';
+import posterAteJa from '/ATE_JA.jpeg';
 
 const logos = [posterAteJa, posterAteJa, posterAteJa, logoW1, logoW2];
 const MAX_LOGOS = 7; // Limit the number of logos
-const link = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
+// const link = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
 const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
@@ -104,7 +104,7 @@ const App: React.FC = () => {
             href="https://docs.google.com/forms/d/e/1FAIpQLSdOoDJWoQyr5hBeSVZCLBmwwe8CDpKESzF9U27Fn8ZgM6R12Q/viewform"
             target="_blank"
           >
-            Junta-te à Associação 140
+            <strong>Torna-te sócio!</strong>
           </a>
         </p>
         <p>
