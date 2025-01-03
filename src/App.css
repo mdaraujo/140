@@ -11,6 +11,7 @@
   line-height: 0.4;
   font-weight: 600;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 .l1 {
@@ -30,7 +31,7 @@
   transition: filter 200ms;
 }
 .shadow-link:hover {
-  filter: drop-shadow(10px 3px 1px #61dafbaa);
+  filter: drop-shadow(10px 3px 1px #0583f2);
 }
 
 img.logo-hover {
@@ -68,6 +69,40 @@ img.logo-hover:hover {
 @media (prefers-reduced-motion: no-preference) {
   .rotate2 {
     animation: rotate-spin2 infinite 8s linear;
+  }
+}
+
+.popup {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background: rgba(242, 163, 94, 0.4);
+}
+
+.popup-content {
+  width: 80vw;
+  height: auto;
+}
+
+.popup-content img {
+  width: 100%;
+  height: auto;
+}
+
+@media only screen and (min-width: 992px) {
+  .popup-content {
+    height: 80vh;
+    width: auto;
+  }
+
+  .popup-content img {
+    height: 100%;
+    width: auto;
   }
 }
 
