@@ -3,20 +3,20 @@ import './App.css';
 import RandomLogo from './components/RandomLogo';
 import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
-import logoW1 from '/logo_w_1.png';
-import logoW2 from '/logo_w_2.png';
-import posterBeernissage from './assets/beernissage_jan_11.jpeg';
+import beernissageInsta from './assets/beernissage_jan_11_insta.jpeg';
+// import beernissagePoster from './assets/beernissage_jan_11_poster.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
 const movingObjects: MovingObject[] = [
-  { image: posterBeernissage, link: null },
-  { image: posterBeernissage, link: null },
-  { image: posterBeernissage, link: null },
-  { image: posterBeernissage, link: null },
-  { image: logoW1, link: formLink },
-  { image: logoW2, link: formLink },
+  { image: beernissageInsta, link: null },
+  { image: beernissageInsta, link: null },
+  { image: beernissageInsta, link: null },
+  { image: beernissageInsta, link: null },
+  { image: beernissageInsta, link: null },
+  // { image: beernissagePoster, link: null },
+  // { image: beernissagePoster, link: null },
   { image: logoB1, link: formLink },
   { image: logoB2, link: formLink },
 ];
@@ -79,7 +79,6 @@ const App: React.FC = () => {
         <p className="l2 shadow-link" onClick={openPopUp}>
           AGORA
         </p>
-
         <p className="rotate2 l3 shadow-link" onClick={openPopUp}>
           ?
         </p>
@@ -97,7 +96,7 @@ const App: React.FC = () => {
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
           <div className="popup-content">
-            <img src={posterBeernissage} alt="Pop-up Poster" />
+            <img src={beernissageInsta} alt="Pop-up Poster" />
           </div>
         </div>
       )}
