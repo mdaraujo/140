@@ -1,22 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import RandomLogo from './components/RandomLogo';
-// import logoB1 from '/logo_b_1.png';
-// import logoB2 from '/logo_b_2.png';
+import logoB1 from '/logo_b_1.png';
+import logoB2 from '/logo_b_2.png';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
-import posterAteJa from './assets/ATE_JA.jpeg';
+import posterBeernissage from './assets/beernissage_jan_11.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
 const movingObjects: MovingObject[] = [
-  { image: posterAteJa, link: null },
-  { image: posterAteJa, link: null },
-  { image: posterAteJa, link: null },
-  { image: posterAteJa, link: null },
+  { image: posterBeernissage, link: null },
+  { image: posterBeernissage, link: null },
+  { image: posterBeernissage, link: null },
+  { image: posterBeernissage, link: null },
   { image: logoW1, link: formLink },
   { image: logoW2, link: formLink },
+  { image: logoB1, link: formLink },
+  { image: logoB2, link: formLink },
 ];
 const MAX_MOVING_OBJECTS = 7; // Limit the number of movingObjects
 
@@ -95,7 +97,7 @@ const App: React.FC = () => {
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
           <div className="popup-content">
-            <img src={posterAteJa} alt="Pop-up Poster" />
+            <img src={posterBeernissage} alt="Pop-up Poster" />
           </div>
         </div>
       )}
