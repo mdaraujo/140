@@ -5,7 +5,7 @@ import RandomLogo from './components/RandomLogo';
 // import logoB2 from '/logo_b_2.png';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
-import posterAteJa from '/ATE_JA.jpeg';
+import posterAteJa from './assets/ATE_JA.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
