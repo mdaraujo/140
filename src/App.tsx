@@ -8,6 +8,8 @@ import beernissagePoster from './assets/beernissage_fev_08.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
+const ticketsLink =
+  'https://www.bol.pt/Comprar/Bilhetes/148672-vozes_que_rasgam_kali_alice_em_nenhum_lugar_moria_e_bruma-ponto_c_cultura_e_criatividade/';
 
 const movingObjects: MovingObject[] = [
   { image: vozesRasgamPoster, link: null },
@@ -24,6 +26,7 @@ const App: React.FC = () => {
   const [restrictedArea, setRestrictedArea] = useState<DOMRect | null>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
+  const [activePoster, setActivePoster] = useState<string>('');
 
   // Add new movingObjects at random intervals
   useEffect(() => {
@@ -47,8 +50,10 @@ const App: React.FC = () => {
     }
   }, []);
 
-  function openPopUp() {
+  function openPopUp(image: string) {
+    setActivePoster(image);
     setShowPopUp(true);
+    console.log('activePoster: ', activePoster);
   }
 
   function closePopup() {
@@ -57,35 +62,17 @@ const App: React.FC = () => {
 
   return (
     <>
-      {/* <div className="question " ref={questionRef}>
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="rotate1 l1 shadow-link">E</p>
-        </a>
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="l2 shadow-link">AGORA</p>
-        </a>
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="rotate2 l3 shadow-link">?</p>
-        </a>
-      </div> */}
-
       <div className="question " ref={questionRef}>
-        <p className="rotate1 l1 shadow-link" onClick={openPopUp}>
-          E
-        </p>
-        <p className="l2 shadow-link" onClick={openPopUp}>
-          AGORA
-        </p>
-        <p className="rotate2 l3 shadow-link" onClick={openPopUp}>
-          ?
-        </p>
+        <p className="rotate1 l1 shadow-link">E</p>
+        <p className="l2 shadow-link">AGORA</p>
+        <p className="rotate2 l3 shadow-link">?</p>
       </div>
 
       {Array.from({ length: logoCount }).map((_, index) => (
         <RandomLogo
           key={index}
           movingObjects={movingObjects}
-          onClick={openPopUp}
+          onClick={(image) => openPopUp(image)}
           restrictedArea={restrictedArea}
         />
       ))}
@@ -93,7 +80,7 @@ const App: React.FC = () => {
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
           <div className="popup-content">
-            <img src={vozesRasgamPoster} alt="Pop-up Poster" />
+            <img src={activePoster} alt="Pop-up Poster" />
           </div>
         </div>
       )}
