@@ -80,7 +80,13 @@ const App: React.FC = () => {
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
           <div className="popup-content">
-            <img src={activePoster} alt="Pop-up Poster" />
+            {activePoster == beernissagePoster ? (
+              <img src={activePoster} alt="Pop-up Poster" />
+            ) : (
+              <a href={ticketsLink} target="_blank">
+                <img src={activePoster} alt="Pop-up Poster" />
+              </a>
+            )}
           </div>
         </div>
       )}
