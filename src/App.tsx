@@ -3,20 +3,17 @@ import './App.css';
 import RandomLogo from './components/RandomLogo';
 import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
-import beernissageInsta from './assets/beernissage_jan_11_insta.jpeg';
-// import beernissagePoster from './assets/beernissage_jan_11_poster.jpeg';
+import vozesRasgamPoster from './assets/vozes_que_rasgam.jpeg';
+import beernissagePoster from './assets/beernissage_fev_08.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
 const movingObjects: MovingObject[] = [
-  { image: beernissageInsta, link: null },
-  { image: beernissageInsta, link: null },
-  { image: beernissageInsta, link: null },
-  { image: beernissageInsta, link: null },
-  { image: beernissageInsta, link: null },
-  // { image: beernissagePoster, link: null },
-  // { image: beernissagePoster, link: null },
+  { image: vozesRasgamPoster, link: null },
+  { image: vozesRasgamPoster, link: null },
+  { image: beernissagePoster, link: null },
+  { image: beernissagePoster, link: null },
   { image: logoB1, link: formLink },
   { image: logoB2, link: formLink },
 ];
@@ -96,7 +93,7 @@ const App: React.FC = () => {
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
           <div className="popup-content">
-            <img src={beernissageInsta} alt="Pop-up Poster" />
+            <img src={vozesRasgamPoster} alt="Pop-up Poster" />
           </div>
         </div>
       )}
