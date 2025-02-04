@@ -5,19 +5,32 @@ import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
 import vozesRasgamPoster from './assets/vozes_que_rasgam.jpeg';
 import beernissagePoster from './assets/beernissage_fev_08.jpeg';
+import motherEarthsPlantasia from './assets/Mother_Earths_Plantasia.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
-const ticketsLink =
+const ticketsVozesRasgam =
   'https://www.bol.pt/Comprar/Bilhetes/148672-vozes_que_rasgam_kali_alice_em_nenhum_lugar_moria_e_bruma-ponto_c_cultura_e_criatividade/';
+const ticketsMotherEarthsPlantasia =
+  'https://www.bol.pt/Comprar/Bilhetes/148684-mother_earth_s_plantasia_audicao_do_album_de_mort_garson-ponto_c_cultura_e_criatividade/';
 
 const movingObjects: MovingObject[] = [
-  { image: vozesRasgamPoster, link: null },
-  { image: vozesRasgamPoster, link: null },
-  { image: beernissagePoster, link: null },
-  { image: beernissagePoster, link: null },
-  { image: logoB1, link: formLink },
-  { image: logoB2, link: formLink },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  {
+    image: motherEarthsPlantasia,
+    formLink: null,
+    ticketsLink: ticketsMotherEarthsPlantasia,
+  },
+  {
+    image: motherEarthsPlantasia,
+    formLink: null,
+    ticketsLink: ticketsMotherEarthsPlantasia,
+  },
+  { image: logoB1, formLink: formLink, ticketsLink: null },
+  { image: logoB2, formLink: formLink, ticketsLink: null },
 ];
 const MAX_MOVING_OBJECTS = 7; // Limit the number of movingObjects
 
@@ -27,6 +40,7 @@ const App: React.FC = () => {
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [activePoster, setActivePoster] = useState<string>('');
+  const [activeTicketsLink, setActiveTicketsLink] = useState<string | null>('');
 
   // Add new movingObjects at random intervals
   useEffect(() => {
@@ -50,10 +64,10 @@ const App: React.FC = () => {
     }
   }, []);
 
-  function openPopUp(image: string) {
+  function openPopUp(image: string, ticketsLink: string | null) {
     setActivePoster(image);
+    setActiveTicketsLink(ticketsLink);
     setShowPopUp(true);
-    console.log('activePoster: ', activePoster);
   }
 
   function closePopup() {
@@ -72,7 +86,7 @@ const App: React.FC = () => {
         <RandomLogo
           key={index}
           movingObjects={movingObjects}
-          onClick={(image) => openPopUp(image)}
+          onClick={(image, ticketsLink) => openPopUp(image, ticketsLink)}
           restrictedArea={restrictedArea}
         />
       ))}
@@ -80,12 +94,12 @@ const App: React.FC = () => {
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
           <div className="popup-content">
-            {activePoster == beernissagePoster ? (
-              <img src={activePoster} alt="Pop-up Poster" />
-            ) : (
-              <a href={ticketsLink} target="_blank">
+            {activeTicketsLink ? (
+              <a href={activeTicketsLink} target="_blank">
                 <img src={activePoster} alt="Pop-up Poster" />
               </a>
+            ) : (
+              <img src={activePoster} alt="Pop-up Poster" />
             )}
           </div>
         </div>
