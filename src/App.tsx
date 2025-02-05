@@ -15,10 +15,18 @@ const ticketsMotherEarthsPlantasia =
   'https://www.bol.pt/Comprar/Bilhetes/148684-mother_earth_s_plantasia_audicao_do_album_de_mort_garson-ponto_c_cultura_e_criatividade/';
 
 const movingObjects: MovingObject[] = [
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
   { image: beernissagePoster, formLink: null, ticketsLink: null },
   { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  {
+    image: motherEarthsPlantasia,
+    formLink: null,
+    ticketsLink: ticketsMotherEarthsPlantasia,
+  },
   {
     image: motherEarthsPlantasia,
     formLink: null,
@@ -32,7 +40,7 @@ const movingObjects: MovingObject[] = [
   { image: logoB1, formLink: formLink, ticketsLink: null },
   { image: logoB2, formLink: formLink, ticketsLink: null },
 ];
-const MAX_MOVING_OBJECTS = 7; // Limit the number of movingObjects
+const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
 const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
@@ -76,10 +84,25 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div className="question " ref={questionRef}>
-        <p className="rotate1 l1 shadow-link">E</p>
-        <p className="l2 shadow-link">AGORA</p>
-        <p className="rotate2 l3 shadow-link">?</p>
+      <div className="question" ref={questionRef}>
+        <p
+          className="rotate1 l1 shadow-link"
+          onClick={() => openPopUp(beernissagePoster, null)}
+        >
+          E
+        </p>
+        <p
+          className="l2 shadow-link"
+          onClick={() => openPopUp(beernissagePoster, null)}
+        >
+          AGORA
+        </p>
+        <p
+          className="rotate2 l3 shadow-link"
+          onClick={() => openPopUp(beernissagePoster, null)}
+        >
+          ?
+        </p>
       </div>
 
       {Array.from({ length: logoCount }).map((_, index) => (
