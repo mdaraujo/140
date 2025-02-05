@@ -18,10 +18,10 @@ const movingObjects: MovingObject[] = [
   { image: beernissagePoster, formLink: null, ticketsLink: null },
   { image: beernissagePoster, formLink: null, ticketsLink: null },
   { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null }, // 4 / 12 = 0.33
   { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
   { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam }, // 3 / 12 = 0.25
   {
     image: motherEarthsPlantasia,
     formLink: null,
@@ -36,9 +36,9 @@ const movingObjects: MovingObject[] = [
     image: motherEarthsPlantasia,
     formLink: null,
     ticketsLink: ticketsMotherEarthsPlantasia,
-  },
-  { image: logoB1, formLink: formLink, ticketsLink: null },
-  { image: logoB2, formLink: formLink, ticketsLink: null },
+  }, // 3 / 12 = 0.25
+  { image: logoB1, formLink: formLink, ticketsLink: null }, // 1 / 12 = 0.08
+  { image: logoB2, formLink: formLink, ticketsLink: null }, // 1 / 12 = 0.08
 ];
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
