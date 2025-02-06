@@ -3,7 +3,7 @@ import { MovingObject } from '../types/MovingObject';
 
 interface RandomLogoProps {
   movingObjects: MovingObject[];
-  onClick: () => void;
+  onClick: (image: string, ticketsLink: string | null) => void;
   restrictedArea: DOMRect | null;
 }
 
@@ -73,9 +73,9 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
         transition: 'top 0.5s ease, left 0.5s ease',
       }}
     >
-      {currentMovingObject?.link && (
+      {currentMovingObject?.formLink && (
         <a
-          href={currentMovingObject.link}
+          href={currentMovingObject.formLink}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -92,7 +92,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
         </a>
       )}
 
-      {!currentMovingObject?.link && currentMovingObject?.image && (
+      {!currentMovingObject?.formLink && currentMovingObject?.image && (
         <img
           src={currentMovingObject.image}
           alt="140 Logo"
@@ -102,7 +102,9 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
             transition: 'transform 0.3s ease',
           }}
           className="logo-hover"
-          onClick={onClick}
+          onClick={() =>
+            onClick(currentMovingObject.image, currentMovingObject.ticketsLink)
+          }
         />
       )}
     </div>

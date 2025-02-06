@@ -1,4 +1,5 @@
 export interface MovingObject {
   image: string;
-  link: string | null;
+  formLink: string | null;
+  ticketsLink: string | null;
 }

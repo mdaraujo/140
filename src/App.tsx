@@ -3,30 +3,52 @@ import './App.css';
 import RandomLogo from './components/RandomLogo';
 import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
-import beernissageInsta from './assets/beernissage_jan_11_insta.jpeg';
-// import beernissagePoster from './assets/beernissage_jan_11_poster.jpeg';
+import vozesRasgamPoster from './assets/vozes_que_rasgam.jpeg';
+import beernissagePoster from './assets/beernissage_fev_08.jpeg';
+import motherEarthsPlantasia from './assets/Mother_Earths_Plantasia.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
+const ticketsVozesRasgam =
+  'https://www.bol.pt/Comprar/Bilhetes/148672-vozes_que_rasgam_kali_alice_em_nenhum_lugar_moria_e_bruma-ponto_c_cultura_e_criatividade/';
+const ticketsMotherEarthsPlantasia =
+  'https://www.bol.pt/Comprar/Bilhetes/148684-mother_earth_s_plantasia_audicao_do_album_de_mort_garson-ponto_c_cultura_e_criatividade/';
 
 const movingObjects: MovingObject[] = [
-  { image: beernissageInsta, link: null },
-  { image: beernissageInsta, link: null },
-  { image: beernissageInsta, link: null },
-  { image: beernissageInsta, link: null },
-  { image: beernissageInsta, link: null },
-  // { image: beernissagePoster, link: null },
-  // { image: beernissagePoster, link: null },
-  { image: logoB1, link: formLink },
-  { image: logoB2, link: formLink },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null }, // 4 / 12 = 0.33
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam }, // 3 / 12 = 0.25
+  {
+    image: motherEarthsPlantasia,
+    formLink: null,
+    ticketsLink: ticketsMotherEarthsPlantasia,
+  },
+  {
+    image: motherEarthsPlantasia,
+    formLink: null,
+    ticketsLink: ticketsMotherEarthsPlantasia,
+  },
+  {
+    image: motherEarthsPlantasia,
+    formLink: null,
+    ticketsLink: ticketsMotherEarthsPlantasia,
+  }, // 3 / 12 = 0.25
+  { image: logoB1, formLink: formLink, ticketsLink: null }, // 1 / 12 = 0.08
+  { image: logoB2, formLink: formLink, ticketsLink: null }, // 1 / 12 = 0.08
 ];
-const MAX_MOVING_OBJECTS = 7; // Limit the number of movingObjects
+const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
 const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
   const [restrictedArea, setRestrictedArea] = useState<DOMRect | null>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
+  const [activePoster, setActivePoster] = useState<string>('');
+  const [activeTicketsLink, setActiveTicketsLink] = useState<string | null>('');
 
   // Add new movingObjects at random intervals
   useEffect(() => {
@@ -50,7 +72,9 @@ const App: React.FC = () => {
     }
   }, []);
 
-  function openPopUp() {
+  function openPopUp(image: string, ticketsLink: string | null) {
+    setActivePoster(image);
+    setActiveTicketsLink(ticketsLink);
     setShowPopUp(true);
   }
 
@@ -60,26 +84,23 @@ const App: React.FC = () => {
 
   return (
     <>
-      {/* <div className="question " ref={questionRef}>
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="rotate1 l1 shadow-link">E</p>
-        </a>
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="l2 shadow-link">AGORA</p>
-        </a>
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <p className="rotate2 l3 shadow-link">?</p>
-        </a>
-      </div> */}
-
-      <div className="question " ref={questionRef}>
-        <p className="rotate1 l1 shadow-link" onClick={openPopUp}>
+      <div className="question" ref={questionRef}>
+        <p
+          className="rotate1 l1 shadow-link"
+          onClick={() => openPopUp(beernissagePoster, null)}
+        >
           E
         </p>
-        <p className="l2 shadow-link" onClick={openPopUp}>
+        <p
+          className="l2 shadow-link"
+          onClick={() => openPopUp(beernissagePoster, null)}
+        >
           AGORA
         </p>
-        <p className="rotate2 l3 shadow-link" onClick={openPopUp}>
+        <p
+          className="rotate2 l3 shadow-link"
+          onClick={() => openPopUp(beernissagePoster, null)}
+        >
           ?
         </p>
       </div>
@@ -88,7 +109,7 @@ const App: React.FC = () => {
         <RandomLogo
           key={index}
           movingObjects={movingObjects}
-          onClick={openPopUp}
+          onClick={(image, ticketsLink) => openPopUp(image, ticketsLink)}
           restrictedArea={restrictedArea}
         />
       ))}
@@ -96,7 +117,13 @@ const App: React.FC = () => {
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
           <div className="popup-content">
-            <img src={beernissageInsta} alt="Pop-up Poster" />
+            {activeTicketsLink ? (
+              <a href={activeTicketsLink} target="_blank">
+                <img src={activePoster} alt="Pop-up Poster" />
+              </a>
+            ) : (
+              <img src={activePoster} alt="Pop-up Poster" />
+            )}
           </div>
         </div>
       )}
