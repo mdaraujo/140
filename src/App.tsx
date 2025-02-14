@@ -4,7 +4,6 @@ import RandomLogo from './components/RandomLogo';
 import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
 import vozesRasgamPoster from './assets/vozes_que_rasgam.jpeg';
-import beernissagePoster from './assets/beernissage_fev_08.jpeg';
 import motherEarthsPlantasia from './assets/Mother_Earths_Plantasia.jpeg';
 import { MovingObject } from './types/MovingObject';
 
@@ -15,13 +14,9 @@ const ticketsMotherEarthsPlantasia =
   'https://www.bol.pt/Comprar/Bilhetes/148684-mother_earth_s_plantasia_audicao_do_album_de_mort_garson-ponto_c_cultura_e_criatividade/';
 
 const movingObjects: MovingObject[] = [
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null }, // 4 / 12 = 0.33
   { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
   { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam }, // 3 / 12 = 0.25
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam }, // 3 / 8 = 0.375
   {
     image: motherEarthsPlantasia,
     formLink: null,
@@ -36,9 +31,9 @@ const movingObjects: MovingObject[] = [
     image: motherEarthsPlantasia,
     formLink: null,
     ticketsLink: ticketsMotherEarthsPlantasia,
-  }, // 3 / 12 = 0.25
-  { image: logoB1, formLink: formLink, ticketsLink: null }, // 1 / 12 = 0.08
-  { image: logoB2, formLink: formLink, ticketsLink: null }, // 1 / 12 = 0.08
+  }, // 3 / 8 = 0.375
+  { image: logoB1, formLink: formLink, ticketsLink: null }, // 1 / 8 = 0.125
+  { image: logoB2, formLink: formLink, ticketsLink: null }, // 1 / 8 = 0.125
 ];
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
@@ -87,19 +82,19 @@ const App: React.FC = () => {
       <div className="question" ref={questionRef}>
         <p
           className="rotate1 l1 shadow-link"
-          onClick={() => openPopUp(beernissagePoster, null)}
+          onClick={() => openPopUp(vozesRasgamPoster, null)}
         >
           E
         </p>
         <p
           className="l2 shadow-link"
-          onClick={() => openPopUp(beernissagePoster, null)}
+          onClick={() => openPopUp(vozesRasgamPoster, null)}
         >
           AGORA
         </p>
         <p
           className="rotate2 l3 shadow-link"
-          onClick={() => openPopUp(beernissagePoster, null)}
+          onClick={() => openPopUp(vozesRasgamPoster, null)}
         >
           ?
         </p>
