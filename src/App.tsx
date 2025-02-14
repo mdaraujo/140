@@ -82,19 +82,19 @@ const App: React.FC = () => {
       <div className="question" ref={questionRef}>
         <p
           className="rotate1 l1 shadow-link"
-          onClick={() => openPopUp(vozesRasgamPoster, null)}
+          onClick={() => openPopUp(vozesRasgamPoster, ticketsVozesRasgam)}
         >
           E
         </p>
         <p
           className="l2 shadow-link"
-          onClick={() => openPopUp(vozesRasgamPoster, null)}
+          onClick={() => openPopUp(vozesRasgamPoster, ticketsVozesRasgam)}
         >
           AGORA
         </p>
         <p
           className="rotate2 l3 shadow-link"
-          onClick={() => openPopUp(vozesRasgamPoster, null)}
+          onClick={() => openPopUp(vozesRasgamPoster, ticketsVozesRasgam)}
         >
           ?
         </p>
@@ -111,15 +111,25 @@ const App: React.FC = () => {
 
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
-          <div className="popup-content">
-            {activeTicketsLink ? (
+          {activeTicketsLink ? (
+            <div className="popup-content">
               <a href={activeTicketsLink} target="_blank">
                 <img src={activePoster} alt="Pop-up Poster" />
               </a>
-            ) : (
+              <a
+                href={activeTicketsLink}
+                target="_blank"
+                className="button shadow-link"
+              >
+                Comprar Bilhetes
+              </a>
+            </div>
+          ) : (
+            <div className="popup-content">
               <img src={activePoster} alt="Pop-up Poster" />
-            )}
-          </div>
+              <a className="button">Grátis</a>
+            </div>
+          )}
         </div>
       )}
 
