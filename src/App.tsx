@@ -3,39 +3,45 @@ import './App.css';
 import RandomLogo from './components/RandomLogo';
 import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
+import logoW1 from '/logo_w_1.png';
+import logoW2 from '/logo_w_2.png';
 import vozesRasgamPoster from './assets/vozes_que_rasgam.jpeg';
-import motherEarthsPlantasia from './assets/Mother_Earths_Plantasia.jpeg';
+import plantasiaPoster from './assets/Mother_Earths_Plantasia.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 const ticketsVozesRasgam =
   'https://www.bol.pt/Comprar/Bilhetes/148672-vozes_que_rasgam_kali_alice_em_nenhum_lugar_moria_e_bruma-ponto_c_cultura_e_criatividade/';
-const ticketsMotherEarthsPlantasia =
+const ticketsPlantasia =
   'https://www.bol.pt/Comprar/Bilhetes/148684-mother_earth_s_plantasia_audicao_do_album_de_mort_garson-ponto_c_cultura_e_criatividade/';
 
 const movingObjects: MovingObject[] = [
+  // 8 / 18 = 44.44%
   { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
   { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam }, // 3 / 8 = 0.375
-  {
-    image: motherEarthsPlantasia,
-    formLink: null,
-    ticketsLink: ticketsMotherEarthsPlantasia,
-  },
-  {
-    image: motherEarthsPlantasia,
-    formLink: null,
-    ticketsLink: ticketsMotherEarthsPlantasia,
-  },
-  {
-    image: motherEarthsPlantasia,
-    formLink: null,
-    ticketsLink: ticketsMotherEarthsPlantasia,
-  }, // 3 / 8 = 0.375
-  { image: logoB1, formLink: formLink, ticketsLink: null }, // 1 / 8 = 0.125
-  { image: logoB2, formLink: formLink, ticketsLink: null }, // 1 / 8 = 0.125
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  // 6 / 18 = 33.33%
+  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
+  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
+  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
+  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
+  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
+  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
+  // 4 / 18 = 22.22%
+  { image: logoB1, formLink: formLink, ticketsLink: null },
+  { image: logoB2, formLink: formLink, ticketsLink: null },
+  { image: logoW1, formLink: formLink, ticketsLink: null },
+  { image: logoW2, formLink: formLink, ticketsLink: null },
 ];
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
+
+const eAgoraPoster = vozesRasgamPoster;
+const eAgoraTickets = ticketsVozesRasgam;
 
 const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
@@ -82,19 +88,19 @@ const App: React.FC = () => {
       <div className="question" ref={questionRef}>
         <p
           className="rotate1 l1 shadow-link"
-          onClick={() => openPopUp(vozesRasgamPoster, ticketsVozesRasgam)}
+          onClick={() => openPopUp(eAgoraPoster, eAgoraTickets)}
         >
           E
         </p>
         <p
           className="l2 shadow-link"
-          onClick={() => openPopUp(vozesRasgamPoster, ticketsVozesRasgam)}
+          onClick={() => openPopUp(eAgoraPoster, eAgoraTickets)}
         >
           AGORA
         </p>
         <p
           className="rotate2 l3 shadow-link"
-          onClick={() => openPopUp(vozesRasgamPoster, ticketsVozesRasgam)}
+          onClick={() => openPopUp(eAgoraPoster, eAgoraTickets)}
         >
           ?
         </p>
@@ -121,13 +127,13 @@ const App: React.FC = () => {
                 target="_blank"
                 className="button shadow-link"
               >
-                Comprar Bilhetes
+                E agora? Bilhetes aqui
               </a>
             </div>
           ) : (
             <div className="popup-content">
               <img src={activePoster} alt="Pop-up Poster" />
-              <a className="button">Grátis</a>
+              <a className="button">Entrada Livre</a>
             </div>
           )}
         </div>
