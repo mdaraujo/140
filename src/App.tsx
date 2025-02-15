@@ -10,28 +10,28 @@ import plantasiaPoster from './assets/Mother_Earths_Plantasia.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
-const ticketsVozesRasgam =
+const vozesRasgamTickets =
   'https://www.bol.pt/Comprar/Bilhetes/148672-vozes_que_rasgam_kali_alice_em_nenhum_lugar_moria_e_bruma-ponto_c_cultura_e_criatividade/';
-const ticketsPlantasia =
+const plantasiaTickets =
   'https://www.bol.pt/Comprar/Bilhetes/148684-mother_earth_s_plantasia_audicao_do_album_de_mort_garson-ponto_c_cultura_e_criatividade/';
 
 const movingObjects: MovingObject[] = [
   // 8 / 18 = 44.44%
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: ticketsVozesRasgam },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
+  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
   // 6 / 18 = 33.33%
-  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
-  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
-  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
-  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
-  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
-  { image: plantasiaPoster, formLink: null, ticketsLink: ticketsPlantasia },
+  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
+  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
+  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
+  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
+  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
+  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
   // 4 / 18 = 22.22%
   { image: logoB1, formLink: formLink, ticketsLink: null },
   { image: logoB2, formLink: formLink, ticketsLink: null },
@@ -41,7 +41,7 @@ const movingObjects: MovingObject[] = [
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
 const eAgoraPoster = vozesRasgamPoster;
-const eAgoraTickets = ticketsVozesRasgam;
+const eAgoraTickets = vozesRasgamTickets;
 
 const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
