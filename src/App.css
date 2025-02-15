@@ -86,8 +86,9 @@ img.logo-hover:hover {
 }
 
 .popup-content {
-  width: 80vw;
+  max-width: 80vw;
   max-height: 90vh;
+  margin-bottom: 50px;
 }
 
 .popup-content img {
