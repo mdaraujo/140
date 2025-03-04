@@ -126,13 +126,19 @@ const App: React.FC = () => {
                 target="_blank"
                 className="button shadow-link"
               >
-                E agora? Bilhetes aqui
+                E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
               </a>
             </div>
           ) : (
             <div className="popup-content">
               <img src={activePoster} alt="Pop-up Poster" />
-              <a className="button">Entrada Livre</a>
+              <a
+                href={"https://maps.app.goo.gl/vGUHBfTgUpr96E7z7"}
+                target="_blank"
+                className="button shadow-link"
+              >
+                Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
+              </a>
             </div>
           )}
         </div>
