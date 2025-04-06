@@ -5,26 +5,25 @@ import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
-import vozesRasgamPoster from './assets/vozes_que_rasgam.jpeg';
+import beernissagePoster from './assets/Beernissage_March_8.jpeg';
 import plantasiaPoster from './assets/Mother_Earths_Plantasia.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
-const vozesRasgamTickets =
-  'https://www.bol.pt/Comprar/Bilhetes/148672-vozes_que_rasgam_kali_alice_em_nenhum_lugar_moria_e_bruma-ponto_c_cultura_e_criatividade/';
+
 const plantasiaTickets =
   'https://www.bol.pt/Comprar/Bilhetes/148684-mother_earth_s_plantasia_audicao_do_album_de_mort_garson-ponto_c_cultura_e_criatividade/';
 
 const movingObjects: MovingObject[] = [
   // 8 / 18 = 44.44%
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
-  { image: vozesRasgamPoster, formLink: null, ticketsLink: vozesRasgamTickets },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
+  { image: beernissagePoster, formLink: null, ticketsLink: null },
   // 6 / 18 = 33.33%
   { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
   { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
@@ -40,8 +39,8 @@ const movingObjects: MovingObject[] = [
 ];
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
-const eAgoraPoster = vozesRasgamPoster;
-const eAgoraTickets = vozesRasgamTickets;
+const eAgoraPoster = beernissagePoster;
+const eAgoraTickets = null;
 
 const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
@@ -127,13 +126,19 @@ const App: React.FC = () => {
                 target="_blank"
                 className="button shadow-link"
               >
-                E agora? Bilhetes aqui
+                E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
               </a>
             </div>
           ) : (
             <div className="popup-content">
               <img src={activePoster} alt="Pop-up Poster" />
-              <a className="button">Entrada Livre</a>
+              <a
+                href={"https://maps.app.goo.gl/vGUHBfTgUpr96E7z7"}
+                target="_blank"
+                className="button shadow-link"
+              >
+                Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
+              </a>
             </div>
           )}
         </div>
