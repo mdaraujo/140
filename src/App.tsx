@@ -5,33 +5,26 @@ import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
-import beernissagePoster from './assets/Beernissage_March_8.jpeg';
-import plantasiaPoster from './assets/Mother_Earths_Plantasia.jpeg';
+import beernissageMarch from './assets/Beernissage_March_8.jpeg';
+import beernissageApril from './assets/Beernissage_April_12.jpeg';
 import { MovingObject } from './types/MovingObject';
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
-const plantasiaTickets =
-  'https://www.bol.pt/Comprar/Bilhetes/148684-mother_earth_s_plantasia_audicao_do_album_de_mort_garson-ponto_c_cultura_e_criatividade/';
-
 const movingObjects: MovingObject[] = [
-  // 8 / 18 = 44.44%
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  { image: beernissagePoster, formLink: null, ticketsLink: null },
-  // 6 / 18 = 33.33%
-  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
-  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
-  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
-  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
-  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
-  { image: plantasiaPoster, formLink: null, ticketsLink: plantasiaTickets },
-  // 4 / 18 = 22.22%
+  // 8 / 14 = 57%
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  // 2 / 14 = 14%
+  { image: beernissageMarch, formLink: null, ticketsLink: null },
+  { image: beernissageMarch, formLink: null, ticketsLink: null },
+  // 4 / 14 = 29%
   { image: logoB1, formLink: formLink, ticketsLink: null },
   { image: logoB2, formLink: formLink, ticketsLink: null },
   { image: logoW1, formLink: formLink, ticketsLink: null },
@@ -39,7 +32,7 @@ const movingObjects: MovingObject[] = [
 ];
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
-const eAgoraPoster = beernissagePoster;
+const eAgoraPoster = beernissageApril;
 const eAgoraTickets = null;
 
 const App: React.FC = () => {
