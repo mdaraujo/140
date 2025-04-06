@@ -12,7 +12,7 @@ import { MovingObject } from './types/MovingObject';
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
 const movingObjects: MovingObject[] = [
-  // 8 / 14 = 57%
+  // 8 / 16 = 62.5%
   { image: beernissageApril, formLink: null, ticketsLink: null },
   { image: beernissageApril, formLink: null, ticketsLink: null },
   { image: beernissageApril, formLink: null, ticketsLink: null },
@@ -21,10 +21,12 @@ const movingObjects: MovingObject[] = [
   { image: beernissageApril, formLink: null, ticketsLink: null },
   { image: beernissageApril, formLink: null, ticketsLink: null },
   { image: beernissageApril, formLink: null, ticketsLink: null },
-  // 2 / 14 = 14%
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null },
+  // 2 / 16 = 12.5%
   { image: beernissageMarch, formLink: null, ticketsLink: null },
   { image: beernissageMarch, formLink: null, ticketsLink: null },
-  // 4 / 14 = 29%
+  // 4 / 16 = 25%
   { image: logoB1, formLink: formLink, ticketsLink: null },
   { image: logoB2, formLink: formLink, ticketsLink: null },
   { image: logoW1, formLink: formLink, ticketsLink: null },
