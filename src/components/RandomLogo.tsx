@@ -3,7 +3,7 @@ import { MovingObject } from '../types/MovingObject';
 
 interface RandomLogoProps {
   movingObjects: MovingObject[];
-  onClick: (image: string, ticketsLink: string | null) => void;
+  onClick: (movingObject: MovingObject) => void;
   restrictedArea: DOMRect | null;
 }
 
@@ -103,7 +103,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
           }}
           className="logo-hover"
           onClick={() =>
-            onClick(currentMovingObject.image, currentMovingObject.ticketsLink)
+            onClick(currentMovingObject)
           }
         />
       )}
