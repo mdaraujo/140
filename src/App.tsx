@@ -5,45 +5,48 @@ import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
-import beernissageMarch from './assets/Beernissage_March_8.jpeg';
 import beernissageApril from './assets/Beernissage_April_12.jpeg';
+import poster25deAbril from './assets/25_de_Abril_poster.jpeg';
 import { MovingObject } from './types/MovingObject';
+
+const LOCATIONS = {
+  cafeSociedade: "https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7",
+  fidelis: "https://maps.app.goo.gl/vGUHBfTgUpr96E7z7"
+}
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
 const movingObjects: MovingObject[] = [
   // 8 / 16 = 62.5%
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
-  { image: beernissageApril, formLink: null, ticketsLink: null },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
   // 2 / 16 = 12.5%
-  { image: beernissageMarch, formLink: null, ticketsLink: null },
-  { image: beernissageMarch, formLink: null, ticketsLink: null },
+  { image: beernissageApril, formLink: null, ticketsLink: null, location: LOCATIONS.fidelis },
+  { image: beernissageApril, formLink: null, ticketsLink: null, location: LOCATIONS.fidelis },
   // 4 / 16 = 25%
-  { image: logoB1, formLink: formLink, ticketsLink: null },
-  { image: logoB2, formLink: formLink, ticketsLink: null },
-  { image: logoW1, formLink: formLink, ticketsLink: null },
-  { image: logoW2, formLink: formLink, ticketsLink: null },
+  { image: logoB1, formLink: formLink, ticketsLink: null, location: null },
+  { image: logoB2, formLink: formLink, ticketsLink: null, location: null },
+  { image: logoW1, formLink: formLink, ticketsLink: null, location: null },
+  { image: logoW2, formLink: formLink, ticketsLink: null, location: null },
 ];
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
-const eAgoraPoster = beernissageApril;
-const eAgoraTickets = null;
+const eAgoraObject = movingObjects[0];
 
 const App: React.FC = () => {
   const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
   const [restrictedArea, setRestrictedArea] = useState<DOMRect | null>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
-  const [activePoster, setActivePoster] = useState<string>('');
-  const [activeTicketsLink, setActiveTicketsLink] = useState<string | null>('');
+  const [activeMovingObject, setActiveMovingObject] = useState<MovingObject | null>(null);
 
   // Add new movingObjects at random intervals
   useEffect(() => {
@@ -67,9 +70,8 @@ const App: React.FC = () => {
     }
   }, []);
 
-  function openPopUp(image: string, ticketsLink: string | null) {
-    setActivePoster(image);
-    setActiveTicketsLink(ticketsLink);
+  function openPopUp(movingObject: MovingObject) {
+    setActiveMovingObject(movingObject)
     setShowPopUp(true);
   }
 
@@ -82,19 +84,19 @@ const App: React.FC = () => {
       <div className="question" ref={questionRef}>
         <p
           className="rotate1 l1 shadow-link"
-          onClick={() => openPopUp(eAgoraPoster, eAgoraTickets)}
+          onClick={() => openPopUp(eAgoraObject)}
         >
           E
         </p>
         <p
           className="l2 shadow-link"
-          onClick={() => openPopUp(eAgoraPoster, eAgoraTickets)}
+          onClick={() => openPopUp(eAgoraObject)}
         >
           AGORA
         </p>
         <p
           className="rotate2 l3 shadow-link"
-          onClick={() => openPopUp(eAgoraPoster, eAgoraTickets)}
+          onClick={() => openPopUp(eAgoraObject)}
         >
           ?
         </p>
@@ -104,20 +106,20 @@ const App: React.FC = () => {
         <RandomLogo
           key={index}
           movingObjects={movingObjects}
-          onClick={(image, ticketsLink) => openPopUp(image, ticketsLink)}
+          onClick={(movingObject) => openPopUp(movingObject)}
           restrictedArea={restrictedArea}
         />
       ))}
 
       {showPopUp && (
         <div className="popup" onClick={closePopup}>
-          {activeTicketsLink ? (
+          {activeMovingObject?.ticketsLink ? (
             <div className="popup-content">
-              <a href={activeTicketsLink} target="_blank">
-                <img src={activePoster} alt="Pop-up Poster" />
+              <a href={activeMovingObject?.ticketsLink} target="_blank">
+                <img src={activeMovingObject?.image} alt="Pop-up Poster" />
               </a>
               <a
-                href={activeTicketsLink}
+                href={activeMovingObject?.ticketsLink}
                 target="_blank"
                 className="button shadow-link"
               >
@@ -126,9 +128,9 @@ const App: React.FC = () => {
             </div>
           ) : (
             <div className="popup-content">
-              <img src={activePoster} alt="Pop-up Poster" />
+              <img src={activeMovingObject?.image} alt="Pop-up Poster" />
               <a
-                href={"https://maps.app.goo.gl/vGUHBfTgUpr96E7z7"}
+                href={activeMovingObject?.location || ""}
                 target="_blank"
                 className="button shadow-link"
               >
