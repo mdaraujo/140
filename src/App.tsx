@@ -1,36 +1,42 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import './App.css';
 import RandomLogo from './components/RandomLogo';
+import { MovingObject } from './types/MovingObject';
 import logoB1 from '/logo_b_1.png';
 import logoB2 from '/logo_b_2.png';
 import logoW1 from '/logo_w_1.png';
 import logoW2 from '/logo_w_2.png';
-import beernissageApril from './assets/Beernissage_April_12.jpeg';
+
 import poster25deAbril from './assets/25_de_Abril_poster.jpeg';
-import { MovingObject } from './types/MovingObject';
+import ohmeSessionsJulho from './assets/ohme_sessions_julho.jpg';
 
 const LOCATIONS = {
   cafeSociedade: "https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7",
-  fidelis: "https://maps.app.goo.gl/vGUHBfTgUpr96E7z7"
-}
+  fidelis: "https://maps.app.goo.gl/vGUHBfTgUpr96E7z7",
+};
+
+const TICKETS = {
+  ohmeSessions: "https://www.bol.pt/Comprar/Bilhetes/158717-ohme_sessions-ponto_c/",
+};
 
 const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
 
 const movingObjects: MovingObject[] = [
   // 8 / 16 = 62.5%
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
+  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
   // 2 / 16 = 12.5%
-  { image: beernissageApril, formLink: null, ticketsLink: null, location: LOCATIONS.fidelis },
-  { image: beernissageApril, formLink: null, ticketsLink: null, location: LOCATIONS.fidelis },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
+  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
   // 4 / 16 = 25%
   { image: logoB1, formLink: formLink, ticketsLink: null, location: null },
   { image: logoB2, formLink: formLink, ticketsLink: null, location: null },
@@ -169,7 +175,7 @@ const App: React.FC = () => {
         </p>
         <p>
           <i className="fa fa-copyright" aria-hidden="true"></i>
-          &nbsp;2024 Penafiel
+          &nbsp;2024-2025 Penafiel
         </p>
       </footer>
     </>
