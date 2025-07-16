@@ -123,6 +123,7 @@ const App: React.FC = () => {
           movingObjects={movingObjects}
           onClick={(movingObject) => openPopUp(movingObject)}
           restrictedArea={restrictedArea}
+          isFirst={logoCount === 1}
         />
       ))}
 
