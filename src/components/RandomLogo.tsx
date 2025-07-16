@@ -5,6 +5,7 @@ interface RandomLogoProps {
   movingObjects: MovingObject[];
   onClick: (movingObject: MovingObject) => void;
   restrictedArea: DOMRect | null;
+  isFirst?: boolean;
 }
 
 interface Position {
@@ -16,6 +17,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
   movingObjects,
   onClick,
   restrictedArea,
+  isFirst = false,
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const [currentMovingObject, setcurrentMovingObject] =
@@ -43,7 +45,11 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
   useEffect(() => {
     // Set initial position and logo
     setPosition(getRandomPosition());
-    setcurrentMovingObject(getRandomLogo());
+    if (isFirst) {
+      setcurrentMovingObject(movingObjects[0]);
+    } else {
+      setcurrentMovingObject(getRandomLogo());
+    }
 
     // Trigger move animation after the component mounts
     setTimeout(() => {
