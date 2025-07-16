@@ -3,10 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import RandomLogo from './components/RandomLogo';
 import { MovingObject } from './types/MovingObject';
-import logoB1 from '/logo_b_1.png';
-import logoB2 from '/logo_b_2.png';
-import logoW1 from '/logo_w_1.png';
-import logoW2 from '/logo_w_2.png';
+// import logoB1 from '/logo_b_1.png';
+// import logoB2 from '/logo_b_2.png';
+// import logoW1 from '/logo_w_1.png';
+// import logoW2 from '/logo_w_2.png';
 
 import gumaJazzCartaz from './assets/GUMAJAZZ_cartaz.jpg';
 import gumaJazzLogo from './assets/GUMAJAZZ_logo.png';
