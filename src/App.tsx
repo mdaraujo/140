@@ -66,14 +66,24 @@ const App: React.FC = () => {
   // Add new movingObjects at random intervals
   useEffect(() => {
     if (movingObjectCount <= MAX_MOVING_OBJECTS) {
+      // Make the first moving objects appear faster, then slow down
+      let minInterval, maxInterval;
+      if (movingObjectCount < 2) {
+        minInterval = 600; // 0.6s
+        maxInterval = 1200; // 1.2s
+      } else if (movingObjectCount < 4) {
+        minInterval = 1200; // 1.2s
+        maxInterval = 2000; // 2s
+      } else {
+        minInterval = 2000; // 2s
+        maxInterval = 3500; // 3.5s
+      }
       const interval = setInterval(
         () => {
-          // Ensure we don't exceed the max
           setMovingObjectCount((count) => Math.min(count + 1, MAX_MOVING_OBJECTS));
         },
-        Math.random() * 3000 + 2000,
-      ); // Random interval between 2s and 5s
-
+        Math.random() * (maxInterval - minInterval) + minInterval,
+      );
       return () => clearInterval(interval);
     }
   }, [movingObjectCount]);
