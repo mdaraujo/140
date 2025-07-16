@@ -31,7 +31,7 @@
   transition: filter 200ms;
 }
 .shadow-link:hover {
-  filter: drop-shadow(10px 3px 1px #591829);
+  filter: drop-shadow(10px 3px 1px #8c2606);
 }
 
 img.logo-hover {
@@ -81,7 +81,7 @@ img.logo-hover:hover {
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background: rgba(140, 28, 28, 0.9);
+  background: rgba(167, 39, 0, 0.9);
   overflow: hidden;
 }
 
