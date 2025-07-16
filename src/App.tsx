@@ -57,7 +57,7 @@ const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 const eAgoraObject = movingObjects[0];
 
 const App: React.FC = () => {
-  const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
+  const [movingObjectCount, setMovingObjectCount] = useState<number>(1); // Start with 1 moving object
   const [restrictedArea, setRestrictedArea] = useState<DOMRect | null>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
@@ -65,18 +65,18 @@ const App: React.FC = () => {
 
   // Add new movingObjects at random intervals
   useEffect(() => {
-    if (logoCount <= MAX_MOVING_OBJECTS) {
+    if (movingObjectCount <= MAX_MOVING_OBJECTS) {
       const interval = setInterval(
         () => {
           // Ensure we don't exceed the max
-          setLogoCount((count) => Math.min(count + 1, MAX_MOVING_OBJECTS));
+          setMovingObjectCount((count) => Math.min(count + 1, MAX_MOVING_OBJECTS));
         },
         Math.random() * 3000 + 2000,
       ); // Random interval between 2s and 5s
 
       return () => clearInterval(interval);
     }
-  }, [logoCount]);
+  }, [movingObjectCount]);
 
   // Get the bounding box of the question paragraphs
   useEffect(() => {
@@ -117,13 +117,13 @@ const App: React.FC = () => {
         </p>
       </div>
 
-      {Array.from({ length: logoCount }).map((_, index) => (
+      {Array.from({ length: movingObjectCount }).map((_, index) => (
         <RandomLogo
           key={index}
           movingObjects={movingObjects}
           onClick={(movingObject) => openPopUp(movingObject)}
           restrictedArea={restrictedArea}
-          isFirst={logoCount === 1}
+          isFirst={movingObjectCount === 1}
         />
       ))}
 
