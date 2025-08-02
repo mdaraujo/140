@@ -116,6 +116,20 @@ img.logo-hover:hover {
   box-shadow: 0 4px 8px rgba(84, 105, 48, 0.4);
 }
 
+.artist-description {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background-color: rgba(84, 105, 48, 0.15);
+  border-left: 4px solid #546930;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.1rem;
+  line-height: 1.4;
+  font-style: italic;
+  text-align: center;
+  max-width: 400px;
+}
+
 @media only screen and (min-width: 992px) {
   .popup-content {
     height: 80vh;

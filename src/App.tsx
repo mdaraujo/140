@@ -60,18 +60,24 @@ const movingObjects: MovingObject[] = [
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Uma noite única de jazz contemporâneo com sonoridades que misturam tradição e inovação.',
   },
   {
     image: gumaJazzGig1,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Uma noite única de jazz contemporâneo com sonoridades que misturam tradição e inovação.',
   },
   {
     image: gumaJazzGig1,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Uma noite única de jazz contemporâneo com sonoridades que misturam tradição e inovação.',
   },
   {
     image: gumaJazzGig2,
@@ -96,18 +102,24 @@ const movingObjects: MovingObject[] = [
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Fusão envolvente de jazz e world music numa experiência sonora inesquecível.',
   },
   {
     image: gumaJazzGig3,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Fusão envolvente de jazz e world music numa experiência sonora inesquecível.',
   },
   {
     image: gumaJazzGig3,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Fusão envolvente de jazz e world music numa experiência sonora inesquecível.',
   },
   {
     image: gumaJazzGig4,
@@ -132,18 +144,24 @@ const movingObjects: MovingObject[] = [
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Performance intimista que transporta o público numa viagem através dos clássicos do jazz.',
   },
   {
     image: gumaJazzGig5,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Performance intimista que transporta o público numa viagem através dos clássicos do jazz.',
   },
   {
     image: gumaJazzGig5,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Performance intimista que transporta o público numa viagem através dos clássicos do jazz.',
   },
   // { image: logoB1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
   // { image: logoB2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
@@ -242,6 +260,11 @@ const App: React.FC = () => {
               <a href={activeMovingObject?.ticketsLink} target="_blank">
                 <img src={activeMovingObject?.image} alt="Pop-up Poster" />
               </a>
+              {activeMovingObject?.description && (
+                <p className="artist-description">
+                  {activeMovingObject.description}
+                </p>
+              )}
               <a
                 href={activeMovingObject?.ticketsLink}
                 target="_blank"
@@ -254,6 +277,11 @@ const App: React.FC = () => {
           ) : (
             <div className="popup-content">
               <img src={activeMovingObject?.image} alt="Pop-up Poster" />
+              {activeMovingObject?.description && (
+                <p className="artist-description">
+                  {activeMovingObject.description}
+                </p>
+              )}
               <a
                 href={activeMovingObject?.location || ''}
                 target="_blank"
