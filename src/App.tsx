@@ -3,27 +3,32 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import RandomLogo from './components/RandomLogo';
 import { MovingObject } from './types/MovingObject';
-import logoB1 from '/logo_b_1.png';
-import logoB2 from '/logo_b_2.png';
-import logoW1 from '/logo_w_1.png';
-import logoW2 from '/logo_w_2.png';
+// import logoB1 from '/logo_b_1.png';
+// import logoB2 from '/logo_b_2.png';
+// import logoW1 from '/logo_w_1.png';
+// import logoW2 from '/logo_w_2.png';
 
-import poster25deAbril from './assets/25_de_Abril_poster.jpeg';
+import gumaJazzCartaz from './assets/GUMAJAZZ_cartaz.jpg';
+import gumaJazzLogo from './assets/GUMAJAZZ_logo.png';
 import ohmeSessionsJulho from './assets/ohme_sessions_julho.jpg';
 
 const LOCATIONS = {
   cafeSociedade: "https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7",
   fidelis: "https://maps.app.goo.gl/vGUHBfTgUpr96E7z7",
+  gumaJazz: "https://maps.app.goo.gl/2SQxqcDrJwXRiRz98"
 };
 
 const TICKETS = {
   ohmeSessions: "https://www.bol.pt/Comprar/Bilhetes/158717-ohme_sessions-ponto_c/",
 };
 
-const formLink = 'https://forms.gle/dgnQgUeGjRHgjG2E7';
+const FORMS = {
+  fichaSocio: "https://forms.gle/dgnQgUeGjRHgjG2E7",
+  gumaJazz: "https://forms.gle/9GpUC4mz8hfMp1S38",
+};
 
 const movingObjects: MovingObject[] = [
-  // 8 / 16 = 62.5%
+  // 8 / 16 = 50%
   { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
   { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
   { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
@@ -32,23 +37,27 @@ const movingObjects: MovingObject[] = [
   { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
   { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
   { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  // 2 / 16 = 12.5%
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
-  { image: poster25deAbril, formLink: null, ticketsLink: null, location: LOCATIONS.cafeSociedade },
   // 4 / 16 = 25%
-  { image: logoB1, formLink: formLink, ticketsLink: null, location: null },
-  { image: logoB2, formLink: formLink, ticketsLink: null, location: null },
-  { image: logoW1, formLink: formLink, ticketsLink: null, location: null },
-  { image: logoW2, formLink: formLink, ticketsLink: null, location: null },
+  { image: gumaJazzCartaz, formLink: null, ticketsLink: null, location: LOCATIONS.gumaJazz },
+  { image: gumaJazzCartaz, formLink: null, ticketsLink: null, location: LOCATIONS.gumaJazz },
+  { image: gumaJazzCartaz, formLink: null, ticketsLink: null, location: LOCATIONS.gumaJazz },
+  { image: gumaJazzCartaz, formLink: null, ticketsLink: null, location: LOCATIONS.gumaJazz },
+  // 4 / 16 = 25%
+  { image: gumaJazzLogo, formLink: FORMS.gumaJazz, ticketsLink: null, location: null },
+  { image: gumaJazzLogo, formLink: FORMS.gumaJazz, ticketsLink: null, location: null },
+  { image: gumaJazzLogo, formLink: FORMS.gumaJazz, ticketsLink: null, location: null },
+  { image: gumaJazzLogo, formLink: FORMS.gumaJazz, ticketsLink: null, location: null },
+  // { image: logoB1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
+  // { image: logoB2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
+  // { image: logoW1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
+  // { image: logoW2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
 ];
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 
 const eAgoraObject = movingObjects[0];
 
 const App: React.FC = () => {
-  const [logoCount, setLogoCount] = useState<number>(1); // Start with 1 logo
+  const [movingObjectCount, setMovingObjectCount] = useState<number>(1); // Start with 1 moving object
   const [restrictedArea, setRestrictedArea] = useState<DOMRect | null>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
@@ -56,18 +65,28 @@ const App: React.FC = () => {
 
   // Add new movingObjects at random intervals
   useEffect(() => {
-    if (logoCount <= MAX_MOVING_OBJECTS) {
+    if (movingObjectCount <= MAX_MOVING_OBJECTS) {
+      // Make the first moving objects appear faster, then slow down
+      let minInterval, maxInterval;
+      if (movingObjectCount < 2) {
+        minInterval = 600; // 0.6s
+        maxInterval = 1200; // 1.2s
+      } else if (movingObjectCount < 4) {
+        minInterval = 1200; // 1.2s
+        maxInterval = 2000; // 2s
+      } else {
+        minInterval = 2000; // 2s
+        maxInterval = 3500; // 3.5s
+      }
       const interval = setInterval(
         () => {
-          // Ensure we don't exceed the max
-          setLogoCount((count) => Math.min(count + 1, MAX_MOVING_OBJECTS));
+          setMovingObjectCount((count) => Math.min(count + 1, MAX_MOVING_OBJECTS));
         },
-        Math.random() * 3000 + 2000,
-      ); // Random interval between 2s and 5s
-
+        Math.random() * (maxInterval - minInterval) + minInterval,
+      );
       return () => clearInterval(interval);
     }
-  }, [logoCount]);
+  }, [movingObjectCount]);
 
   // Get the bounding box of the question paragraphs
   useEffect(() => {
@@ -108,12 +127,13 @@ const App: React.FC = () => {
         </p>
       </div>
 
-      {Array.from({ length: logoCount }).map((_, index) => (
+      {Array.from({ length: movingObjectCount }).map((_, index) => (
         <RandomLogo
           key={index}
           movingObjects={movingObjects}
           onClick={(movingObject) => openPopUp(movingObject)}
           restrictedArea={restrictedArea}
+          isFirst={movingObjectCount === 1}
         />
       ))}
 
@@ -153,7 +173,7 @@ const App: React.FC = () => {
         </p>
         <p>Movimento Artístico e Sociocultural</p>
         <p>
-          <a href={formLink} target="_blank">
+          <a href={FORMS.fichaSocio} target="_blank">
             <strong>Torna-te sócio!</strong>
           </a>
         </p>
