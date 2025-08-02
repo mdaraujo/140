@@ -28,7 +28,7 @@ const FORMS = {
 };
 
 const movingObjects: MovingObject[] = [
-  // Cartaz - appears first with higher probability (4 / 17 ≈ 23.5%)
+  // Cartaz - reduced since it appears first (2 / 19 ≈ 10.5%)
   {
     image: gumaJazzCartaz,
     formLink: null,
@@ -41,19 +41,7 @@ const movingObjects: MovingObject[] = [
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
   },
-  {
-    image: gumaJazzCartaz,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzCartaz,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  // Logo - higher probability (3 / 17 ≈ 17.6%)
+  // Logo - moderate probability (2 / 19 ≈ 10.5%)
   {
     image: gumaJazzLogo,
     formLink: FORMS.gumaJazz,
@@ -66,13 +54,7 @@ const movingObjects: MovingObject[] = [
     ticketsLink: null,
     location: null,
   },
-  {
-    image: gumaJazzLogo,
-    formLink: FORMS.gumaJazz,
-    ticketsLink: null,
-    location: null,
-  },
-  // Gig images - equal probability for each (2 / 17 ≈ 11.8% each)
+  // Artist gig images - highest probability (3 each / 19 ≈ 15.8% each, 79% total)
   {
     image: gumaJazzGig1,
     formLink: null,
@@ -81,6 +63,18 @@ const movingObjects: MovingObject[] = [
   },
   {
     image: gumaJazzGig1,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig1,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig2,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
@@ -110,6 +104,12 @@ const movingObjects: MovingObject[] = [
     location: LOCATIONS.gumaJazz,
   },
   {
+    image: gumaJazzGig3,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
     image: gumaJazzGig4,
     formLink: null,
     ticketsLink: null,
@@ -117,6 +117,18 @@ const movingObjects: MovingObject[] = [
   },
   {
     image: gumaJazzGig4,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig4,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig5,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
