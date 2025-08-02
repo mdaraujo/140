@@ -31,7 +31,7 @@
   transition: filter 200ms;
 }
 .shadow-link:hover {
-  filter: drop-shadow(10px 3px 1px #d4af37);
+  filter: drop-shadow(10px 3px 1px #546930);
 }
 
 img.logo-hover {
@@ -81,7 +81,7 @@ img.logo-hover:hover {
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background: rgba(26, 26, 46, 0.95);
+  background: rgba(234, 160, 107, 0.92);
   overflow: hidden;
 }
 
@@ -100,9 +100,9 @@ img.logo-hover:hover {
 
 .popup-content .button {
   margin-top: 1rem;
-  background-color: #0f1419;
-  color: #d4af37;
-  border: 2px solid #d4af37;
+  background-color: #eaa06b;
+  color: #546930;
+  border: 2px solid #546930;
   padding: 10px 20px;
   cursor: pointer;
   position: fixed;
@@ -110,10 +110,10 @@ img.logo-hover:hover {
 }
 
 .popup-content .button:hover {
-  background-color: #d4af37;
-  color: #0f1419;
+  background-color: #546930;
+  color: #f9c49c;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 8px rgba(84, 105, 48, 0.4);
 }
 
 @media only screen and (min-width: 992px) {

@@ -3,8 +3,8 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(255, 251, 240, 0.9);
-  background-color: #1a1a2e;
+  color: rgba(255, 255, 255, 0.95);
+  background-color: #eaa06b;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,11 +13,11 @@
 }
 
 a {
-  color: rgba(255, 251, 240, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   text-decoration: inherit;
 }
 a:hover {
-  color: #d4af37;
+  color: #546930;
 }
 
 body {
