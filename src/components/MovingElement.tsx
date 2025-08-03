@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MovingObject } from '../types/MovingObject';
 import { selectWeightedRandom } from '../utils/weightedSelection';
 
-interface RandomLogoProps {
+interface MovingElementProps {
   movingObjects: MovingObject[];
   onClick: (movingObject: MovingObject) => void;
   restrictedArea: DOMRect | null;
@@ -15,7 +15,7 @@ interface Position {
   left: number;
 }
 
-const RandomLogo: React.FC<RandomLogoProps> = ({
+const MovingElement: React.FC<MovingElementProps> = ({
   movingObjects,
   onClick,
   restrictedArea,
@@ -151,7 +151,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
         >
           <img
             src={currentMovingObject.image}
-            alt="140 Logo"
+            alt="140"
             style={{
               width: '80px',
               height: 'auto',
@@ -165,7 +165,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
       {!currentMovingObject?.formLink && currentMovingObject?.image && (
         <img
           src={currentMovingObject.image}
-          alt="140 Logo"
+          alt="140"
           style={{
             width: '80px',
             height: 'auto',
@@ -179,4 +179,4 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
   );
 };
 
-export default RandomLogo;
+export default MovingElement;

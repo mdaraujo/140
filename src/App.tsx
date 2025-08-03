@@ -1,120 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import './App.css';
-import RandomLogo from './components/RandomLogo';
+import MovingElement from './components/MovingElement';
 import { MovingObject } from './types/MovingObject';
-import {
-  logDiminishingWeightsTest,
-  demonstrateDiminishingEffect,
-} from './utils/testDiminishingWeights';
-// import logoB1 from '/logo_b_1.png';
-// import logoB2 from '/logo_b_2.png';
-// import logoW1 from '/logo_w_1.png';
-// import logoW2 from '/logo_w_2.png';
-
-import gumaJazzCartaz from './assets/GUMAJAZZ_cartaz.jpg';
-import gumaJazzLogo from './assets/GUMAJAZZ_logo.png';
-import gumaJazzGig15 from './assets/GUMAJAZZ_gig_15.jpeg';
-import gumaJazzGig17 from './assets/GUMAJAZZ_gig_17.jpeg';
-import gumaJazzGig18 from './assets/GUMAJAZZ_gig_18.jpeg';
-import gumaJazzGig21 from './assets/GUMAJAZZ_gig_21.jpeg';
-import gumaJazzGig22 from './assets/GUMAJAZZ_gig_22.jpeg';
-
-const LOCATIONS = {
-  cafeSociedade: 'https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7',
-  fidelis: 'https://maps.app.goo.gl/vGUHBfTgUpr96E7z7',
-  gumaJazz: 'https://maps.app.goo.gl/2SQxqcDrJwXRiRz98',
-};
-
-const FORMS = {
-  fichaSocio: 'https://forms.gle/dgnQgUeGjRHgjG2E7',
-  gumaJazz: 'https://forms.gle/9GpUC4mz8hfMp1S38',
-};
-
-const DESCRIPTIONS = {
-  cartaz:
-    'A Associação 140 convida o público para mais uma edição do GumaJazz, um evento que celebra o jazz, a improvisação, o artesanato e a criação comunitária no coração do verão.\nO festival acontece no dia 17 de agosto de 2025, a partir das 15h.',
-  workshop15h:
-    'O Clara Lacerda Trio dinamiza um workshop aberto a todas as pessoas a partir dos 6 anos, músicos e não músicos. Uma proposta educativa e sensorial que celebra a improvisação como linguagem inclusiva.',
-  gentrifugacao17h:
-    'Performance-instalação site-specific de Joana Raquel e Diana Gil, que resgata a memória dos lavadouros como espaços de trabalho, resistência e poesia. Através da música, palavra e intervenção visual.',
-  miguelMeirinhos18h:
-    'Pianista e compositor natural do Porto apresenta um solo centrado na escuta, no risco e na liberdade. O seu piano constrói narrativas em tempo real, com atenção ao instante, ao som e ao silêncio.',
-  claraLacerdaTrio21h:
-    'Reencontro do trio que se formou em 2017 e regressa ao local onde tudo começou: Clara Lacerda (piano), Xavier Nunes (contrabaixo) e Eduardo Dias (bateria). Repertório de composições originais a Thelonious Monk e Duke Ellington.',
-  barananu22h:
-    'Música para dançar, rir e brincar. Com improviso, groove e espírito lúdico, Barananu junta seis músicos de diferentes áreas num espetáculo vibrante e imprevisível.',
-};
-
-// Define moving objects with explicit probability weights
-const movingObjects: MovingObject[] = [
-  // Cartaz - minimal probability (weight: 1 ≈ 5.9%)
-  {
-    image: gumaJazzCartaz,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.cartaz,
-    weight: 0.5,
-  },
-  // Logo - minimal probability (weight: 1 ≈ 5.9%)
-  {
-    image: gumaJazzLogo,
-    formLink: FORMS.gumaJazz,
-    ticketsLink: null,
-    location: null,
-    weight: 1,
-  },
-  // Artist gig images - maximum focus (weight: 3 each ≈ 17.6% each, 70.6% total)
-  {
-    image: gumaJazzGig15,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.workshop15h,
-    weight: 3,
-  },
-  {
-    image: gumaJazzGig17,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.gentrifugacao17h,
-    weight: 3,
-  },
-  {
-    image: gumaJazzGig18,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.miguelMeirinhos18h,
-    weight: 3,
-  },
-  {
-    image: gumaJazzGig21,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.claraLacerdaTrio21h,
-    weight: 3,
-  },
-  {
-    image: gumaJazzGig22,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.barananu22h,
-    weight: 3,
-  },
-  // Commented out logos with weight references for future use
-  // { image: logoB1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
-  // { image: logoB2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
-  // { image: logoW1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
-  // { image: logoW2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
-];
-const MAX_MOVING_OBJECTS = 10; // Limit the number of movingObjects
-
-const eAgoraObject = movingObjects[0];
+import { movingObjects, eAgoraObject } from './data/movingObjects';
+import { FORMS, MAX_MOVING_OBJECTS } from './data/constants';
+import { useTestingUtilities } from './hooks/useTestingUtilities';
 
 const App: React.FC = () => {
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1); // Start with 1 moving object
@@ -126,27 +17,7 @@ const App: React.FC = () => {
   const selectionCountsRef = useRef<Map<string, number>>(new Map());
 
   // Make testing functions available in browser console
-  useEffect(() => {
-    // @ts-expect-error - Adding to window for testing
-    window.testDiminishingWeights = () =>
-      logDiminishingWeightsTest(movingObjects, 100);
-    // @ts-expect-error - Adding to window for testing
-    window.demonstrateDiminishingEffect = () =>
-      demonstrateDiminishingEffect(movingObjects);
-    // @ts-expect-error - Adding current selection counts to window
-    window.getCurrentSelectionCounts = () => {
-      console.log('\n=== Current Selection Counts ===');
-      const counts = Array.from(selectionCountsRef.current.entries()).map(
-        ([image, count]) => ({
-          image: image.split('/').pop() || 'unknown',
-          count,
-        }),
-      );
-      console.table(counts);
-      console.log('================================\n');
-      return selectionCountsRef.current;
-    };
-  }, []);
+  useTestingUtilities(movingObjects, selectionCountsRef);
 
   // Add new movingObjects at random intervals
   useEffect(() => {
@@ -212,7 +83,7 @@ const App: React.FC = () => {
       </div>
 
       {Array.from({ length: movingObjectCount }).map((_, index) => (
-        <RandomLogo
+        <MovingElement
           key={index}
           movingObjects={movingObjects}
           onClick={(movingObject) => openPopUp(movingObject)}
