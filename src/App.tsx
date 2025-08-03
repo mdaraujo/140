@@ -10,11 +10,11 @@ import { MovingObject } from './types/MovingObject';
 
 import gumaJazzCartaz from './assets/GUMAJAZZ_cartaz.jpg';
 import gumaJazzLogo from './assets/GUMAJAZZ_logo.png';
-import gumaJazzGig1 from './assets/GUMAJAZZ_gig_1.jpeg';
-import gumaJazzGig2 from './assets/GUMAJAZZ_gig_2.jpeg';
-import gumaJazzGig3 from './assets/GUMAJAZZ_gig_3.jpeg';
-import gumaJazzGig4 from './assets/GUMAJAZZ_gig_4.jpeg';
-import gumaJazzGig5 from './assets/GUMAJAZZ_gig_5.jpeg';
+import gumaJazzGig15 from './assets/GUMAJAZZ_gig_15.jpeg';
+import gumaJazzGig17 from './assets/GUMAJAZZ_gig_17.jpeg';
+import gumaJazzGig18 from './assets/GUMAJAZZ_gig_18.jpeg';
+import gumaJazzGig21 from './assets/GUMAJAZZ_gig_21.jpeg';
+import gumaJazzGig22 from './assets/GUMAJAZZ_gig_22.jpeg';
 
 const LOCATIONS = {
   cafeSociedade: 'https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7',
@@ -25,6 +25,19 @@ const LOCATIONS = {
 const FORMS = {
   fichaSocio: 'https://forms.gle/dgnQgUeGjRHgjG2E7',
   gumaJazz: 'https://forms.gle/9GpUC4mz8hfMp1S38',
+};
+
+const DESCRIPTIONS = {
+  workshop15h:
+    'O Clara Lacerda Trio dinamiza um workshop aberto a todas as pessoas a partir dos 6 anos, músicos e não músicos. Uma proposta educativa e sensorial que celebra a improvisação como linguagem inclusiva.',
+  gentrifugacao17h:
+    'Performance-instalação site-specific de Joana Raquel e Diana Gil, que resgata a memória dos lavadouros como espaços de trabalho, resistência e poesia. Através da música, palavra e intervenção visual.',
+  miguelMeirinhos18h:
+    'Pianista e compositor natural do Porto apresenta um solo centrado na escuta, no risco e na liberdade. O seu piano constrói narrativas em tempo real, com atenção ao instante, ao som e ao silêncio.',
+  claraLacerdaTrio21h:
+    'Reencontro do trio que se formou em 2017 e regressa ao local onde tudo começou: Clara Lacerda (piano), Xavier Nunes (contrabaixo) e Eduardo Dias (bateria). Repertório de composições originais a Thelonious Monk e Duke Ellington.',
+  barananu22h:
+    'Música para dançar, rir e brincar. Com improviso, groove e espírito lúdico, Barananu junta seis músicos de diferentes áreas num espetáculo vibrante e imprevisível.',
 };
 
 const movingObjects: MovingObject[] = [
@@ -44,124 +57,109 @@ const movingObjects: MovingObject[] = [
   },
   // Artist gig images - maximum focus (3 each / 17 ≈ 17.6% each, 88.2% total)
   {
-    image: gumaJazzGig1,
+    image: gumaJazzGig15,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Uma noite única de jazz contemporâneo com sonoridades que misturam tradição e inovação.',
+    description: DESCRIPTIONS.workshop15h,
   },
   {
-    image: gumaJazzGig1,
+    image: gumaJazzGig15,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Uma noite única de jazz contemporâneo com sonoridades que misturam tradição e inovação.',
+    description: DESCRIPTIONS.workshop15h,
   },
   {
-    image: gumaJazzGig1,
+    image: gumaJazzGig15,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Uma noite única de jazz contemporâneo com sonoridades que misturam tradição e inovação.',
+    description: DESCRIPTIONS.workshop15h,
   },
   {
-    image: gumaJazzGig2,
+    image: gumaJazzGig17,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Improvisação e criatividade numa sessão de jazz que celebra a música como forma de expressão artística.',
+    description: DESCRIPTIONS.gentrifugacao17h,
   },
   {
-    image: gumaJazzGig2,
+    image: gumaJazzGig17,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Improvisação e criatividade numa sessão de jazz que celebra a música como forma de expressão artística.',
+    description: DESCRIPTIONS.gentrifugacao17h,
   },
   {
-    image: gumaJazzGig2,
+    image: gumaJazzGig17,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Improvisação e criatividade numa sessão de jazz que celebra a música como forma de expressão artística.',
+    description: DESCRIPTIONS.gentrifugacao17h,
   },
   {
-    image: gumaJazzGig3,
+    image: gumaJazzGig18,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Fusão envolvente de jazz e world music numa experiência sonora inesquecível.',
+    description: DESCRIPTIONS.miguelMeirinhos18h,
   },
   {
-    image: gumaJazzGig3,
+    image: gumaJazzGig18,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Fusão envolvente de jazz e world music numa experiência sonora inesquecível.',
+    description: DESCRIPTIONS.miguelMeirinhos18h,
   },
   {
-    image: gumaJazzGig3,
+    image: gumaJazzGig18,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Fusão envolvente de jazz e world music numa experiência sonora inesquecível.',
+    description: DESCRIPTIONS.miguelMeirinhos18h,
   },
   {
-    image: gumaJazzGig4,
+    image: gumaJazzGig21,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Sonoridades orgânicas e groove envolvente numa performance que conecta músicos e audiência.',
+    description: DESCRIPTIONS.claraLacerdaTrio21h,
   },
   {
-    image: gumaJazzGig4,
+    image: gumaJazzGig21,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Sonoridades orgânicas e groove envolvente numa performance que conecta músicos e audiência.',
+    description: DESCRIPTIONS.claraLacerdaTrio21h,
   },
   {
-    image: gumaJazzGig4,
+    image: gumaJazzGig21,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Sonoridades orgânicas e groove envolvente numa performance que conecta músicos e audiência.',
+    description: DESCRIPTIONS.claraLacerdaTrio21h,
   },
   {
-    image: gumaJazzGig5,
+    image: gumaJazzGig22,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Performance intimista que transporta o público numa viagem através dos clássicos do jazz.',
+    description: DESCRIPTIONS.barananu22h,
   },
   {
-    image: gumaJazzGig5,
+    image: gumaJazzGig22,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Performance intimista que transporta o público numa viagem através dos clássicos do jazz.',
+    description: DESCRIPTIONS.barananu22h,
   },
   {
-    image: gumaJazzGig5,
+    image: gumaJazzGig22,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
-    description:
-      'Performance intimista que transporta o público numa viagem através dos clássicos do jazz.',
+    description: DESCRIPTIONS.barananu22h,
   },
   // { image: logoB1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
   // { image: logoB2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
