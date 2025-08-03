@@ -8,6 +8,7 @@ interface MovingElementProps {
   restrictedArea: DOMRect | null;
   isFirst?: boolean;
   selectionCountsRef: React.MutableRefObject<Map<string, number>>;
+  animationInterval?: { min: number; max: number };
 }
 
 interface Position {
@@ -21,6 +22,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   restrictedArea,
   isFirst = false,
   selectionCountsRef,
+  animationInterval = { min: 2000, max: 5000 },
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const [currentMovingObject, setcurrentMovingObject] =
@@ -120,16 +122,17 @@ const MovingElement: React.FC<MovingElementProps> = ({
       setPosition(getRandomPosition());
     }, 100);
 
-    // Change position at random intervals
+    // Change position at random intervals (responsive)
     const interval = setInterval(
       () => {
         setPosition(getRandomPosition());
       },
-      Math.random() * 3000 + 2000,
-    ); // Random interval between 2s and 5s
+      Math.random() * (animationInterval.max - animationInterval.min) +
+        animationInterval.min,
+    );
 
     return () => clearInterval(interval); // Cleanup interval
-  }, [getRandomPosition]); // Only depend on position-related functions
+  }, [getRandomPosition, animationInterval]); // Include animation interval in dependencies
 
   return (
     <div

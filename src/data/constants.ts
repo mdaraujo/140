@@ -8,5 +8,3 @@ export const FORMS = {
   fichaSocio: 'https://forms.gle/dgnQgUeGjRHgjG2E7',
   gumaJazz: 'https://forms.gle/9GpUC4mz8hfMp1S38',
 };
-
-export const MAX_MOVING_OBJECTS = 10; // Limit the number of moving objects

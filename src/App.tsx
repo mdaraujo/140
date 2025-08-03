@@ -4,8 +4,9 @@ import './App.css';
 import MovingElement from './components/MovingElement';
 import { MovingObject } from './types/MovingObject';
 import { movingObjects, eAgoraObject } from './data/movingObjects';
-import { FORMS, MAX_MOVING_OBJECTS } from './data/constants';
+import { FORMS } from './data/constants';
 import { useTestingUtilities } from './hooks/useTestingUtilities';
+import { useResponsiveMovingObjects } from './hooks/useResponsiveMovingObjects';
 
 const App: React.FC = () => {
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1); // Start with 1 moving object
@@ -16,35 +17,38 @@ const App: React.FC = () => {
     useState<MovingObject | null>(null);
   const selectionCountsRef = useRef<Map<string, number>>(new Map());
 
+  // Get responsive configuration based on screen size
+  const responsiveConfig = useResponsiveMovingObjects();
+
   // Make testing functions available in browser console
   useTestingUtilities(movingObjects, selectionCountsRef);
 
-  // Add new movingObjects at random intervals
+  // Add new movingObjects at random intervals (responsive to screen size)
   useEffect(() => {
-    if (movingObjectCount <= MAX_MOVING_OBJECTS) {
+    if (movingObjectCount <= responsiveConfig.maxMovingObjects) {
       // Make the first moving objects appear faster, then slow down
       let minInterval, maxInterval;
       if (movingObjectCount < 2) {
         minInterval = 600; // 0.6s
         maxInterval = 1200; // 1.2s
       } else if (movingObjectCount < 4) {
-        minInterval = 1200; // 1.2s
-        maxInterval = 2000; // 2s
+        minInterval = responsiveConfig.animationInterval.min * 0.6; // Faster initial appearance
+        maxInterval = responsiveConfig.animationInterval.max * 0.6;
       } else {
-        minInterval = 2000; // 2s
-        maxInterval = 3500; // 3.5s
+        minInterval = responsiveConfig.animationInterval.min;
+        maxInterval = responsiveConfig.animationInterval.max;
       }
       const interval = setInterval(
         () => {
           setMovingObjectCount((count) =>
-            Math.min(count + 1, MAX_MOVING_OBJECTS),
+            Math.min(count + 1, responsiveConfig.maxMovingObjects),
           );
         },
         Math.random() * (maxInterval - minInterval) + minInterval,
       );
       return () => clearInterval(interval);
     }
-  }, [movingObjectCount]);
+  }, [movingObjectCount, responsiveConfig]);
 
   // Get the bounding box of the question paragraphs
   useEffect(() => {
@@ -90,6 +94,7 @@ const App: React.FC = () => {
           restrictedArea={restrictedArea}
           isFirst={movingObjectCount === 1}
           selectionCountsRef={selectionCountsRef}
+          animationInterval={responsiveConfig.animationInterval}
         />
       ))}
 
