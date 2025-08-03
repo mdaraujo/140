@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import './App.css';
 import MovingElement from './components/MovingElement';
@@ -16,6 +16,11 @@ const App: React.FC = () => {
   const [activeMovingObject, setActiveMovingObject] =
     useState<MovingObject | null>(null);
   const selectionCountsRef = useRef<Map<string, number>>(new Map());
+
+  // Shared position tracking for collision detection
+  const objectPositionsRef = useRef<Map<string, { top: number; left: number }>>(
+    new Map(),
+  );
 
   // Get responsive configuration based on screen size
   const responsiveConfig = useResponsiveMovingObjects();
@@ -66,6 +71,19 @@ const App: React.FC = () => {
     setShowPopUp(false);
   }
 
+  // Handle position updates from moving elements
+  const updateObjectPosition = useCallback(
+    (elementId: string, position: { top: number; left: number }) => {
+      objectPositionsRef.current.set(elementId, position);
+    },
+    [],
+  );
+
+  // Handle object removal
+  const removeObjectPosition = useCallback((elementId: string) => {
+    objectPositionsRef.current.delete(elementId);
+  }, []);
+
   return (
     <>
       <div className="question" ref={questionRef}>
@@ -89,12 +107,16 @@ const App: React.FC = () => {
       {Array.from({ length: movingObjectCount }).map((_, index) => (
         <MovingElement
           key={index}
+          elementId={`element-${index}`}
           movingObjects={movingObjects}
           onClick={(movingObject) => openPopUp(movingObject)}
           restrictedArea={restrictedArea}
           isFirst={movingObjectCount === 1}
           selectionCountsRef={selectionCountsRef}
           animationInterval={responsiveConfig.animationInterval}
+          existingPositions={objectPositionsRef.current}
+          onPositionUpdate={updateObjectPosition}
+          onRemove={removeObjectPosition}
         />
       ))}
 

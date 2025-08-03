@@ -1,35 +1,61 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MovingObject } from '../types/MovingObject';
 import { selectWeightedRandom } from '../utils/weightedSelection';
+import {
+  findNonCollidingPosition,
+  Position,
+} from '../utils/collisionDetection';
 
 interface MovingElementProps {
+  elementId: string;
   movingObjects: MovingObject[];
   onClick: (movingObject: MovingObject) => void;
   restrictedArea: DOMRect | null;
   isFirst?: boolean;
   selectionCountsRef: React.MutableRefObject<Map<string, number>>;
   animationInterval?: { min: number; max: number };
-}
-
-interface Position {
-  top: number;
-  left: number;
+  existingPositions: Map<string, Position>;
+  onPositionUpdate: (elementId: string, position: Position) => void;
+  onRemove: (elementId: string) => void;
 }
 
 const MovingElement: React.FC<MovingElementProps> = ({
+  elementId,
   movingObjects,
   onClick,
   restrictedArea,
   isFirst = false,
   selectionCountsRef,
   animationInterval = { min: 2000, max: 5000 },
+  existingPositions,
+  onPositionUpdate,
+  onRemove,
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const [currentMovingObject, setcurrentMovingObject] =
     useState<MovingObject>();
   const hasSetInitialImage = useRef(false);
+  const objectPositionsRef = useRef(existingPositions);
 
-  const getRandomPosition = useCallback((): Position => {
+  // Update ref with current positions
+  useEffect(() => {
+    objectPositionsRef.current = existingPositions;
+  }, [existingPositions]);
+
+  const getRegularPosition = useCallback((): Position => {
+    // Try lightweight collision detection first (fewer attempts)
+    const newPosition = findNonCollidingPosition(
+      existingPositions,
+      restrictedArea,
+      { width: 80, height: 80 },
+      15, // Fewer attempts for better performance
+    );
+
+    if (newPosition) {
+      return newPosition;
+    }
+
+    // Fallback: just avoid restricted area if collision detection fails
     let top, left;
     do {
       top = Math.random() * window.innerHeight * 0.9;
@@ -43,7 +69,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
     );
 
     return { top, left };
-  }, [restrictedArea]);
+  }, [restrictedArea, existingPositions]);
 
   const getRandomLogo = useCallback((): MovingObject => {
     const selected = selectWeightedRandom(
@@ -114,25 +140,75 @@ const MovingElement: React.FC<MovingElementProps> = ({
 
   // Handle position changes and animations
   useEffect(() => {
-    // Set initial position
-    setPosition(getRandomPosition());
+    // Capture existing positions only once at mount to avoid re-positioning
+    const positionsAtMount = new Map(existingPositions);
+
+    // Set initial position with collision detection
+    const initialPosition =
+      findNonCollidingPosition(positionsAtMount, restrictedArea, {
+        width: 80,
+        height: 80,
+      }) || getRegularPosition();
+    setPosition(initialPosition);
+    onPositionUpdate(elementId, initialPosition);
 
     // Trigger move animation after the component mounts
     setTimeout(() => {
-      setPosition(getRandomPosition());
+      const newPosition = getRegularPosition();
+      setPosition(newPosition);
+      onPositionUpdate(elementId, newPosition);
     }, 100);
 
-    // Change position at random intervals (responsive)
+    // Change position at random intervals with lightweight collision detection
     const interval = setInterval(
       () => {
-        setPosition(getRandomPosition());
+        // Create a fresh position function to use current positions
+        const getLivePosition = () => {
+          const newPosition = findNonCollidingPosition(
+            objectPositionsRef.current,
+            restrictedArea,
+            { width: 80, height: 80 },
+            15, // Fewer attempts for performance
+          );
+
+          if (newPosition) return newPosition;
+
+          // Fallback without collision detection
+          let top, left;
+          do {
+            top = Math.random() * window.innerHeight * 0.9;
+            left = Math.random() * window.innerWidth * 0.9;
+          } while (
+            restrictedArea &&
+            top >= restrictedArea.top &&
+            top <= restrictedArea.bottom &&
+            left >= restrictedArea.left &&
+            left <= restrictedArea.right
+          );
+          return { top, left };
+        };
+
+        const newPosition = getLivePosition();
+        setPosition(newPosition);
+        onPositionUpdate(elementId, newPosition);
       },
       Math.random() * (animationInterval.max - animationInterval.min) +
         animationInterval.min,
     );
 
-    return () => clearInterval(interval); // Cleanup interval
-  }, [getRandomPosition, animationInterval]); // Include animation interval in dependencies
+    // Cleanup function
+    return () => {
+      clearInterval(interval);
+      onRemove(elementId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    animationInterval,
+    elementId,
+    onPositionUpdate,
+    onRemove,
+    // Note: getRegularPosition not included to prevent re-positioning cascade
+  ]);
 
   return (
     <div
