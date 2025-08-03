@@ -105,7 +105,10 @@ img.logo-hover:hover {
   border: 2px solid #546930;
   padding: 10px 20px;
   cursor: pointer;
-  position: fixed;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 
@@ -152,15 +155,29 @@ img.logo-hover:hover {
   }
 
   .popup-content {
-    height: 80vh;
+    max-height: 85vh;
     width: auto;
     max-width: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .popup-content img {
-    height: 90%;
+    max-height: 65vh;
     width: auto;
     margin: 0;
+    flex-shrink: 0;
+  }
+
+  .artist-description {
+    flex-shrink: 0;
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  .popup-content .button {
+    flex-shrink: 0;
+    margin-top: 0.5rem;
   }
 }
 
