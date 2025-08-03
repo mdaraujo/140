@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MovingObject } from '../types/MovingObject';
+import { selectWeightedRandom } from '../utils/weightedSelection';
 
 interface RandomLogoProps {
   movingObjects: MovingObject[];
@@ -22,8 +23,9 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const [currentMovingObject, setcurrentMovingObject] =
     useState<MovingObject>();
+  const hasSetInitialImage = useRef(false);
 
-  const getRandomPosition = (): Position => {
+  const getRandomPosition = useCallback((): Position => {
     let top, left;
     do {
       top = Math.random() * window.innerHeight * 0.9;
@@ -37,19 +39,29 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
     );
 
     return { top, left };
-  };
+  }, [restrictedArea]);
 
-  const getRandomLogo = (): MovingObject =>
-    movingObjects[Math.floor(Math.random() * movingObjects.length)];
+  const getRandomLogo = useCallback(
+    (): MovingObject => selectWeightedRandom(movingObjects),
+    [movingObjects],
+  );
 
+  // Set initial image only once
   useEffect(() => {
-    // Set initial position and logo
-    setPosition(getRandomPosition());
-    if (isFirst) {
-      setcurrentMovingObject(movingObjects[0]);
-    } else {
-      setcurrentMovingObject(getRandomLogo());
+    if (!hasSetInitialImage.current) {
+      if (isFirst) {
+        setcurrentMovingObject(movingObjects[0]);
+      } else {
+        setcurrentMovingObject(getRandomLogo());
+      }
+      hasSetInitialImage.current = true;
     }
+  }, [isFirst, movingObjects, getRandomLogo]);
+
+  // Handle position changes and animations
+  useEffect(() => {
+    // Set initial position
+    setPosition(getRandomPosition());
 
     // Trigger move animation after the component mounts
     setTimeout(() => {
@@ -65,7 +77,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
     ); // Random interval between 2s and 5s
 
     return () => clearInterval(interval); // Cleanup interval
-  }, [movingObjects, restrictedArea]);
+  }, [getRandomPosition]); // Only depend on position-related functions
 
   return (
     <div

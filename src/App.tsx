@@ -42,43 +42,33 @@ const DESCRIPTIONS = {
     'Música para dançar, rir e brincar. Com improviso, groove e espírito lúdico, Barananu junta seis músicos de diferentes áreas num espetáculo vibrante e imprevisível.',
 };
 
+// Define moving objects with explicit probability weights
 const movingObjects: MovingObject[] = [
-  // Cartaz - minimal since it appears first (1 / 17 ≈ 5.9%)
+  // Cartaz - minimal probability (weight: 1 ≈ 5.9%)
   {
     image: gumaJazzCartaz,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
     description: DESCRIPTIONS.cartaz,
+    weight: 1,
   },
-  // Logo - minimal probability (1 / 17 ≈ 5.9%)
+  // Logo - minimal probability (weight: 1 ≈ 5.9%)
   {
     image: gumaJazzLogo,
     formLink: FORMS.gumaJazz,
     ticketsLink: null,
     location: null,
+    weight: 1,
   },
-  // Artist gig images - maximum focus (3 each / 17 ≈ 17.6% each, 88.2% total)
+  // Artist gig images - maximum focus (weight: 3 each ≈ 17.6% each, 70.6% total)
   {
     image: gumaJazzGig15,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
     description: DESCRIPTIONS.workshop15h,
-  },
-  {
-    image: gumaJazzGig15,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.workshop15h,
-  },
-  {
-    image: gumaJazzGig15,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.workshop15h,
+    weight: 3,
   },
   {
     image: gumaJazzGig17,
@@ -86,20 +76,7 @@ const movingObjects: MovingObject[] = [
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
     description: DESCRIPTIONS.gentrifugacao17h,
-  },
-  {
-    image: gumaJazzGig17,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.gentrifugacao17h,
-  },
-  {
-    image: gumaJazzGig17,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.gentrifugacao17h,
+    weight: 3,
   },
   {
     image: gumaJazzGig18,
@@ -107,20 +84,7 @@ const movingObjects: MovingObject[] = [
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
     description: DESCRIPTIONS.miguelMeirinhos18h,
-  },
-  {
-    image: gumaJazzGig18,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.miguelMeirinhos18h,
-  },
-  {
-    image: gumaJazzGig18,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.miguelMeirinhos18h,
+    weight: 3,
   },
   {
     image: gumaJazzGig21,
@@ -128,20 +92,7 @@ const movingObjects: MovingObject[] = [
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
     description: DESCRIPTIONS.claraLacerdaTrio21h,
-  },
-  {
-    image: gumaJazzGig21,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.claraLacerdaTrio21h,
-  },
-  {
-    image: gumaJazzGig21,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.claraLacerdaTrio21h,
+    weight: 3,
   },
   {
     image: gumaJazzGig22,
@@ -149,25 +100,13 @@ const movingObjects: MovingObject[] = [
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
     description: DESCRIPTIONS.barananu22h,
+    weight: 3,
   },
-  {
-    image: gumaJazzGig22,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.barananu22h,
-  },
-  {
-    image: gumaJazzGig22,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-    description: DESCRIPTIONS.barananu22h,
-  },
-  // { image: logoB1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
-  // { image: logoB2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
-  // { image: logoW1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
-  // { image: logoW2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
+  // Commented out logos with weight references for future use
+  // { image: logoB1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
+  // { image: logoB2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
+  // { image: logoW1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
+  // { image: logoW2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
 ];
 const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
 

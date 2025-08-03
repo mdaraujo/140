@@ -4,4 +4,5 @@ export interface MovingObject {
   ticketsLink: string | null;
   location: string | null;
   description?: string;
+  weight?: number;
 }
