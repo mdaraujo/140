@@ -89,7 +89,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
             src={currentMovingObject.image}
             alt="140 Logo"
             style={{
-              width: '50px',
+              width: '80px',
               height: 'auto',
               transition: 'transform 0.3s ease',
             }}
@@ -103,14 +103,12 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
           src={currentMovingObject.image}
           alt="140 Logo"
           style={{
-            width: '50px',
+            width: '80px',
             height: 'auto',
             transition: 'transform 0.3s ease',
           }}
           className="logo-hover"
-          onClick={() =>
-            onClick(currentMovingObject)
-          }
+          onClick={() => onClick(currentMovingObject)}
         />
       )}
     </div>
