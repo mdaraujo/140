@@ -3,6 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import RandomLogo from './components/RandomLogo';
 import { MovingObject } from './types/MovingObject';
+import {
+  logDiminishingWeightsTest,
+  demonstrateDiminishingEffect,
+} from './utils/testDiminishingWeights';
 // import logoB1 from '/logo_b_1.png';
 // import logoB2 from '/logo_b_2.png';
 // import logoW1 from '/logo_w_1.png';
@@ -108,7 +112,7 @@ const movingObjects: MovingObject[] = [
   // { image: logoW1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
   // { image: logoW2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
 ];
-const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
+const MAX_MOVING_OBJECTS = 11; // Limit the number of movingObjects
 
 const eAgoraObject = movingObjects[0];
 
@@ -119,6 +123,30 @@ const App: React.FC = () => {
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [activeMovingObject, setActiveMovingObject] =
     useState<MovingObject | null>(null);
+  const selectionCountsRef = useRef<Map<string, number>>(new Map());
+
+  // Make testing functions available in browser console
+  useEffect(() => {
+    // @ts-expect-error - Adding to window for testing
+    window.testDiminishingWeights = () =>
+      logDiminishingWeightsTest(movingObjects, 100);
+    // @ts-expect-error - Adding to window for testing
+    window.demonstrateDiminishingEffect = () =>
+      demonstrateDiminishingEffect(movingObjects);
+    // @ts-expect-error - Adding current selection counts to window
+    window.getCurrentSelectionCounts = () => {
+      console.log('\n=== Current Selection Counts ===');
+      const counts = Array.from(selectionCountsRef.current.entries()).map(
+        ([image, count]) => ({
+          image: image.split('/').pop() || 'unknown',
+          count,
+        }),
+      );
+      console.table(counts);
+      console.log('================================\n');
+      return selectionCountsRef.current;
+    };
+  }, []);
 
   // Add new movingObjects at random intervals
   useEffect(() => {
@@ -190,6 +218,7 @@ const App: React.FC = () => {
           onClick={(movingObject) => openPopUp(movingObject)}
           restrictedArea={restrictedArea}
           isFirst={movingObjectCount === 1}
+          selectionCountsRef={selectionCountsRef}
         />
       ))}
 

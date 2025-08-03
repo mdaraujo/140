@@ -7,6 +7,7 @@ interface RandomLogoProps {
   onClick: (movingObject: MovingObject) => void;
   restrictedArea: DOMRect | null;
   isFirst?: boolean;
+  selectionCountsRef: React.MutableRefObject<Map<string, number>>;
 }
 
 interface Position {
@@ -19,6 +20,7 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
   onClick,
   restrictedArea,
   isFirst = false,
+  selectionCountsRef,
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const [currentMovingObject, setcurrentMovingObject] =
@@ -41,10 +43,46 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
     return { top, left };
   }, [restrictedArea]);
 
-  const getRandomLogo = useCallback(
-    (): MovingObject => selectWeightedRandom(movingObjects),
-    [movingObjects],
-  );
+  const getRandomLogo = useCallback((): MovingObject => {
+    const selected = selectWeightedRandom(
+      movingObjects,
+      selectionCountsRef.current,
+    );
+
+    // Update selection count
+    const currentCount = selectionCountsRef.current.get(selected.image) || 0;
+    const newCount = currentCount + 1;
+    selectionCountsRef.current.set(selected.image, newCount);
+
+    // Log selection with current counts
+    const imageName = selected.image.split('/').pop() || 'unknown';
+    const effectiveWeight = (selected.weight || 1) / newCount;
+
+    console.log(
+      `🎯 Selected: ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(2)})`,
+    );
+
+    // Show all current counts every 5 selections
+    const totalSelections = Array.from(
+      selectionCountsRef.current.values(),
+    ).reduce((sum, count) => sum + count, 0);
+    if (totalSelections % 5 === 0) {
+      console.log('\n📊 Current Selection Counts:');
+      const allCounts = Array.from(selectionCountsRef.current.entries()).map(
+        ([image, count]) => ({
+          image: image.split('/').pop() || 'unknown',
+          count,
+          effectiveWeight:
+            (movingObjects.find((obj) => obj.image === image)?.weight || 1) /
+            (count + 1),
+        }),
+      );
+      console.table(allCounts);
+      console.log(`Total selections: ${totalSelections}\n`);
+    }
+
+    return selected;
+  }, [movingObjects, selectionCountsRef]);
 
   // Set initial image only once
   useEffect(() => {
