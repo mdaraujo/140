@@ -88,13 +88,27 @@ const RandomLogo: React.FC<RandomLogoProps> = ({
   useEffect(() => {
     if (!hasSetInitialImage.current) {
       if (isFirst) {
-        setcurrentMovingObject(movingObjects[0]);
+        // For the first object, manually select and count the first item
+        const firstObject = movingObjects[0];
+        const currentCount =
+          selectionCountsRef.current.get(firstObject.image) || 0;
+        const newCount = currentCount + 1;
+        selectionCountsRef.current.set(firstObject.image, newCount);
+
+        // Log the first selection
+        const imageName = firstObject.image.split('/').pop() || 'unknown';
+        const effectiveWeight = (firstObject.weight || 1) / newCount;
+        console.log(
+          `🎯 Selected (first): ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(2)})`,
+        );
+
+        setcurrentMovingObject(firstObject);
       } else {
         setcurrentMovingObject(getRandomLogo());
       }
       hasSetInitialImage.current = true;
     }
-  }, [isFirst, movingObjects, getRandomLogo]);
+  }, [isFirst, movingObjects, getRandomLogo, selectionCountsRef]);
 
   // Handle position changes and animations
   useEffect(() => {

@@ -55,7 +55,7 @@ const movingObjects: MovingObject[] = [
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
     description: DESCRIPTIONS.cartaz,
-    weight: 1,
+    weight: 0.5,
   },
   // Logo - minimal probability (weight: 1 ≈ 5.9%)
   {
@@ -112,7 +112,7 @@ const movingObjects: MovingObject[] = [
   // { image: logoW1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
   // { image: logoW2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null, weight: 1 },
 ];
-const MAX_MOVING_OBJECTS = 11; // Limit the number of movingObjects
+const MAX_MOVING_OBJECTS = 10; // Limit the number of movingObjects
 
 const eAgoraObject = movingObjects[0];
 
