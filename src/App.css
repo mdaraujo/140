@@ -86,9 +86,9 @@ img.logo-hover:hover {
 }
 
 .popup-content {
-  max-width: 80vw;
-  max-height: 90vh;
-  margin-bottom: 100px;
+  max-width: 95vw;
+  max-height: 85vh;
+  margin-bottom: 20px;
 }
 
 .popup-content img {
@@ -130,10 +130,31 @@ img.logo-hover:hover {
   max-width: 400px;
 }
 
+/* Mobile optimization */
+@media only screen and (max-width: 768px) {
+  .popup-content {
+    max-width: 92vw;
+    max-height: 88vh;
+  }
+
+  .artist-description {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    margin: 0.75rem 0;
+  }
+}
+
+/* Desktop styles */
 @media only screen and (min-width: 992px) {
+  .popup {
+    align-items: center;
+    padding-top: 0;
+  }
+
   .popup-content {
     height: 80vh;
     width: auto;
+    max-width: none;
   }
 
   .popup-content img {
