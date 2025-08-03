@@ -28,33 +28,21 @@ const FORMS = {
 };
 
 const movingObjects: MovingObject[] = [
-  // Cartaz - reduced since it appears first (2 / 19 ≈ 10.5%)
+  // Cartaz - minimal since it appears first (1 / 17 ≈ 5.9%)
   {
     image: gumaJazzCartaz,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
   },
-  {
-    image: gumaJazzCartaz,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  // Logo - moderate probability (2 / 19 ≈ 10.5%)
+  // Logo - minimal probability (1 / 17 ≈ 5.9%)
   {
     image: gumaJazzLogo,
     formLink: FORMS.gumaJazz,
     ticketsLink: null,
     location: null,
   },
-  {
-    image: gumaJazzLogo,
-    formLink: FORMS.gumaJazz,
-    ticketsLink: null,
-    location: null,
-  },
-  // Artist gig images - highest probability (3 each / 19 ≈ 15.8% each, 79% total)
+  // Artist gig images - maximum focus (3 each / 17 ≈ 17.6% each, 88.2% total)
   {
     image: gumaJazzGig1,
     formLink: null,
@@ -84,18 +72,24 @@ const movingObjects: MovingObject[] = [
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Improvisação e criatividade numa sessão de jazz que celebra a música como forma de expressão artística.',
   },
   {
     image: gumaJazzGig2,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Improvisação e criatividade numa sessão de jazz que celebra a música como forma de expressão artística.',
   },
   {
     image: gumaJazzGig2,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Improvisação e criatividade numa sessão de jazz que celebra a música como forma de expressão artística.',
   },
   {
     image: gumaJazzGig3,
@@ -126,18 +120,24 @@ const movingObjects: MovingObject[] = [
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Sonoridades orgânicas e groove envolvente numa performance que conecta músicos e audiência.',
   },
   {
     image: gumaJazzGig4,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Sonoridades orgânicas e groove envolvente numa performance que conecta músicos e audiência.',
   },
   {
     image: gumaJazzGig4,
     formLink: null,
     ticketsLink: null,
     location: LOCATIONS.gumaJazz,
+    description:
+      'Sonoridades orgânicas e groove envolvente numa performance que conecta músicos e audiência.',
   },
   {
     image: gumaJazzGig5,
