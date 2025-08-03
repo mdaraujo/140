@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import './App.css';
 import MovingElement from './components/MovingElement';
+import PopupModal from './components/PopupModal';
 import { MovingObject } from './types/MovingObject';
 import { movingObjects, eAgoraObject } from './data/movingObjects';
 import { FORMS } from './data/constants';
 import { useTestingUtilities } from './hooks/useTestingUtilities';
 import { useResponsiveMovingObjects } from './hooks/useResponsiveMovingObjects';
+import { useObjectSpawning } from './hooks/useObjectSpawning';
 
 const App: React.FC = () => {
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1); // Start with 1 moving object
@@ -28,32 +30,12 @@ const App: React.FC = () => {
   // Make testing functions available in browser console
   useTestingUtilities(movingObjects, selectionCountsRef);
 
-  // Add new movingObjects at random intervals (responsive to screen size)
-  useEffect(() => {
-    if (movingObjectCount <= responsiveConfig.maxMovingObjects) {
-      // Make the first moving objects appear faster, then slow down
-      let minInterval, maxInterval;
-      if (movingObjectCount < 2) {
-        minInterval = 600; // 0.6s
-        maxInterval = 1200; // 1.2s
-      } else if (movingObjectCount < 4) {
-        minInterval = responsiveConfig.animationInterval.min * 0.6; // Faster initial appearance
-        maxInterval = responsiveConfig.animationInterval.max * 0.6;
-      } else {
-        minInterval = responsiveConfig.animationInterval.min;
-        maxInterval = responsiveConfig.animationInterval.max;
-      }
-      const interval = setInterval(
-        () => {
-          setMovingObjectCount((count) =>
-            Math.min(count + 1, responsiveConfig.maxMovingObjects),
-          );
-        },
-        Math.random() * (maxInterval - minInterval) + minInterval,
-      );
-      return () => clearInterval(interval);
-    }
-  }, [movingObjectCount, responsiveConfig]);
+  // Handle object spawning timing
+  useObjectSpawning({
+    movingObjectCount,
+    setMovingObjectCount,
+    responsiveConfig,
+  });
 
   // Get the bounding box of the question paragraphs
   useEffect(() => {
@@ -120,47 +102,11 @@ const App: React.FC = () => {
         />
       ))}
 
-      {showPopUp && (
-        <div className="popup" onClick={closePopup}>
-          {activeMovingObject?.ticketsLink ? (
-            <div className="popup-content">
-              <a href={activeMovingObject?.ticketsLink} target="_blank">
-                <img src={activeMovingObject?.image} alt="Pop-up Poster" />
-              </a>
-              {activeMovingObject?.description && (
-                <p className="artist-description">
-                  {activeMovingObject.description}
-                </p>
-              )}
-              <a
-                href={activeMovingObject?.ticketsLink}
-                target="_blank"
-                className="button shadow-link"
-              >
-                E agora? Bilhetes aqui&nbsp;{' '}
-                <i className="fa fa-ticket" aria-hidden="true"></i>
-              </a>
-            </div>
-          ) : (
-            <div className="popup-content">
-              <img src={activeMovingObject?.image} alt="Pop-up Poster" />
-              {activeMovingObject?.description && (
-                <p className="artist-description">
-                  {activeMovingObject.description}
-                </p>
-              )}
-              <a
-                href={activeMovingObject?.location || ''}
-                target="_blank"
-                className="button shadow-link"
-              >
-                Entrada Livre&nbsp;{' '}
-                <i className="fa fa-map-marker" aria-hidden="true"></i>
-              </a>
-            </div>
-          )}
-        </div>
-      )}
+      <PopupModal
+        isOpen={showPopUp}
+        movingObject={activeMovingObject}
+        onClose={closePopup}
+      />
 
       <footer className="footer">
         <p>

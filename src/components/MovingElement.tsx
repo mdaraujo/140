@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MovingObject } from '../types/MovingObject';
 import { selectWeightedRandom } from '../utils/weightedSelection';
-import {
-  findNonCollidingPosition,
-  Position,
-} from '../utils/collisionDetection';
+import { Position } from '../types/Position';
+import { generatePosition } from '../utils/positionHelpers';
+import { useSelectionLogging } from '../hooks/useSelectionLogging';
+import { ANIMATION_CONSTANTS } from '../data/constants';
 
 interface MovingElementProps {
   elementId: string;
@@ -37,39 +37,31 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const hasSetInitialImage = useRef(false);
   const objectPositionsRef = useRef(existingPositions);
 
+  // Selection logging hook
+  const { logSelection } = useSelectionLogging({
+    movingObjects,
+    selectionCountsRef,
+  });
+
   // Update ref with current positions
   useEffect(() => {
     objectPositionsRef.current = existingPositions;
   }, [existingPositions]);
 
-  const getRegularPosition = useCallback((): Position => {
-    // Try lightweight collision detection first (fewer attempts)
-    const newPosition = findNonCollidingPosition(
-      existingPositions,
-      restrictedArea,
-      { width: 80, height: 80 },
-      15, // Fewer attempts for better performance
-    );
-
-    if (newPosition) {
-      return newPosition;
-    }
-
-    // Fallback: just avoid restricted area if collision detection fails
-    let top, left;
-    do {
-      top = Math.random() * window.innerHeight * 0.9;
-      left = Math.random() * window.innerWidth * 0.9;
-    } while (
-      restrictedArea &&
-      top >= restrictedArea.top &&
-      top <= restrictedArea.bottom &&
-      left >= restrictedArea.left &&
-      left <= restrictedArea.right
-    );
-
-    return { top, left };
-  }, [restrictedArea, existingPositions]);
+  const getPosition = useCallback(
+    (useCurrentPositions: boolean = false): Position => {
+      const positions = useCurrentPositions
+        ? objectPositionsRef.current
+        : existingPositions;
+      return generatePosition(
+        positions,
+        restrictedArea,
+        true, // Use collision detection
+        ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_MOVEMENT,
+      );
+    },
+    [restrictedArea, existingPositions],
+  );
 
   const getRandomLogo = useCallback((): MovingObject => {
     const selected = selectWeightedRandom(
@@ -77,40 +69,9 @@ const MovingElement: React.FC<MovingElementProps> = ({
       selectionCountsRef.current,
     );
 
-    // Update selection count
-    const currentCount = selectionCountsRef.current.get(selected.image) || 0;
-    const newCount = currentCount + 1;
-    selectionCountsRef.current.set(selected.image, newCount);
-
-    // Log selection with current counts
-    const imageName = selected.image.split('/').pop() || 'unknown';
-    const effectiveWeight = (selected.weight || 1) / newCount;
-
-    console.log(
-      `🎯 Selected: ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(2)})`,
-    );
-
-    // Show all current counts every 5 selections
-    const totalSelections = Array.from(
-      selectionCountsRef.current.values(),
-    ).reduce((sum, count) => sum + count, 0);
-    if (totalSelections % 5 === 0) {
-      console.log('\n📊 Current Selection Counts:');
-      const allCounts = Array.from(selectionCountsRef.current.entries()).map(
-        ([image, count]) => ({
-          image: image.split('/').pop() || 'unknown',
-          count,
-          effectiveWeight:
-            (movingObjects.find((obj) => obj.image === image)?.weight || 1) /
-            (count + 1),
-        }),
-      );
-      console.table(allCounts);
-      console.log(`Total selections: ${totalSelections}\n`);
-    }
-
+    logSelection(selected);
     return selected;
-  }, [movingObjects, selectionCountsRef]);
+  }, [movingObjects, selectionCountsRef, logSelection]);
 
   // Set initial image only once
   useEffect(() => {
@@ -118,18 +79,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
       if (isFirst) {
         // For the first object, manually select and count the first item
         const firstObject = movingObjects[0];
-        const currentCount =
-          selectionCountsRef.current.get(firstObject.image) || 0;
-        const newCount = currentCount + 1;
-        selectionCountsRef.current.set(firstObject.image, newCount);
-
-        // Log the first selection
-        const imageName = firstObject.image.split('/').pop() || 'unknown';
-        const effectiveWeight = (firstObject.weight || 1) / newCount;
-        console.log(
-          `🎯 Selected (first): ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(2)})`,
-        );
-
+        logSelection(firstObject);
         setcurrentMovingObject(firstObject);
       } else {
         setcurrentMovingObject(getRandomLogo());
@@ -144,51 +94,26 @@ const MovingElement: React.FC<MovingElementProps> = ({
     const positionsAtMount = new Map(existingPositions);
 
     // Set initial position with collision detection
-    const initialPosition =
-      findNonCollidingPosition(positionsAtMount, restrictedArea, {
-        width: 80,
-        height: 80,
-      }) || getRegularPosition();
+    const initialPosition = generatePosition(
+      positionsAtMount,
+      restrictedArea,
+      true, // Use collision detection
+      ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_INITIAL,
+    );
     setPosition(initialPosition);
     onPositionUpdate(elementId, initialPosition);
 
     // Trigger move animation after the component mounts
     setTimeout(() => {
-      const newPosition = getRegularPosition();
+      const newPosition = getPosition();
       setPosition(newPosition);
       onPositionUpdate(elementId, newPosition);
-    }, 100);
+    }, ANIMATION_CONSTANTS.POSITION_UPDATE_DELAY);
 
     // Change position at random intervals with lightweight collision detection
     const interval = setInterval(
       () => {
-        // Create a fresh position function to use current positions
-        const getLivePosition = () => {
-          const newPosition = findNonCollidingPosition(
-            objectPositionsRef.current,
-            restrictedArea,
-            { width: 80, height: 80 },
-            15, // Fewer attempts for performance
-          );
-
-          if (newPosition) return newPosition;
-
-          // Fallback without collision detection
-          let top, left;
-          do {
-            top = Math.random() * window.innerHeight * 0.9;
-            left = Math.random() * window.innerWidth * 0.9;
-          } while (
-            restrictedArea &&
-            top >= restrictedArea.top &&
-            top <= restrictedArea.bottom &&
-            left >= restrictedArea.left &&
-            left <= restrictedArea.right
-          );
-          return { top, left };
-        };
-
-        const newPosition = getLivePosition();
+        const newPosition = getPosition(true); // Use current positions
         setPosition(newPosition);
         onPositionUpdate(elementId, newPosition);
       },
@@ -207,7 +132,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
     elementId,
     onPositionUpdate,
     onRemove,
-    // Note: getRegularPosition not included to prevent re-positioning cascade
+    // Note: getPosition not included to prevent re-positioning cascade
   ]);
 
   return (
@@ -219,7 +144,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
         top: `${position.top}px`,
         left: `${position.left}px`,
         transform: 'translate(-50%, -50%)',
-        transition: 'top 0.5s ease, left 0.5s ease',
+        transition: `top ${ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION} ease, left ${ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION} ease`,
       }}
     >
       {currentMovingObject?.formLink && (
@@ -232,9 +157,9 @@ const MovingElement: React.FC<MovingElementProps> = ({
             src={currentMovingObject.image}
             alt="140"
             style={{
-              width: '80px',
+              width: `${ANIMATION_CONSTANTS.OBJECT_WIDTH}px`,
               height: 'auto',
-              transition: 'transform 0.3s ease',
+              transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
             }}
             className="logo-hover"
           />
@@ -246,9 +171,9 @@ const MovingElement: React.FC<MovingElementProps> = ({
           src={currentMovingObject.image}
           alt="140"
           style={{
-            width: '80px',
+            width: `${ANIMATION_CONSTANTS.OBJECT_WIDTH}px`,
             height: 'auto',
-            transition: 'transform 0.3s ease',
+            transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
           }}
           className="logo-hover"
           onClick={() => onClick(currentMovingObject)}

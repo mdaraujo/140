@@ -1,7 +1,4 @@
-export interface Position {
-  top: number;
-  left: number;
-}
+import { Position } from '../types/Position';
 
 export interface ObjectBounds {
   top: number;
@@ -25,6 +22,8 @@ export function checkCollision(
   );
 }
 
+import { ANIMATION_CONSTANTS } from '../data/constants';
+
 /**
  * Find a position that doesn't collide with existing objects
  * @param existingPositions Array of current object positions
@@ -33,15 +32,21 @@ export function checkCollision(
  * @param maxAttempts Maximum number of attempts to find a position
  * @returns Non-colliding position or null if no position found
  */
+
 export function findNonCollidingPosition(
   existingPositions: Map<string, Position>,
   restrictedArea: DOMRect | null,
-  objectSize: { width: number; height: number } = { width: 80, height: 80 },
-  maxAttempts: number = 50,
+  objectSize: { width: number; height: number } = {
+    width: ANIMATION_CONSTANTS.OBJECT_WIDTH,
+    height: ANIMATION_CONSTANTS.OBJECT_HEIGHT,
+  },
+  maxAttempts: number = ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_INITIAL,
 ): Position | null {
-  const viewportWidth = window.innerWidth * 0.9;
-  const viewportHeight = window.innerHeight * 0.9;
-  const padding = 20; // Minimum distance between objects
+  const viewportWidth =
+    window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  const viewportHeight =
+    window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  const padding = ANIMATION_CONSTANTS.COLLISION_PADDING;
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const position: Position = {
