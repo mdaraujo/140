@@ -10,43 +10,141 @@ import { MovingObject } from './types/MovingObject';
 
 import gumaJazzCartaz from './assets/GUMAJAZZ_cartaz.jpg';
 import gumaJazzLogo from './assets/GUMAJAZZ_logo.png';
-import ohmeSessionsJulho from './assets/ohme_sessions_julho.jpg';
+import gumaJazzGig1 from './assets/GUMAJAZZ_gig_1.jpeg';
+import gumaJazzGig2 from './assets/GUMAJAZZ_gig_2.jpeg';
+import gumaJazzGig3 from './assets/GUMAJAZZ_gig_3.jpeg';
+import gumaJazzGig4 from './assets/GUMAJAZZ_gig_4.jpeg';
+import gumaJazzGig5 from './assets/GUMAJAZZ_gig_5.jpeg';
 
 const LOCATIONS = {
-  cafeSociedade: "https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7",
-  fidelis: "https://maps.app.goo.gl/vGUHBfTgUpr96E7z7",
-  gumaJazz: "https://maps.app.goo.gl/2SQxqcDrJwXRiRz98"
-};
-
-const TICKETS = {
-  ohmeSessions: "https://www.bol.pt/Comprar/Bilhetes/158717-ohme_sessions-ponto_c/",
+  cafeSociedade: 'https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7',
+  fidelis: 'https://maps.app.goo.gl/vGUHBfTgUpr96E7z7',
+  gumaJazz: 'https://maps.app.goo.gl/2SQxqcDrJwXRiRz98',
 };
 
 const FORMS = {
-  fichaSocio: "https://forms.gle/dgnQgUeGjRHgjG2E7",
-  gumaJazz: "https://forms.gle/9GpUC4mz8hfMp1S38",
+  fichaSocio: 'https://forms.gle/dgnQgUeGjRHgjG2E7',
+  gumaJazz: 'https://forms.gle/9GpUC4mz8hfMp1S38',
 };
 
 const movingObjects: MovingObject[] = [
-  // 8 / 16 = 50%
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  { image: ohmeSessionsJulho, formLink: null, ticketsLink: TICKETS.ohmeSessions, location: null },
-  // 4 / 16 = 25%
-  { image: gumaJazzCartaz, formLink: null, ticketsLink: null, location: LOCATIONS.gumaJazz },
-  { image: gumaJazzCartaz, formLink: null, ticketsLink: null, location: LOCATIONS.gumaJazz },
-  { image: gumaJazzCartaz, formLink: null, ticketsLink: null, location: LOCATIONS.gumaJazz },
-  { image: gumaJazzCartaz, formLink: null, ticketsLink: null, location: LOCATIONS.gumaJazz },
-  // 4 / 16 = 25%
-  { image: gumaJazzLogo, formLink: FORMS.gumaJazz, ticketsLink: null, location: null },
-  { image: gumaJazzLogo, formLink: FORMS.gumaJazz, ticketsLink: null, location: null },
-  { image: gumaJazzLogo, formLink: FORMS.gumaJazz, ticketsLink: null, location: null },
-  { image: gumaJazzLogo, formLink: FORMS.gumaJazz, ticketsLink: null, location: null },
+  // Cartaz - reduced since it appears first (2 / 19 ≈ 10.5%)
+  {
+    image: gumaJazzCartaz,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzCartaz,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  // Logo - moderate probability (2 / 19 ≈ 10.5%)
+  {
+    image: gumaJazzLogo,
+    formLink: FORMS.gumaJazz,
+    ticketsLink: null,
+    location: null,
+  },
+  {
+    image: gumaJazzLogo,
+    formLink: FORMS.gumaJazz,
+    ticketsLink: null,
+    location: null,
+  },
+  // Artist gig images - highest probability (3 each / 19 ≈ 15.8% each, 79% total)
+  {
+    image: gumaJazzGig1,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig1,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig1,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig2,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig2,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig2,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig3,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig3,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig3,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig4,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig4,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig4,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig5,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig5,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
+  {
+    image: gumaJazzGig5,
+    formLink: null,
+    ticketsLink: null,
+    location: LOCATIONS.gumaJazz,
+  },
   // { image: logoB1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
   // { image: logoB2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
   // { image: logoW1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
@@ -61,7 +159,8 @@ const App: React.FC = () => {
   const [restrictedArea, setRestrictedArea] = useState<DOMRect | null>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
-  const [activeMovingObject, setActiveMovingObject] = useState<MovingObject | null>(null);
+  const [activeMovingObject, setActiveMovingObject] =
+    useState<MovingObject | null>(null);
 
   // Add new movingObjects at random intervals
   useEffect(() => {
@@ -80,7 +179,9 @@ const App: React.FC = () => {
       }
       const interval = setInterval(
         () => {
-          setMovingObjectCount((count) => Math.min(count + 1, MAX_MOVING_OBJECTS));
+          setMovingObjectCount((count) =>
+            Math.min(count + 1, MAX_MOVING_OBJECTS),
+          );
         },
         Math.random() * (maxInterval - minInterval) + minInterval,
       );
@@ -96,7 +197,7 @@ const App: React.FC = () => {
   }, []);
 
   function openPopUp(movingObject: MovingObject) {
-    setActiveMovingObject(movingObject)
+    setActiveMovingObject(movingObject);
     setShowPopUp(true);
   }
 
@@ -113,10 +214,7 @@ const App: React.FC = () => {
         >
           E
         </p>
-        <p
-          className="l2 shadow-link"
-          onClick={() => openPopUp(eAgoraObject)}
-        >
+        <p className="l2 shadow-link" onClick={() => openPopUp(eAgoraObject)}>
           AGORA
         </p>
         <p
@@ -149,18 +247,20 @@ const App: React.FC = () => {
                 target="_blank"
                 className="button shadow-link"
               >
-                E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
+                E agora? Bilhetes aqui&nbsp;{' '}
+                <i className="fa fa-ticket" aria-hidden="true"></i>
               </a>
             </div>
           ) : (
             <div className="popup-content">
               <img src={activeMovingObject?.image} alt="Pop-up Poster" />
               <a
-                href={activeMovingObject?.location || ""}
+                href={activeMovingObject?.location || ''}
                 target="_blank"
                 className="button shadow-link"
               >
-                Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
+                Entrada Livre&nbsp;{' '}
+                <i className="fa fa-map-marker" aria-hidden="true"></i>
               </a>
             </div>
           )}
