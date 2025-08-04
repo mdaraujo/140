@@ -1,158 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import './App.css';
-import RandomLogo from './components/RandomLogo';
+import MovingElement from './components/MovingElement';
+import PopupModal from './components/PopupModal';
 import { MovingObject } from './types/MovingObject';
-// import logoB1 from '/logo_b_1.png';
-// import logoB2 from '/logo_b_2.png';
-// import logoW1 from '/logo_w_1.png';
-// import logoW2 from '/logo_w_2.png';
-
-import gumaJazzCartaz from './assets/GUMAJAZZ_cartaz.jpg';
-import gumaJazzLogo from './assets/GUMAJAZZ_logo.png';
-import gumaJazzGig1 from './assets/GUMAJAZZ_gig_1.jpeg';
-import gumaJazzGig2 from './assets/GUMAJAZZ_gig_2.jpeg';
-import gumaJazzGig3 from './assets/GUMAJAZZ_gig_3.jpeg';
-import gumaJazzGig4 from './assets/GUMAJAZZ_gig_4.jpeg';
-import gumaJazzGig5 from './assets/GUMAJAZZ_gig_5.jpeg';
-
-const LOCATIONS = {
-  cafeSociedade: 'https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7',
-  fidelis: 'https://maps.app.goo.gl/vGUHBfTgUpr96E7z7',
-  gumaJazz: 'https://maps.app.goo.gl/2SQxqcDrJwXRiRz98',
-};
-
-const FORMS = {
-  fichaSocio: 'https://forms.gle/dgnQgUeGjRHgjG2E7',
-  gumaJazz: 'https://forms.gle/9GpUC4mz8hfMp1S38',
-};
-
-const movingObjects: MovingObject[] = [
-  // Cartaz - reduced since it appears first (2 / 19 ≈ 10.5%)
-  {
-    image: gumaJazzCartaz,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzCartaz,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  // Logo - moderate probability (2 / 19 ≈ 10.5%)
-  {
-    image: gumaJazzLogo,
-    formLink: FORMS.gumaJazz,
-    ticketsLink: null,
-    location: null,
-  },
-  {
-    image: gumaJazzLogo,
-    formLink: FORMS.gumaJazz,
-    ticketsLink: null,
-    location: null,
-  },
-  // Artist gig images - highest probability (3 each / 19 ≈ 15.8% each, 79% total)
-  {
-    image: gumaJazzGig1,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig1,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig1,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig2,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig2,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig2,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig3,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig3,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig3,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig4,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig4,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig4,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig5,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig5,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  {
-    image: gumaJazzGig5,
-    formLink: null,
-    ticketsLink: null,
-    location: LOCATIONS.gumaJazz,
-  },
-  // { image: logoB1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
-  // { image: logoB2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
-  // { image: logoW1, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
-  // { image: logoW2, formLink: FORMS.fichaSocio, ticketsLink: null, location: null },
-];
-const MAX_MOVING_OBJECTS = 9; // Limit the number of movingObjects
-
-const eAgoraObject = movingObjects[0];
+import { movingObjects, eAgoraObject } from './data/movingObjects';
+import { FORMS } from './data/constants';
+import { useTestingUtilities } from './hooks/useTestingUtilities';
+import { useResponsiveMovingObjects } from './hooks/useResponsiveMovingObjects';
+import { useObjectSpawning } from './hooks/useObjectSpawning';
 
 const App: React.FC = () => {
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1); // Start with 1 moving object
@@ -161,33 +17,25 @@ const App: React.FC = () => {
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [activeMovingObject, setActiveMovingObject] =
     useState<MovingObject | null>(null);
+  const selectionCountsRef = useRef<Map<string, number>>(new Map());
 
-  // Add new movingObjects at random intervals
-  useEffect(() => {
-    if (movingObjectCount <= MAX_MOVING_OBJECTS) {
-      // Make the first moving objects appear faster, then slow down
-      let minInterval, maxInterval;
-      if (movingObjectCount < 2) {
-        minInterval = 600; // 0.6s
-        maxInterval = 1200; // 1.2s
-      } else if (movingObjectCount < 4) {
-        minInterval = 1200; // 1.2s
-        maxInterval = 2000; // 2s
-      } else {
-        minInterval = 2000; // 2s
-        maxInterval = 3500; // 3.5s
-      }
-      const interval = setInterval(
-        () => {
-          setMovingObjectCount((count) =>
-            Math.min(count + 1, MAX_MOVING_OBJECTS),
-          );
-        },
-        Math.random() * (maxInterval - minInterval) + minInterval,
-      );
-      return () => clearInterval(interval);
-    }
-  }, [movingObjectCount]);
+  // Shared position tracking for collision detection
+  const objectPositionsRef = useRef<Map<string, { top: number; left: number }>>(
+    new Map(),
+  );
+
+  // Get responsive configuration based on screen size
+  const responsiveConfig = useResponsiveMovingObjects();
+
+  // Make testing functions available in browser console
+  useTestingUtilities(movingObjects, selectionCountsRef);
+
+  // Handle object spawning timing
+  useObjectSpawning({
+    movingObjectCount,
+    setMovingObjectCount,
+    responsiveConfig,
+  });
 
   // Get the bounding box of the question paragraphs
   useEffect(() => {
@@ -204,6 +52,19 @@ const App: React.FC = () => {
   function closePopup() {
     setShowPopUp(false);
   }
+
+  // Handle position updates from moving elements
+  const updateObjectPosition = useCallback(
+    (elementId: string, position: { top: number; left: number }) => {
+      objectPositionsRef.current.set(elementId, position);
+    },
+    [],
+  );
+
+  // Handle object removal
+  const removeObjectPosition = useCallback((elementId: string) => {
+    objectPositionsRef.current.delete(elementId);
+  }, []);
 
   return (
     <>
@@ -226,46 +87,26 @@ const App: React.FC = () => {
       </div>
 
       {Array.from({ length: movingObjectCount }).map((_, index) => (
-        <RandomLogo
+        <MovingElement
           key={index}
+          elementId={`element-${index}`}
           movingObjects={movingObjects}
           onClick={(movingObject) => openPopUp(movingObject)}
           restrictedArea={restrictedArea}
           isFirst={movingObjectCount === 1}
+          selectionCountsRef={selectionCountsRef}
+          animationInterval={responsiveConfig.animationInterval}
+          existingPositions={objectPositionsRef.current}
+          onPositionUpdate={updateObjectPosition}
+          onRemove={removeObjectPosition}
         />
       ))}
 
-      {showPopUp && (
-        <div className="popup" onClick={closePopup}>
-          {activeMovingObject?.ticketsLink ? (
-            <div className="popup-content">
-              <a href={activeMovingObject?.ticketsLink} target="_blank">
-                <img src={activeMovingObject?.image} alt="Pop-up Poster" />
-              </a>
-              <a
-                href={activeMovingObject?.ticketsLink}
-                target="_blank"
-                className="button shadow-link"
-              >
-                E agora? Bilhetes aqui&nbsp;{' '}
-                <i className="fa fa-ticket" aria-hidden="true"></i>
-              </a>
-            </div>
-          ) : (
-            <div className="popup-content">
-              <img src={activeMovingObject?.image} alt="Pop-up Poster" />
-              <a
-                href={activeMovingObject?.location || ''}
-                target="_blank"
-                className="button shadow-link"
-              >
-                Entrada Livre&nbsp;{' '}
-                <i className="fa fa-map-marker" aria-hidden="true"></i>
-              </a>
-            </div>
-          )}
-        </div>
-      )}
+      <PopupModal
+        isOpen={showPopUp}
+        movingObject={activeMovingObject}
+        onClose={closePopup}
+      />
 
       <footer className="footer">
         <p>

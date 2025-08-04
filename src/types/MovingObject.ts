@@ -3,4 +3,6 @@ export interface MovingObject {
   formLink: string | null;
   ticketsLink: string | null;
   location: string | null;
+  description?: string;
+  weight?: number;
 }
