@@ -47,11 +47,14 @@ export function findNonCollidingPosition(
   const viewportHeight =
     window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   const padding = ANIMATION_CONSTANTS.COLLISION_PADDING;
+  const halfWidth = objectSize.width / 2;
+  const halfHeight = objectSize.height / 2;
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const position: Position = {
-      top: Math.random() * (viewportHeight - objectSize.height),
-      left: Math.random() * (viewportWidth - objectSize.width),
+      // Treat position as the CENTER of the object so it never overflows
+      top: halfHeight + Math.random() * (viewportHeight - objectSize.height),
+      left: halfWidth + Math.random() * (viewportWidth - objectSize.width),
     };
 
     // Check if position is in restricted area
@@ -64,8 +67,9 @@ export function findNonCollidingPosition(
 
     // Check collision with existing objects
     const newBounds: ObjectBounds = {
-      top: position.top - padding,
-      left: position.left - padding,
+      // Convert center position to top-left bounds and include padding
+      top: position.top - halfHeight - padding,
+      left: position.left - halfWidth - padding,
       width: objectSize.width + padding * 2,
       height: objectSize.height + padding * 2,
     };
@@ -73,8 +77,8 @@ export function findNonCollidingPosition(
     let hasCollision = false;
     for (const existingPosition of existingPositions.values()) {
       const existingBounds: ObjectBounds = {
-        top: existingPosition.top - padding,
-        left: existingPosition.left - padding,
+        top: existingPosition.top - halfHeight - padding,
+        left: existingPosition.left - halfWidth - padding,
         width: objectSize.width + padding * 2,
         height: objectSize.height + padding * 2,
       };
@@ -93,8 +97,8 @@ export function findNonCollidingPosition(
   // If no position found after max attempts, return a random position
   // This ensures the object still appears even if screen is crowded
   return {
-    top: Math.random() * (viewportHeight - objectSize.height),
-    left: Math.random() * (viewportWidth - objectSize.width),
+    top: halfHeight + Math.random() * (viewportHeight - objectSize.height),
+    left: halfWidth + Math.random() * (viewportWidth - objectSize.width),
   };
 }
 
@@ -106,9 +110,12 @@ function isPositionInRestrictedArea(
   objectSize: { width: number; height: number },
   restrictedArea: DOMRect,
 ): boolean {
+  const halfWidth = objectSize.width / 2;
+  const halfHeight = objectSize.height / 2;
   const objectBounds: ObjectBounds = {
-    top: position.top,
-    left: position.left,
+    // Convert center position to top-left bounds
+    top: position.top - halfHeight,
+    left: position.left - halfWidth,
     width: objectSize.width,
     height: objectSize.height,
   };

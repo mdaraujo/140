@@ -42,22 +42,27 @@ export function generatePosition(
  * @returns A random position
  */
 function generateRandomPosition(restrictedArea: DOMRect | null): Position {
+  const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
+  const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
   let top, left;
   do {
     top =
+      halfHeight +
       Math.random() *
-      window.innerHeight *
-      ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+        (window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO -
+          ANIMATION_CONSTANTS.OBJECT_HEIGHT);
     left =
+      halfWidth +
       Math.random() *
-      window.innerWidth *
-      ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+        (window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO -
+          ANIMATION_CONSTANTS.OBJECT_WIDTH);
   } while (
     restrictedArea &&
-    top >= restrictedArea.top &&
-    top <= restrictedArea.bottom &&
-    left >= restrictedArea.left &&
-    left <= restrictedArea.right
+    // Convert center-based position to object bounds and check overlap
+    top - halfHeight < restrictedArea.bottom &&
+    top + halfHeight > restrictedArea.top &&
+    left - halfWidth < restrictedArea.right &&
+    left + halfWidth > restrictedArea.left
   );
 
   return { top, left };
