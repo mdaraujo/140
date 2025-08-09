@@ -11,6 +11,10 @@
   line-height: 0.4;
   font-weight: 600;
   letter-spacing: 1px;
+}
+
+/* Only spans should be clickable, not the full paragraph width */
+.question .click-target {
   cursor: pointer;
 }
 
@@ -32,6 +36,12 @@
 }
 .shadow-link:hover {
   filter: drop-shadow(10px 3px 1px #546930);
+}
+
+/* Prevent scrollbar flicker from absolute moving elements and hover scaling */
+html,
+body {
+  overflow: hidden;
 }
 
 img.logo-hover {

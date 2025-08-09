@@ -69,20 +69,29 @@ const App: React.FC = () => {
   return (
     <>
       <div className="question" ref={questionRef}>
-        <p
-          className="rotate1 l1 shadow-link"
-          onClick={() => openPopUp(eAgoraObject)}
-        >
-          E
+        <p className="rotate1 l1 shadow-link">
+          <span
+            className="click-target"
+            onClick={() => openPopUp(eAgoraObject)}
+          >
+            E
+          </span>
         </p>
-        <p className="l2 shadow-link" onClick={() => openPopUp(eAgoraObject)}>
-          AGORA
+        <p className="l2 shadow-link">
+          <span
+            className="click-target"
+            onClick={() => openPopUp(eAgoraObject)}
+          >
+            AGORA
+          </span>
         </p>
-        <p
-          className="rotate2 l3 shadow-link"
-          onClick={() => openPopUp(eAgoraObject)}
-        >
-          ?
+        <p className="rotate2 l3 shadow-link">
+          <span
+            className="click-target"
+            onClick={() => openPopUp(eAgoraObject)}
+          >
+            ?
+          </span>
         </p>
       </div>
 
