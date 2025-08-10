@@ -1,5 +1,5 @@
 import { Position } from '../types/Position';
-import { findNonCollidingPosition } from './collisionDetection';
+import { checkCollision, findNonCollidingPosition } from './collisionDetection';
 import { ANIMATION_CONSTANTS } from '../data/constants';
 
 /**
@@ -12,14 +12,14 @@ import { ANIMATION_CONSTANTS } from '../data/constants';
  */
 export function generatePosition(
   existingPositions: Map<string, Position>,
-  restrictedArea: DOMRect | null,
+  restrictedAreas: DOMRect[] = [],
   useCollisionDetection: boolean = true,
   maxAttempts: number = ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_MOVEMENT,
 ): Position {
   if (useCollisionDetection) {
     const collisionFreePosition = findNonCollidingPosition(
       existingPositions,
-      restrictedArea,
+      restrictedAreas,
       {
         width: ANIMATION_CONSTANTS.OBJECT_WIDTH,
         height: ANIMATION_CONSTANTS.OBJECT_HEIGHT,
@@ -32,8 +32,64 @@ export function generatePosition(
     }
   }
 
-  // Fallback: generate random position avoiding only restricted area
-  return generateRandomPosition(restrictedArea);
+  // Fallback: try a small number of random positions that avoid the restricted areas
+  // and lightly check collisions to reduce overlaps
+  const lightPadding = Math.max(
+    ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_MIN,
+    Math.floor(
+      ANIMATION_CONSTANTS.OBJECT_WIDTH *
+        ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_RATIO,
+    ),
+  );
+  const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
+  const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
+  for (
+    let attempt = 0;
+    attempt < ANIMATION_CONSTANTS.LIGHT_COLLISION_TRIES;
+    attempt++
+  ) {
+    const candidate = generateRandomCandidate();
+    // Skip if candidate overlaps any restricted area
+    const overlapsRestricted = restrictedAreas.some((area) =>
+      topLeftWidthHeightOverlap(
+        candidate.top - halfHeight,
+        candidate.left - halfWidth,
+        ANIMATION_CONSTANTS.OBJECT_WIDTH,
+        ANIMATION_CONSTANTS.OBJECT_HEIGHT,
+        area,
+      ),
+    );
+    if (overlapsRestricted) {
+      continue;
+    }
+    const candidateBounds = {
+      top: candidate.top - halfHeight - lightPadding,
+      left: candidate.left - halfWidth - lightPadding,
+      width: ANIMATION_CONSTANTS.OBJECT_WIDTH + lightPadding * 2,
+      height: ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2,
+    };
+
+    let hasCollision = false;
+    for (const pos of existingPositions.values()) {
+      const existingBounds = {
+        top: pos.top - halfHeight - lightPadding,
+        left: pos.left - halfWidth - lightPadding,
+        width: ANIMATION_CONSTANTS.OBJECT_WIDTH + lightPadding * 2,
+        height: ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2,
+      };
+      if (checkCollision(candidateBounds, existingBounds)) {
+        hasCollision = true;
+        break;
+      }
+    }
+
+    if (!hasCollision) {
+      return candidate;
+    }
+  }
+
+  // Final simple fallback
+  return generateRandomCandidate();
 }
 
 /**
@@ -41,24 +97,40 @@ export function generatePosition(
  * @param restrictedArea Area to avoid (e.g., main text)
  * @returns A random position
  */
-function generateRandomPosition(restrictedArea: DOMRect | null): Position {
-  let top, left;
-  do {
-    top =
-      Math.random() *
-      window.innerHeight *
-      ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
-    left =
-      Math.random() *
-      window.innerWidth *
-      ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
-  } while (
-    restrictedArea &&
-    top >= restrictedArea.top &&
-    top <= restrictedArea.bottom &&
-    left >= restrictedArea.left &&
-    left <= restrictedArea.right
-  );
-
+function generateRandomCandidate(): Position {
+  const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
+  const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
+  const top =
+    halfHeight +
+    Math.random() *
+      (window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO -
+        ANIMATION_CONSTANTS.OBJECT_HEIGHT);
+  const left =
+    halfWidth +
+    Math.random() *
+      (window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO -
+        ANIMATION_CONSTANTS.OBJECT_WIDTH);
   return { top, left };
+}
+
+function topLeftWidthHeightOverlap(
+  top: number,
+  left: number,
+  width: number,
+  height: number,
+  area: DOMRect,
+): boolean {
+  const bounds = { top, left, width, height } as {
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  };
+  const areaBounds = {
+    top: area.top,
+    left: area.left,
+    width: area.width,
+    height: area.height,
+  };
+  return checkCollision(bounds, areaBounds);
 }

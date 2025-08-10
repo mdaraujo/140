@@ -1,7 +1,7 @@
 export const LOCATIONS = {
   cafeSociedade: 'https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7',
   fidelis: 'https://maps.app.goo.gl/vGUHBfTgUpr96E7z7',
-  gumaJazz: 'https://maps.app.goo.gl/2SQxqcDrJwXRiRz98',
+  gumaJazz: 'https://maps.app.goo.gl/KbuSZ5HesDFNqh5J9',
 };
 
 export const FORMS = {
@@ -18,7 +18,15 @@ export const ANIMATION_CONSTANTS = {
   // Collision detection
   COLLISION_PADDING: 20,
   COLLISION_ATTEMPTS_INITIAL: 50,
-  COLLISION_ATTEMPTS_MOVEMENT: 15,
+  COLLISION_ATTEMPTS_MOVEMENT: 30,
+
+  // Lightweight collision search (fallback/default) parameters
+  LIGHT_COLLISION_TRIES: 30,
+  LIGHT_COLLISION_PADDING_MIN: 8, // px
+  LIGHT_COLLISION_PADDING_RATIO: 0.1, // of OBJECT_WIDTH
+
+  // Heavy search padding scaling (object-object spacing buffer)
+  HEAVY_COLLISION_PADDING_RATIO: 0.12, // of OBJECT_WIDTH
 
   // Viewport usage
   VIEWPORT_USAGE_RATIO: 0.9,

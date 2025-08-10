@@ -11,6 +11,10 @@
   line-height: 0.4;
   font-weight: 600;
   letter-spacing: 1px;
+}
+
+/* Only spans should be clickable, not the full paragraph width */
+.question .click-target {
   cursor: pointer;
 }
 
@@ -32,6 +36,12 @@
 }
 .shadow-link:hover {
   filter: drop-shadow(10px 3px 1px #546930);
+}
+
+/* Prevent scrollbar flicker from absolute moving elements and hover scaling */
+html,
+body {
+  overflow: hidden;
 }
 
 img.logo-hover {
@@ -134,8 +144,23 @@ img.logo-hover:hover {
   white-space: pre-line;
 }
 
-/* Mobile optimization */
+/* Mobile styles (<=768px) */
 @media only screen and (max-width: 768px) {
+  /* Question sizing and spacing */
+  .question {
+    font-size: 3em;
+    line-height: 0.6;
+  }
+
+  /* Nudge E right and ? left to frame AGORA */
+  .question .l1 {
+    margin-left: 28vw;
+  }
+  .question .l3 {
+    margin-right: 28vw;
+  }
+
+  /* Popup sizing on mobile */
   .popup-content {
     max-width: 92vw;
     max-height: 88vh;
@@ -145,6 +170,11 @@ img.logo-hover:hover {
     font-size: 1rem;
     padding: 0.5rem 0.75rem;
     margin: 0.75rem 0;
+  }
+
+  /* Footer spacing only on mobile, slightly tighter but readable */
+  .footer p {
+    margin: 10px 0;
   }
 }
 
