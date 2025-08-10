@@ -20,6 +20,11 @@ export const ANIMATION_CONSTANTS = {
   COLLISION_ATTEMPTS_INITIAL: 50,
   COLLISION_ATTEMPTS_MOVEMENT: 30,
 
+  // Lightweight collision search (fallback/default) parameters
+  LIGHT_COLLISION_TRIES: 30,
+  LIGHT_COLLISION_PADDING_MIN: 6, // px
+  LIGHT_COLLISION_PADDING_RATIO: 0.08, // of OBJECT_WIDTH
+
   // Viewport usage
   VIEWPORT_USAGE_RATIO: 0.9,
 

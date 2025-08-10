@@ -35,12 +35,19 @@ export function generatePosition(
   // Fallback: try a small number of random positions that avoid the restricted area
   // and lightly check collisions to reduce overlaps
   const lightPadding = Math.max(
-    6,
-    Math.floor(ANIMATION_CONSTANTS.OBJECT_WIDTH * 0.08),
+    ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_MIN,
+    Math.floor(
+      ANIMATION_CONSTANTS.OBJECT_WIDTH *
+        ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_RATIO,
+    ),
   );
   const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
   const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
-  for (let attempt = 0; attempt < 30; attempt++) {
+  for (
+    let attempt = 0;
+    attempt < ANIMATION_CONSTANTS.LIGHT_COLLISION_TRIES;
+    attempt++
+  ) {
     const candidate = generateRandomPosition(restrictedArea);
     const candidateBounds = {
       top: candidate.top - halfHeight - lightPadding,
@@ -64,12 +71,10 @@ export function generatePosition(
     }
 
     if (!hasCollision) {
-      console.log('position found on second attempt!', candidate);
       return candidate;
     }
   }
 
-  console.log('no collision free position found');
   // Final simple fallback
   return generateRandomPosition(restrictedArea);
 }

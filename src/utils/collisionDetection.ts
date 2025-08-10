@@ -90,7 +90,6 @@ export function findNonCollidingPosition(
     }
 
     if (!hasCollision) {
-      console.log('position found', position);
       return position;
     }
   }
