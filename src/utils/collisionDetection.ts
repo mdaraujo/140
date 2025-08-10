@@ -35,7 +35,7 @@ import { ANIMATION_CONSTANTS } from '../data/constants';
 
 export function findNonCollidingPosition(
   existingPositions: Map<string, Position>,
-  restrictedArea: DOMRect | null,
+  restrictedAreas: DOMRect[] = [],
   objectSize: { width: number; height: number } = {
     width: ANIMATION_CONSTANTS.OBJECT_WIDTH,
     height: ANIMATION_CONSTANTS.OBJECT_HEIGHT,
@@ -57,10 +57,11 @@ export function findNonCollidingPosition(
       left: halfWidth + Math.random() * (viewportWidth - objectSize.width),
     };
 
-    // Check if position is in restricted area
+    // Check if position is in any restricted area
     if (
-      restrictedArea &&
-      isPositionInRestrictedArea(position, objectSize, restrictedArea)
+      restrictedAreas.some((area) =>
+        isPositionInRestrictedArea(position, objectSize, area),
+      )
     ) {
       continue;
     }

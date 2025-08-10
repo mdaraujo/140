@@ -12,7 +12,7 @@ import { useObjectSpawning } from './hooks/useObjectSpawning';
 
 const App: React.FC = () => {
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1); // Start with 1 moving object
-  const [restrictedArea, setRestrictedArea] = useState<DOMRect | null>(null);
+  const [restrictedAreas, setRestrictedAreas] = useState<DOMRect[]>([]);
   const questionRef = useRef<HTMLDivElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [activeMovingObject, setActiveMovingObject] =
@@ -37,11 +37,12 @@ const App: React.FC = () => {
     responsiveConfig,
   });
 
-  // Get the bounding box of the question paragraphs
+  // Get the bounding boxes of the individual question paragraphs
   useEffect(() => {
-    if (questionRef.current) {
-      setRestrictedArea(questionRef.current.getBoundingClientRect());
-    }
+    if (!questionRef.current) return;
+    const paras = Array.from(questionRef.current.querySelectorAll('p'));
+    const rects = paras.map((p) => p.getBoundingClientRect());
+    setRestrictedAreas(rects);
   }, []);
 
   function openPopUp(movingObject: MovingObject) {
@@ -101,7 +102,7 @@ const App: React.FC = () => {
           elementId={`element-${index}`}
           movingObjects={movingObjects}
           onClick={(movingObject) => openPopUp(movingObject)}
-          restrictedArea={restrictedArea}
+          restrictedAreas={restrictedAreas}
           isFirst={movingObjectCount === 1}
           selectionCountsRef={selectionCountsRef}
           animationInterval={responsiveConfig.animationInterval}

@@ -10,7 +10,7 @@ interface MovingElementProps {
   elementId: string;
   movingObjects: MovingObject[];
   onClick: (movingObject: MovingObject) => void;
-  restrictedArea: DOMRect | null;
+  restrictedAreas?: DOMRect[];
   isFirst?: boolean;
   selectionCountsRef: React.MutableRefObject<Map<string, number>>;
   animationInterval?: { min: number; max: number };
@@ -23,7 +23,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   elementId,
   movingObjects,
   onClick,
-  restrictedArea,
+  restrictedAreas = [],
   isFirst = false,
   selectionCountsRef,
   animationInterval = { min: 2000, max: 5000 },
@@ -55,12 +55,12 @@ const MovingElement: React.FC<MovingElementProps> = ({
         : existingPositions;
       return generatePosition(
         positions,
-        restrictedArea,
+        restrictedAreas,
         true, // Use collision detection
         ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_MOVEMENT,
       );
     },
-    [restrictedArea, existingPositions],
+    [restrictedAreas, existingPositions],
   );
 
   const getRandomLogo = useCallback((): MovingObject => {
@@ -96,7 +96,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
     // Set initial position with collision detection
     const initialPosition = generatePosition(
       positionsAtMount,
-      restrictedArea,
+      restrictedAreas,
       true, // Use collision detection
       ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_INITIAL,
     );
