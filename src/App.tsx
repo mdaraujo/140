@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1); // Start with 1 moving object
   const [restrictedAreas, setRestrictedAreas] = useState<DOMRect[]>([]);
   const questionRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [activeMovingObject, setActiveMovingObject] =
     useState<MovingObject | null>(null);
@@ -37,12 +38,28 @@ const App: React.FC = () => {
     responsiveConfig,
   });
 
-  // Get the bounding boxes of the individual question paragraphs
+  // Get the bounding boxes of the individual question and footer texts
   useEffect(() => {
-    if (!questionRef.current) return;
-    const paras = Array.from(questionRef.current.querySelectorAll('p'));
-    const rects = paras.map((p) => p.getBoundingClientRect());
-    setRestrictedAreas(rects);
+    if (!questionRef.current || !footerRef.current) return;
+
+    function getTextLineRects(container: Element): DOMRect[] {
+      const rects: DOMRect[] = [];
+      const paragraphs = Array.from(container.querySelectorAll('p'));
+      for (const p of paragraphs) {
+        const range = document.createRange();
+        range.selectNodeContents(p);
+        const clientRects = Array.from(range.getClientRects());
+        for (const r of clientRects) {
+          rects.push(new DOMRect(r.left, r.top, r.width, r.height));
+        }
+        range.detach?.();
+      }
+      return rects;
+    }
+
+    const questionRects = getTextLineRects(questionRef.current);
+    const footerRects = getTextLineRects(footerRef.current);
+    setRestrictedAreas([...questionRects, ...footerRects]);
   }, []);
 
   function openPopUp(movingObject: MovingObject) {
@@ -118,7 +135,7 @@ const App: React.FC = () => {
         onClose={closePopup}
       />
 
-      <footer className="footer">
+      <footer className="footer" ref={footerRef}>
         <p>
           <strong>Associação 140</strong>
         </p>
