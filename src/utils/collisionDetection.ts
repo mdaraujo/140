@@ -46,7 +46,13 @@ export function findNonCollidingPosition(
     window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   const viewportHeight =
     window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
-  const padding = ANIMATION_CONSTANTS.COLLISION_PADDING;
+  const padding = Math.max(
+    ANIMATION_CONSTANTS.COLLISION_PADDING,
+    Math.floor(
+      ANIMATION_CONSTANTS.OBJECT_WIDTH *
+        ANIMATION_CONSTANTS.HEAVY_COLLISION_PADDING_RATIO,
+    ),
+  );
   const halfWidth = objectSize.width / 2;
   const halfHeight = objectSize.height / 2;
 

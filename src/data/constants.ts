@@ -22,8 +22,11 @@ export const ANIMATION_CONSTANTS = {
 
   // Lightweight collision search (fallback/default) parameters
   LIGHT_COLLISION_TRIES: 30,
-  LIGHT_COLLISION_PADDING_MIN: 6, // px
-  LIGHT_COLLISION_PADDING_RATIO: 0.08, // of OBJECT_WIDTH
+  LIGHT_COLLISION_PADDING_MIN: 8, // px
+  LIGHT_COLLISION_PADDING_RATIO: 0.1, // of OBJECT_WIDTH
+
+  // Heavy search padding scaling (object-object spacing buffer)
+  HEAVY_COLLISION_PADDING_RATIO: 0.12, // of OBJECT_WIDTH
 
   // Viewport usage
   VIEWPORT_USAGE_RATIO: 0.9,
