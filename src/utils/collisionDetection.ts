@@ -90,16 +90,14 @@ export function findNonCollidingPosition(
     }
 
     if (!hasCollision) {
+      console.log('position found', position);
       return position;
     }
   }
 
-  // If no position found after max attempts, return a random position
-  // This ensures the object still appears even if screen is crowded
-  return {
-    top: halfHeight + Math.random() * (viewportHeight - objectSize.height),
-    left: halfWidth + Math.random() * (viewportWidth - objectSize.width),
-  };
+  // If no non-colliding position found, let caller fallback to
+  // restricted-area-aware random placement
+  return null;
 }
 
 /**
