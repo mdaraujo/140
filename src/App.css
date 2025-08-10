@@ -144,8 +144,23 @@ img.logo-hover:hover {
   white-space: pre-line;
 }
 
-/* Mobile optimization */
+/* Mobile styles (<=768px) */
 @media only screen and (max-width: 768px) {
+  /* Question sizing and spacing */
+  .question {
+    font-size: 3em;
+    line-height: 0.6;
+  }
+
+  /* Nudge E right and ? left to frame AGORA */
+  .question .l1 {
+    margin-left: 28vw;
+  }
+  .question .l3 {
+    margin-right: 28vw;
+  }
+
+  /* Popup sizing on mobile */
   .popup-content {
     max-width: 92vw;
     max-height: 88vh;
@@ -155,6 +170,11 @@ img.logo-hover:hover {
     font-size: 1rem;
     padding: 0.5rem 0.75rem;
     margin: 0.75rem 0;
+  }
+
+  /* Footer spacing only on mobile, slightly tighter but readable */
+  .footer p {
+    margin: 10px 0;
   }
 }
 
