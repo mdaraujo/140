@@ -153,6 +153,12 @@ img.logo-hover:hover {
     line-height: 0.6;
   }
 
+  /* Reduce vertical spacing between E, AGORA, and ? */
+  .question p {
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+  }
+
   /* Nudge E right and ? left to frame AGORA */
   .question .l1 {
     margin-left: 28vw;
