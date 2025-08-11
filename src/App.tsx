@@ -19,6 +19,7 @@ const App: React.FC = () => {
   const [activeMovingObject, setActiveMovingObject] =
     useState<MovingObject | null>(null);
   const selectionCountsRef = useRef<Map<string, number>>(new Map());
+  const [showPulse, setShowPulse] = useState<boolean>(true);
 
   // Shared position tracking for collision detection
   const objectPositionsRef = useRef<Map<string, { top: number; left: number }>>(
@@ -71,6 +72,22 @@ const App: React.FC = () => {
     setShowPopUp(false);
   }
 
+  // Subtle pulse cue on first load (auto-stops after ~2.4s or on first interaction)
+  useEffect(() => {
+    const disablePulse = () => setShowPulse(false);
+    const timeoutId = window.setTimeout(disablePulse, 2400);
+    const onceOptions: AddEventListenerOptions & { once: boolean } = {
+      once: true,
+    };
+    window.addEventListener('pointerdown', disablePulse, onceOptions);
+    window.addEventListener('keydown', disablePulse, onceOptions);
+    return () => {
+      window.clearTimeout(timeoutId);
+      window.removeEventListener('pointerdown', disablePulse);
+      window.removeEventListener('keydown', disablePulse);
+    };
+  }, []);
+
   // Handle position updates from moving elements
   const updateObjectPosition = useCallback(
     (elementId: string, position: { top: number; left: number }) => {
@@ -97,7 +114,7 @@ const App: React.FC = () => {
         </p>
         <p className="l2 shadow-link">
           <span
-            className="click-target"
+            className={`click-target ${showPulse ? 'pulse-once' : ''}`}
             onClick={() => openPopUp(eAgoraObject)}
           >
             AGORA

@@ -16,6 +16,35 @@
 /* Only spans should be clickable, not the full paragraph width */
 .question .click-target {
   cursor: pointer;
+  display: inline-block;
+  will-change: transform;
+  transform-origin: center;
+}
+
+/* Subtle pulse cue for initial discoverability */
+.pulse-once {
+  animation: pulse-subtle 2.4s ease-out 1;
+}
+
+@keyframes pulse-subtle {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.12);
+  }
+  35% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.08);
+  }
+  75% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .l1 {
