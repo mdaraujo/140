@@ -139,6 +139,7 @@ img.logo-hover:hover {
   font-size: 1.1rem;
   line-height: 1.4;
   font-style: italic;
+  font-weight: 500; /* slightly heavier than regular, but not bold */
   text-align: center;
   max-width: 400px;
   white-space: pre-line;
@@ -170,6 +171,7 @@ img.logo-hover:hover {
     font-size: 1rem;
     padding: 0.5rem 0.75rem;
     margin: 0.75rem 0;
+    text-align: left; /* align with the button on mobile */
   }
 
   /* Footer spacing only on mobile, slightly tighter but readable */
