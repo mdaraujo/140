@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const [activeMovingObject, setActiveMovingObject] =
     useState<MovingObject | null>(null);
   const selectionCountsRef = useRef<Map<string, number>>(new Map());
-  const [showPulse, setShowPulse] = useState<boolean>(true);
+  // Question cue index controls which of E/AGORA/? pulses
   const [questionCueIndex, setQuestionCueIndex] = useState<number | null>(null);
 
   // Shared position tracking for collision detection
@@ -81,34 +81,19 @@ const App: React.FC = () => {
     }
   }, []);
 
-  // Subtle pulse cue on first load (auto-stops after ~2.4s or on first interaction)
-  useEffect(() => {
-    const disablePulse = () => setShowPulse(false);
-    const timeoutId = window.setTimeout(disablePulse, 2400);
-    const onceOptions: AddEventListenerOptions & { once: boolean } = {
-      once: true,
-    };
-    window.addEventListener('pointerdown', disablePulse, onceOptions);
-    window.addEventListener('keydown', disablePulse, onceOptions);
-    return () => {
-      window.clearTimeout(timeoutId);
-      window.removeEventListener('pointerdown', disablePulse);
-      window.removeEventListener('keydown', disablePulse);
-    };
-  }, []);
-
   // Occasionally cue one of the question spans (E / AGORA / ?)
   useEffect(() => {
     let cancelled = false;
     let timerId = 0 as unknown as number;
+    const PULSE_DURATION_MS = 2400; // match .pulse-once animation length
 
     const scheduleNextCue = () => {
-      const delayMs = 4000 + Math.random() * 4000; // 4s - 8s
+      const delayMs = 2500 + Math.random() * 2500; // ~2.5s - 5s
       timerId = window.setTimeout(() => {
         if (cancelled) return;
         const index = Math.floor(Math.random() * 3); // 0,1,2
         setQuestionCueIndex(index);
-        window.setTimeout(() => setQuestionCueIndex(null), 900);
+        window.setTimeout(() => setQuestionCueIndex(null), PULSE_DURATION_MS);
         if (!cancelled) scheduleNextCue();
       }, delayMs);
     };
@@ -138,7 +123,7 @@ const App: React.FC = () => {
       <div className="question" ref={questionRef}>
         <p className="rotate1 l1 shadow-link">
           <span
-            className={`click-target ${questionCueIndex === 0 ? 'attention-cue' : ''}`}
+            className={`click-target ${questionCueIndex === 0 ? 'pulse-once' : ''}`}
             role="button"
             tabIndex={0}
             aria-label="Abrir detalhes"
@@ -150,7 +135,7 @@ const App: React.FC = () => {
         </p>
         <p className="l2 shadow-link">
           <span
-            className={`click-target ${showPulse ? 'pulse-once' : ''} ${questionCueIndex === 1 ? 'attention-cue' : ''}`}
+            className={`click-target ${questionCueIndex === 1 ? 'pulse-once' : ''}`}
             role="button"
             tabIndex={0}
             aria-label="Abrir detalhes"
@@ -162,7 +147,7 @@ const App: React.FC = () => {
         </p>
         <p className="rotate2 l3 shadow-link">
           <span
-            className={`click-target ${questionCueIndex === 2 ? 'attention-cue' : ''}`}
+            className={`click-target ${questionCueIndex === 2 ? 'pulse-once' : ''}`}
             role="button"
             tabIndex={0}
             aria-label="Abrir detalhes"
