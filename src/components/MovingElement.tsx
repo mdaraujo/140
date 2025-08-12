@@ -37,6 +37,8 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const [shouldCue, setShouldCue] = useState<boolean>(false);
   const hasSetInitialImage = useRef(false);
   const objectPositionsRef = useRef(existingPositions);
+  const lastMoveIdRef = useRef<number>(0);
+  const cueTimeoutRef = useRef<number | null>(null);
 
   // Selection logging hook
   const { logSelection } = useSelectionLogging({
@@ -49,26 +51,39 @@ const MovingElement: React.FC<MovingElementProps> = ({
     objectPositionsRef.current = existingPositions;
   }, [existingPositions]);
 
-  // Occasionally cue the moving element for clickability
-  useEffect(() => {
-    let cancelled = false;
-    let timerId = 0 as unknown as number;
+  // Schedule a cue shortly after a move finishes (only sometimes)
+  const scheduleCueAfterMove = useCallback((moveId: number) => {
+    // Parse transition duration like '0.5s' to ms
+    const transitionMs =
+      Math.max(
+        0,
+        Math.floor(
+          parseFloat(ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION) * 1000,
+        ),
+      ) || 500;
+    const extraDelay = 300 + Math.random() * 900; // 0.3s - 1.2s after movement
+    const totalDelay = transitionMs + extraDelay;
 
-    const scheduleNextCue = () => {
-      const delayMs = 7000 + Math.random() * 9000; // 7s - 16s
-      timerId = window.setTimeout(() => {
-        if (cancelled) return;
+    if (cueTimeoutRef.current) {
+      window.clearTimeout(cueTimeoutRef.current);
+      cueTimeoutRef.current = null;
+    }
+
+    cueTimeoutRef.current = window.setTimeout(() => {
+      // Only cue if no newer move has started
+      if (lastMoveIdRef.current !== moveId) return;
+      // Randomize whether to cue this time to avoid overuse
+      if (Math.random() < 0.55) {
         setShouldCue(true);
-        window.setTimeout(() => setShouldCue(false), 800);
-        if (!cancelled) scheduleNextCue();
-      }, delayMs);
-    };
-
-    scheduleNextCue();
-    return () => {
-      cancelled = true;
-      window.clearTimeout(timerId);
-    };
+        // Remove cue after CSS animation ends (~2s)
+        const cueDurationMs = 2000;
+        window.setTimeout(() => {
+          if (lastMoveIdRef.current === moveId) {
+            setShouldCue(false);
+          }
+        }, cueDurationMs);
+      }
+    }, totalDelay);
   }, []);
 
   const getPosition = useCallback(
@@ -125,12 +140,17 @@ const MovingElement: React.FC<MovingElementProps> = ({
     );
     setPosition(initialPosition);
     onPositionUpdate(elementId, initialPosition);
+    // Consider initial placement as a move end
+    lastMoveIdRef.current += 1;
+    scheduleCueAfterMove(lastMoveIdRef.current);
 
     // Trigger move animation after the component mounts
     setTimeout(() => {
       const newPosition = getPosition();
       setPosition(newPosition);
       onPositionUpdate(elementId, newPosition);
+      lastMoveIdRef.current += 1;
+      scheduleCueAfterMove(lastMoveIdRef.current);
     }, ANIMATION_CONSTANTS.POSITION_UPDATE_DELAY);
 
     // Change position at random intervals with lightweight collision detection
@@ -139,6 +159,8 @@ const MovingElement: React.FC<MovingElementProps> = ({
         const newPosition = getPosition(true); // Use current positions
         setPosition(newPosition);
         onPositionUpdate(elementId, newPosition);
+        lastMoveIdRef.current += 1;
+        scheduleCueAfterMove(lastMoveIdRef.current);
       },
       Math.random() * (animationInterval.max - animationInterval.min) +
         animationInterval.min,
@@ -148,6 +170,10 @@ const MovingElement: React.FC<MovingElementProps> = ({
     return () => {
       clearInterval(interval);
       onRemove(elementId);
+      if (cueTimeoutRef.current) {
+        window.clearTimeout(cueTimeoutRef.current);
+        cueTimeoutRef.current = null;
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
