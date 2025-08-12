@@ -15,6 +15,9 @@ export function useTestingUtilities(
   selectionCountsRef: React.MutableRefObject<Map<string, number>>,
 ) {
   useEffect(() => {
+    if (!import.meta.env.DEV) {
+      return;
+    }
     // @ts-expect-error - Adding to window for testing
     window.testDiminishingWeights = () =>
       logDiminishingWeightsTest(movingObjects, 100);

@@ -4,6 +4,7 @@ import './App.css';
 import MovingElement from './components/MovingElement';
 import PopupModal from './components/PopupModal';
 import { MovingObject } from './types/MovingObject';
+import { Position } from './types/Position';
 import { movingObjects, eAgoraObject } from './data/movingObjects';
 import { FORMS } from './data/constants';
 import { useTestingUtilities } from './hooks/useTestingUtilities';
@@ -23,9 +24,7 @@ const App: React.FC = () => {
   const [questionCueIndex, setQuestionCueIndex] = useState<number | null>(null);
 
   // Shared position tracking for collision detection
-  const objectPositionsRef = useRef<Map<string, { top: number; left: number }>>(
-    new Map(),
-  );
+  const objectPositionsRef = useRef<Map<string, Position>>(new Map());
 
   // Get responsive configuration based on screen size
   const responsiveConfig = useResponsiveMovingObjects();
@@ -107,7 +106,7 @@ const App: React.FC = () => {
 
   // Handle position updates from moving elements
   const updateObjectPosition = useCallback(
-    (elementId: string, position: { top: number; left: number }) => {
+    (elementId: string, position: Position) => {
       objectPositionsRef.current.set(elementId, position);
     },
     [],
@@ -187,7 +186,7 @@ const App: React.FC = () => {
         </p>
         <p>Movimento Artístico e Sociocultural</p>
         <p>
-          <a href={FORMS.fichaSocio} target="_blank">
+          <a href={FORMS.fichaSocio} target="_blank" rel="noopener noreferrer">
             <strong>Torna-te sócio!</strong>
           </a>
         </p>
