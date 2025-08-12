@@ -72,6 +72,14 @@ const App: React.FC = () => {
     setShowPopUp(false);
   }
 
+  // Accessibility: keyboard activate on Enter/Space for clickable spans
+  const handleClickTargetKeyDown = useCallback((event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openPopUp(eAgoraObject);
+    }
+  }, []);
+
   // Subtle pulse cue on first load (auto-stops after ~2.4s or on first interaction)
   useEffect(() => {
     const disablePulse = () => setShowPulse(false);
@@ -107,6 +115,10 @@ const App: React.FC = () => {
         <p className="rotate1 l1 shadow-link">
           <span
             className="click-target"
+            role="button"
+            tabIndex={0}
+            aria-label="Abrir detalhes"
+            onKeyDown={handleClickTargetKeyDown}
             onClick={() => openPopUp(eAgoraObject)}
           >
             E
@@ -115,6 +127,10 @@ const App: React.FC = () => {
         <p className="l2 shadow-link">
           <span
             className={`click-target ${showPulse ? 'pulse-once' : ''}`}
+            role="button"
+            tabIndex={0}
+            aria-label="Abrir detalhes"
+            onKeyDown={handleClickTargetKeyDown}
             onClick={() => openPopUp(eAgoraObject)}
           >
             AGORA
@@ -123,6 +139,10 @@ const App: React.FC = () => {
         <p className="rotate2 l3 shadow-link">
           <span
             className="click-target"
+            role="button"
+            tabIndex={0}
+            aria-label="Abrir detalhes"
+            onKeyDown={handleClickTargetKeyDown}
             onClick={() => openPopUp(eAgoraObject)}
           >
             ?
