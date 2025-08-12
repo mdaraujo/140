@@ -168,7 +168,7 @@ img.logo-hover:hover {
   background-color: #546930;
   color: #f9c49c;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(84, 105, 48, 0.4);
+  box-shadow: none;
 }
 
 .artist-description {
