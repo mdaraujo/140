@@ -160,12 +160,73 @@ img.logo-hover:hover {
   z-index: 10;
   background: rgba(234, 160, 107, 0.92);
   overflow: hidden;
+  opacity: 0; /* start transparent to avoid initial flash */
+  transition: opacity 340ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.popup.visible {
+  opacity: 1;
+}
+.popup.closing {
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .popup-content {
   max-width: 95vw;
   max-height: 85vh;
   margin-bottom: 20px;
+  position: relative;
+  transform: scale(1);
+  animation: content-pop-in 360ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.closing .popup-content {
+  animation: content-pop-out 220ms cubic-bezier(0.55, 0, 0.1, 1) both;
+}
+
+@keyframes content-pop-in {
+  from {
+    transform: scale(0.985);
+    opacity: 0.96;
+  }
+  60% {
+    transform: scale(1.005);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes content-pop-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.985);
+    opacity: 0.96;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .popup,
+  .popup.closing,
+  .popup-content,
+  .closing .popup-content {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 .popup-content img {
@@ -188,6 +249,33 @@ img.logo-hover:hover {
   text-decoration: none;
   border-radius: 4px;
   transition: all 0.3s ease;
+}
+
+/* Top-right X close button */
+.popup-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 2px solid #546930;
+  background: #eaa06b;
+  color: #546930;
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.popup-close:hover,
+.popup-close:focus-visible {
+  background: #546930;
+  color: #f9c49c;
+  outline: none;
 }
 
 .popup-content .button:hover {
