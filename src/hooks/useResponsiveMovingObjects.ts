@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react';
-
-interface ResponsiveConfig {
-  maxMovingObjects: number;
-  animationInterval: {
-    min: number;
-    max: number;
-  };
-}
+import { ResponsiveConfig } from '../types/ResponsiveConfig';
 
 /**
  * Hook to determine responsive configuration for moving objects based on screen size

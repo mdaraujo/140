@@ -1,9 +1,5 @@
 import { useEffect } from 'react';
-
-interface ResponsiveConfig {
-  maxMovingObjects: number;
-  animationInterval: { min: number; max: number };
-}
+import { ResponsiveConfig } from '../types/ResponsiveConfig';
 
 interface UseObjectSpawningProps {
   movingObjectCount: number;
@@ -23,9 +19,10 @@ export function useObjectSpawning({
   responsiveConfig,
 }: UseObjectSpawningProps): void {
   useEffect(() => {
-    if (movingObjectCount <= responsiveConfig.maxMovingObjects) {
+    if (movingObjectCount < responsiveConfig.maxMovingObjects) {
       // Make the first moving objects appear faster, then slow down
-      let minInterval, maxInterval;
+      let minInterval: number;
+      let maxInterval: number;
 
       if (movingObjectCount < 2) {
         minInterval = 600; // 0.6s
