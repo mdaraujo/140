@@ -32,7 +32,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   onRemove,
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
-  const [currentMovingObject, setcurrentMovingObject] =
+  const [currentMovingObject, setCurrentMovingObject] =
     useState<MovingObject>();
   const [shouldCue, setShouldCue] = useState<boolean>(false);
   const hasSetInitialImage = useRef(false);
@@ -118,9 +118,9 @@ const MovingElement: React.FC<MovingElementProps> = ({
         // For the first object, manually select and count the first item
         const firstObject = movingObjects[0];
         logSelection(firstObject);
-        setcurrentMovingObject(firstObject);
+        setCurrentMovingObject(firstObject);
       } else {
-        setcurrentMovingObject(getRandomLogo());
+        setCurrentMovingObject(getRandomLogo());
       }
       hasSetInitialImage.current = true;
     }
@@ -224,8 +224,17 @@ const MovingElement: React.FC<MovingElementProps> = ({
             height: 'auto',
             transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
           }}
+          role="button"
+          tabIndex={0}
+          aria-label="Abrir detalhes"
           className={`logo-hover ${shouldCue ? 'attention-cue' : ''}`}
           onClick={() => onClick(currentMovingObject)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onClick(currentMovingObject);
+            }
+          }}
         />
       )}
     </div>
