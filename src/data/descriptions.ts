@@ -1,6 +1,6 @@
 export const DESCRIPTIONS = {
   cartaz:
-    'A Associação 140 convida o público para mais uma edição do GumaJazz, um evento que celebra o jazz, a improvisação, o artesanato e a criação comunitária no coração do verão.\nO festival acontece no dia 17 de agosto de 2025, a partir das 15h.',
+    'A Associação 140 convida o público para mais uma edição do GumaJazz, um evento que celebra o jazz, a improvisação, o artesanato e a criação comunitária no coração do verão. O festival acontece no dia 17 de agosto de 2025, a partir das 15h.',
   workshop15h:
     'O Clara Lacerda Trio dinamiza um workshop aberto a todas as pessoas a partir dos 6 anos, músicos e não músicos. Uma proposta educativa e sensorial que celebra a improvisação como linguagem inclusiva.',
   gentrifugacao17h:
