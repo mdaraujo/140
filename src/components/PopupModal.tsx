@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MovingObject } from '../types/MovingObject';
 
 interface PopupModalProps {
@@ -12,6 +12,20 @@ const PopupModal: React.FC<PopupModalProps> = ({
   movingObject,
   onClose,
 }) => {
+  // Close on Escape key for accessibility
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function handleKeyUp(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    }
+
+    window.addEventListener('keyup', handleKeyUp);
+    return () => window.removeEventListener('keyup', handleKeyUp);
+  }, [isOpen, onClose]);
+
   if (!isOpen || !movingObject) return null;
 
   const hasTickets = !!movingObject.ticketsLink;
