@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MovingObject } from '../types/MovingObject';
 
 interface PopupModalProps {
@@ -12,6 +12,20 @@ const PopupModal: React.FC<PopupModalProps> = ({
   movingObject,
   onClose,
 }) => {
+  // Close on Escape key for accessibility
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function handleKeyUp(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    }
+
+    window.addEventListener('keyup', handleKeyUp);
+    return () => window.removeEventListener('keyup', handleKeyUp);
+  }, [isOpen, onClose]);
+
   if (!isOpen || !movingObject) return null;
 
   const hasTickets = !!movingObject.ticketsLink;
@@ -35,7 +49,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
           <a
             href={movingObject.ticketsLink!}
             target="_blank"
-            className="button shadow-link"
+            className="button"
           >
             E agora? Bilhetes aqui&nbsp;{' '}
             <i className="fa fa-ticket" aria-hidden="true"></i>
@@ -44,7 +58,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
           <a
             href={movingObject.location || ''}
             target="_blank"
-            className="button shadow-link"
+            className="button"
           >
             Entrada Livre&nbsp;{' '}
             <i className="fa fa-map-marker" aria-hidden="true"></i>

@@ -34,8 +34,11 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const [currentMovingObject, setcurrentMovingObject] =
     useState<MovingObject>();
+  const [shouldCue, setShouldCue] = useState<boolean>(false);
   const hasSetInitialImage = useRef(false);
   const objectPositionsRef = useRef(existingPositions);
+  const lastMoveIdRef = useRef<number>(0);
+  const cueTimeoutRef = useRef<number | null>(null);
 
   // Selection logging hook
   const { logSelection } = useSelectionLogging({
@@ -47,6 +50,41 @@ const MovingElement: React.FC<MovingElementProps> = ({
   useEffect(() => {
     objectPositionsRef.current = existingPositions;
   }, [existingPositions]);
+
+  // Schedule a cue shortly after a move finishes (only sometimes)
+  const scheduleCueAfterMove = useCallback((moveId: number) => {
+    // Parse transition duration like '0.5s' to ms
+    const transitionMs =
+      Math.max(
+        0,
+        Math.floor(
+          parseFloat(ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION) * 1000,
+        ),
+      ) || 500;
+    const extraDelay = 300 + Math.random() * 900; // 0.3s - 1.2s after movement
+    const totalDelay = transitionMs + extraDelay;
+
+    if (cueTimeoutRef.current) {
+      window.clearTimeout(cueTimeoutRef.current);
+      cueTimeoutRef.current = null;
+    }
+
+    cueTimeoutRef.current = window.setTimeout(() => {
+      // Only cue if no newer move has started
+      if (lastMoveIdRef.current !== moveId) return;
+      // Randomize whether to cue this time to avoid overuse
+      if (Math.random() < 0.55) {
+        setShouldCue(true);
+        // Remove cue after CSS animation ends (~2s)
+        const cueDurationMs = 2000;
+        window.setTimeout(() => {
+          if (lastMoveIdRef.current === moveId) {
+            setShouldCue(false);
+          }
+        }, cueDurationMs);
+      }
+    }, totalDelay);
+  }, []);
 
   const getPosition = useCallback(
     (useCurrentPositions: boolean = false): Position => {
@@ -102,12 +140,17 @@ const MovingElement: React.FC<MovingElementProps> = ({
     );
     setPosition(initialPosition);
     onPositionUpdate(elementId, initialPosition);
+    // Consider initial placement as a move end
+    lastMoveIdRef.current += 1;
+    scheduleCueAfterMove(lastMoveIdRef.current);
 
     // Trigger move animation after the component mounts
     setTimeout(() => {
       const newPosition = getPosition();
       setPosition(newPosition);
       onPositionUpdate(elementId, newPosition);
+      lastMoveIdRef.current += 1;
+      scheduleCueAfterMove(lastMoveIdRef.current);
     }, ANIMATION_CONSTANTS.POSITION_UPDATE_DELAY);
 
     // Change position at random intervals with lightweight collision detection
@@ -116,6 +159,8 @@ const MovingElement: React.FC<MovingElementProps> = ({
         const newPosition = getPosition(true); // Use current positions
         setPosition(newPosition);
         onPositionUpdate(elementId, newPosition);
+        lastMoveIdRef.current += 1;
+        scheduleCueAfterMove(lastMoveIdRef.current);
       },
       Math.random() * (animationInterval.max - animationInterval.min) +
         animationInterval.min,
@@ -125,6 +170,10 @@ const MovingElement: React.FC<MovingElementProps> = ({
     return () => {
       clearInterval(interval);
       onRemove(elementId);
+      if (cueTimeoutRef.current) {
+        window.clearTimeout(cueTimeoutRef.current);
+        cueTimeoutRef.current = null;
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -175,7 +224,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
             height: 'auto',
             transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
           }}
-          className="logo-hover"
+          className={`logo-hover ${shouldCue ? 'attention-cue' : ''}`}
           onClick={() => onClick(currentMovingObject)}
         />
       )}
