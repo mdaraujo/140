@@ -60,6 +60,34 @@
   }
 }
 
+/* Occasional attention cue */
+.attention-cue {
+  will-change: transform;
+}
+
+.question .attention-cue {
+  animation: cue-pop 1.3s ease-out 1;
+}
+
+.logo-hover.attention-cue {
+  animation: cue-pop 1.3s ease-out 1;
+}
+
+@keyframes cue-pop {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  55% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .l1 {
   margin-left: 150px;
 }
