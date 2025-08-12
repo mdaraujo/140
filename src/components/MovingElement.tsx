@@ -34,6 +34,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const [currentMovingObject, setcurrentMovingObject] =
     useState<MovingObject>();
+  const [shouldCue, setShouldCue] = useState<boolean>(false);
   const hasSetInitialImage = useRef(false);
   const objectPositionsRef = useRef(existingPositions);
 
@@ -47,6 +48,28 @@ const MovingElement: React.FC<MovingElementProps> = ({
   useEffect(() => {
     objectPositionsRef.current = existingPositions;
   }, [existingPositions]);
+
+  // Occasionally cue the moving element for clickability
+  useEffect(() => {
+    let cancelled = false;
+    let timerId = 0 as unknown as number;
+
+    const scheduleNextCue = () => {
+      const delayMs = 7000 + Math.random() * 9000; // 7s - 16s
+      timerId = window.setTimeout(() => {
+        if (cancelled) return;
+        setShouldCue(true);
+        window.setTimeout(() => setShouldCue(false), 800);
+        if (!cancelled) scheduleNextCue();
+      }, delayMs);
+    };
+
+    scheduleNextCue();
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timerId);
+    };
+  }, []);
 
   const getPosition = useCallback(
     (useCurrentPositions: boolean = false): Position => {
@@ -175,7 +198,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
             height: 'auto',
             transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
           }}
-          className="logo-hover"
+          className={`logo-hover ${shouldCue ? 'attention-cue' : ''}`}
           onClick={() => onClick(currentMovingObject)}
         />
       )}
