@@ -194,6 +194,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
         left: `${position.left}px`,
         transform: 'translate(-50%, -50%)',
         transition: `top ${ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION} ease, left ${ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION} ease`,
+        pointerEvents: 'auto',
       }}
     >
       {currentMovingObject?.formLink && (
@@ -201,6 +202,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
           href={currentMovingObject.formLink}
           target="_blank"
           rel="noopener noreferrer"
+          style={{ pointerEvents: 'auto' }}
         >
           <img
             src={currentMovingObject.image}
@@ -209,6 +211,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
               width: `${ANIMATION_CONSTANTS.OBJECT_WIDTH}px`,
               height: 'auto',
               transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
+              pointerEvents: 'auto',
             }}
             className="logo-hover"
           />
@@ -223,6 +226,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
             width: `${ANIMATION_CONSTANTS.OBJECT_WIDTH}px`,
             height: 'auto',
             transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
+            pointerEvents: 'auto',
           }}
           role="button"
           tabIndex={0}
