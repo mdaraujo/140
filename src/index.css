@@ -1,10 +1,15 @@
 :root {
+  --color-foreground: rgba(255, 255, 255, 0.95);
+  --color-bg: #eaa06b;
+  --color-accent: #546930;
+  --color-accent-2: #f9c49c;
+
   font-family: Satoshi, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(255, 255, 255, 0.95);
-  background-color: #eaa06b;
+  color: var(--color-foreground);
+  background-color: var(--color-bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

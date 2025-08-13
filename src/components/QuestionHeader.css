@@ -1,0 +1,104 @@
+.question {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-size: 4em;
+  line-height: 0.4;
+  font-weight: 600;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+.question p {
+  pointer-events: none;
+}
+
+.question .click-target {
+  cursor: pointer;
+  display: inline-block;
+  will-change: transform;
+  transform-origin: center;
+  pointer-events: auto;
+  position: relative;
+  z-index: 3;
+}
+
+.question .click-target:hover,
+.question .click-target:focus-visible {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transform: scale(1.06);
+}
+
+.question .click-target:focus-visible {
+  outline: 2px dotted #546930;
+  outline-offset: 2px;
+}
+
+.pulse-once {
+  animation: pulse-subtle 2.4s ease-out 1;
+}
+
+@keyframes pulse-subtle {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.12);
+  }
+  35% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.08);
+  }
+  75% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.question .attention-cue {
+  animation: cue-pop 2s ease-out 1;
+}
+
+@keyframes cue-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.l1 {
+  margin-left: 150px;
+}
+.l2 {
+  text-align: center;
+}
+.l3 {
+  margin-right: 150px;
+}
+
+@media only screen and (max-width: 768px) {
+  .question {
+    font-size: 3em;
+    line-height: 0.6;
+  }
+  .question p {
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+  }
+  .question .l1 {
+    margin-left: 28vw;
+  }
+  .question .l3 {
+    margin-right: 28vw;
+  }
+}

@@ -1,0 +1,26 @@
+.footer {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1em;
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+.footer p {
+  margin: 10px 0;
+  pointer-events: none;
+}
+.footer a {
+  pointer-events: auto;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.footer a:focus-visible {
+  outline: 2px dotted #546930;
+  outline-offset: 2px;
+}

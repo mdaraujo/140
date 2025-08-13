@@ -9,6 +9,8 @@ import { useTestingUtilities } from '../hooks/useTestingUtilities';
 import { useResponsiveMovingObjects } from '../hooks/useResponsiveMovingObjects';
 import { useObjectSpawning } from '../hooks/useObjectSpawning';
 import { Position } from '../types/Position';
+import '../components/QuestionHeader.css';
+import '../components/Footer.css';
 
 const Home: React.FC = () => {
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1);

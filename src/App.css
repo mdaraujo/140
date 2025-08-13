@@ -3,46 +3,6 @@
   padding: 2rem 0;
 }
 
-.question {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  font-size: 4em;
-  line-height: 0.4;
-  font-weight: 600;
-  letter-spacing: 1px;
-  pointer-events: none;
-}
-
-/* Ensure only the spans are interactive. Paragraphs should not block hover/clicks beneath. */
-.question p {
-  pointer-events: none;
-}
-
-/* Only spans should be clickable, not the full paragraph width */
-.question .click-target {
-  cursor: pointer;
-  display: inline-block;
-  will-change: transform;
-  transform-origin: center;
-  pointer-events: auto; /* re-enable interaction for the span itself */
-  position: relative;
-  z-index: 3; /* ensure spans stay above moving elements for focus/hover */
-}
-
-/* Hover/focus affordances for clickable text */
-.question .click-target:hover,
-.question .click-target:focus-visible {
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  transform: scale(1.06);
-}
-
-.question .click-target:focus-visible {
-  outline: 2px dotted #546930;
-  outline-offset: 2px;
-}
-
 /* Subtle pulse cue for initial discoverability */
 .pulse-once {
   animation: pulse-subtle 2.4s ease-out 1;
@@ -74,10 +34,6 @@
   will-change: transform;
 }
 
-.question .attention-cue {
-  animation: cue-pop 2s ease-out 1;
-}
-
 .logo-hover.attention-cue {
   animation: cue-pop 2s ease-out 1;
 }
@@ -92,18 +48,6 @@
   100% {
     transform: scale(1);
   }
-}
-
-.l1 {
-  margin-left: 150px;
-}
-
-.l2 {
-  text-align: center;
-}
-
-.l3 {
-  margin-right: 150px;
 }
 
 .shadow-link {
@@ -384,44 +328,4 @@ img.logo-hover:hover {
     flex-shrink: 0;
     margin-top: 0.5rem;
   }
-}
-
-/* Footer styles */
-.footer {
-  position: fixed;
-  z-index: 1;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  padding: 10px 0;
-  font-size: 1em;
-  line-height: 1.2;
-  /* Allow moving elements to be interactive under footer background; links override below */
-  pointer-events: none;
-}
-
-/* Allow moving elements under non-interactive footer areas to receive hover/click */
-.footer p {
-  pointer-events: none;
-}
-.footer a {
-  pointer-events: auto;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
-/* Footer clickable affordances */
-.footer a:focus-visible {
-  outline: 2px dotted #546930;
-  outline-offset: 2px;
-}
-
-/* Ensure footer links remain clickable despite footer pointer-events none */
-.footer a,
-.footer button,
-.footer [role='button'],
-.footer area {
-  pointer-events: auto;
 }
