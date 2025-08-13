@@ -396,6 +396,8 @@ img.logo-hover:hover {
   padding: 10px 0;
   font-size: 1em;
   line-height: 1.2;
+  /* Allow moving elements to be interactive under footer background; links override below */
+  pointer-events: none;
 }
 
 /* Allow moving elements under non-interactive footer areas to receive hover/click */
@@ -414,4 +416,12 @@ img.logo-hover:hover {
 .footer a:focus-visible {
   outline: 2px dotted #546930;
   outline-offset: 2px;
+}
+
+/* Ensure footer links remain clickable despite footer pointer-events none */
+.footer a,
+.footer button,
+.footer [role='button'],
+.footer area {
+  pointer-events: auto;
 }
