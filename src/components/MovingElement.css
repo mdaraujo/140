@@ -1,0 +1,15 @@
+.moving-element {
+  position: absolute;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition-property: top, left;
+  transition-timing-function: ease;
+  pointer-events: auto;
+}
+
+.moving-element img {
+  width: 80px; /* keep in sync with ANIMATION_CONSTANTS.OBJECT_WIDTH */
+  height: auto;
+  transition: transform 0.3s ease;
+  pointer-events: auto;
+}

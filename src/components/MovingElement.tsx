@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import './MovingElement.css';
 import { MovingObject } from '../types/MovingObject';
 import { selectWeightedRandom } from '../utils/weightedSelection';
 import { Position } from '../types/Position';
@@ -186,15 +187,11 @@ const MovingElement: React.FC<MovingElementProps> = ({
 
   return (
     <div
-      className="shadow-link"
+      className="shadow-link moving-element"
       style={{
-        position: 'absolute',
-        zIndex: 1,
         top: `${position.top}px`,
         left: `${position.left}px`,
-        transform: 'translate(-50%, -50%)',
-        transition: `top ${ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION} ease, left ${ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION} ease`,
-        pointerEvents: 'auto',
+        transitionDuration: ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION,
       }}
     >
       {currentMovingObject?.formLink && (
@@ -207,12 +204,6 @@ const MovingElement: React.FC<MovingElementProps> = ({
           <img
             src={currentMovingObject.image}
             alt="140"
-            style={{
-              width: `${ANIMATION_CONSTANTS.OBJECT_WIDTH}px`,
-              height: 'auto',
-              transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
-              pointerEvents: 'auto',
-            }}
             className="logo-hover"
           />
         </a>
@@ -222,12 +213,6 @@ const MovingElement: React.FC<MovingElementProps> = ({
         <img
           src={currentMovingObject.image}
           alt="140"
-          style={{
-            width: `${ANIMATION_CONSTANTS.OBJECT_WIDTH}px`,
-            height: 'auto',
-            transition: `transform ${ANIMATION_CONSTANTS.TRANSFORM_TRANSITION_DURATION} ease`,
-            pointerEvents: 'auto',
-          }}
           role="button"
           tabIndex={0}
           aria-label="Abrir detalhes"
