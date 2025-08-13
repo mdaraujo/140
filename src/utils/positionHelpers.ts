@@ -43,12 +43,16 @@ export function generatePosition(
   );
   const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
   const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
+  const viewportWidth =
+    window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  const viewportHeight =
+    window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   for (
     let attempt = 0;
     attempt < ANIMATION_CONSTANTS.LIGHT_COLLISION_TRIES;
     attempt++
   ) {
-    const candidate = generateRandomCandidate();
+    const candidate = generateRandomCandidate(viewportWidth, viewportHeight);
     // Skip if candidate overlaps any restricted area
     const overlapsRestricted = restrictedAreas.some((area) =>
       topLeftWidthHeightOverlap(
@@ -89,7 +93,7 @@ export function generatePosition(
   }
 
   // Final simple fallback
-  return generateRandomCandidate();
+  return generateRandomCandidate(viewportWidth, viewportHeight);
 }
 
 /**
@@ -97,19 +101,17 @@ export function generatePosition(
  * @param restrictedArea Area to avoid (e.g., main text)
  * @returns A random position
  */
-function generateRandomCandidate(): Position {
+function generateRandomCandidate(
+  viewportWidth: number,
+  viewportHeight: number,
+): Position {
   const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
   const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
-  const top =
-    halfHeight +
-    Math.random() *
-      (window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO -
-        ANIMATION_CONSTANTS.OBJECT_HEIGHT);
-  const left =
-    halfWidth +
-    Math.random() *
-      (window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO -
-        ANIMATION_CONSTANTS.OBJECT_WIDTH);
+
+  const usableWidth = viewportWidth - ANIMATION_CONSTANTS.OBJECT_WIDTH;
+  const usableHeight = viewportHeight - ANIMATION_CONSTANTS.OBJECT_HEIGHT;
+  const left = halfWidth + Math.random() * usableWidth;
+  const top = halfHeight + Math.random() * usableHeight;
   return { top, left };
 }
 

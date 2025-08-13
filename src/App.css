@@ -11,6 +11,12 @@
   line-height: 0.4;
   font-weight: 600;
   letter-spacing: 1px;
+  pointer-events: none;
+}
+
+/* Ensure only the spans are interactive. Paragraphs should not block hover/clicks beneath. */
+.question p {
+  pointer-events: none;
 }
 
 /* Only spans should be clickable, not the full paragraph width */
@@ -19,6 +25,9 @@
   display: inline-block;
   will-change: transform;
   transform-origin: center;
+  pointer-events: auto; /* re-enable interaction for the span itself */
+  position: relative;
+  z-index: 3; /* ensure spans stay above moving elements for focus/hover */
 }
 
 /* Hover/focus affordances for clickable text */
@@ -387,6 +396,14 @@ img.logo-hover:hover {
   padding: 10px 0;
   font-size: 1em;
   line-height: 1.2;
+}
+
+/* Allow moving elements under non-interactive footer areas to receive hover/click */
+.footer p {
+  pointer-events: none;
+}
+.footer a {
+  pointer-events: auto;
 }
 
 .footer a:hover {
