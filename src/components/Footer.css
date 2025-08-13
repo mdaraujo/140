@@ -10,10 +10,11 @@
   pointer-events: none;
 }
 
+/* Footer text should not block interactions */
 .footer p {
-  margin: 10px 0;
   pointer-events: none;
 }
+
 .footer a {
   pointer-events: auto;
 }
@@ -23,4 +24,12 @@
 .footer a:focus-visible {
   outline: 2px dotted #546930;
   outline-offset: 2px;
+}
+
+/* Mobile styles (<=768px) */
+@media only screen and (max-width: 768px) {
+  /* Footer spacing only on mobile, slightly tighter but readable */
+  .footer p {
+    margin: 10px 0;
+  }
 }

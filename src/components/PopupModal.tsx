@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import './PopupModal.css';
 import { MovingObject } from '../types/MovingObject';
 
 interface PopupModalProps {

@@ -86,15 +86,19 @@
   margin-right: 150px;
 }
 
+/* Mobile styles (<=768px) */
 @media only screen and (max-width: 768px) {
+  /* Question sizing and spacing */
   .question {
     font-size: 3em;
     line-height: 0.6;
   }
+  /* Reduce vertical spacing between E, AGORA, and ? */
   .question p {
     margin-top: 0.7em;
     margin-bottom: 0.7em;
   }
+  /* Nudge E right and ? left to frame AGORA */
   .question .l1 {
     margin-left: 28vw;
   }
