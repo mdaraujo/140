@@ -10,7 +10,7 @@
   background: rgba(234, 160, 107, 0.92);
   overflow: hidden;
   opacity: 0; /* start transparent to avoid initial flash */
-  transition: opacity 340ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity var(--duration-popup-in) var(--easing-popup-in);
   will-change: opacity;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -21,7 +21,7 @@
 }
 .popup.closing {
   opacity: 0;
-  transition: opacity 300ms cubic-bezier(0.55, 0, 0.1, 1);
+  transition: opacity var(--duration-popup-out) var(--easing-popup-out);
 }
 
 .popup-content {
@@ -30,14 +30,16 @@
   margin-bottom: 20px;
   position: relative;
   transform: scale(1);
-  animation: content-pop-in 360ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: content-pop-in var(--duration-content-in) var(--easing-popup-in)
+    both;
   will-change: transform, opacity;
   backface-visibility: hidden;
   transform: translateZ(0);
 }
 
 .closing .popup-content {
-  animation: content-pop-out 220ms cubic-bezier(0.55, 0, 0.1, 1) both;
+  animation: content-pop-out var(--duration-content-out) var(--easing-popup-out)
+    both;
 }
 
 @keyframes content-pop-in {
