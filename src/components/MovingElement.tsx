@@ -199,7 +199,6 @@ const MovingElement: React.FC<MovingElementProps> = ({
           href={currentMovingObject.formLink}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ pointerEvents: 'auto' }}
         >
           <img
             src={currentMovingObject.image}

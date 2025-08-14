@@ -7,6 +7,10 @@
   pointer-events: auto;
 }
 
+.moving-element a {
+  pointer-events: auto;
+}
+
 .moving-element img {
   width: 80px; /* keep in sync with ANIMATION_CONSTANTS.OBJECT_WIDTH */
   height: auto;
