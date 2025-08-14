@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './MovingElement.css';
 import { MovingObject } from '../types/MovingObject';
-import { selectWeightedRandom } from '../utils/weightedSelection';
 import { Position } from '../types/Position';
+import { AnimationInterval } from '../types/ResponsiveConfig';
+import { selectWeightedRandom } from '../utils/weightedSelection';
 import { generatePosition } from '../utils/positionHelpers';
 import { useSelectionLogging } from '../hooks/useSelectionLogging';
 import { ANIMATION_CONSTANTS } from '../data/constants';
@@ -14,7 +15,7 @@ interface MovingElementProps {
   restrictedAreas?: DOMRect[];
   isFirst?: boolean;
   selectionCountsRef: React.MutableRefObject<Map<string, number>>;
-  animationInterval?: { min: number; max: number };
+  animationInterval?: AnimationInterval;
   existingPositions: Map<string, Position>;
   onPositionUpdate: (elementId: string, position: Position) => void;
   onRemove: (elementId: string) => void;
@@ -40,6 +41,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const objectPositionsRef = useRef(existingPositions);
   const lastMoveIdRef = useRef<number>(0);
   const cueTimeoutRef = useRef<number | null>(null);
+  const moveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Selection logging hook
   const { logSelection } = useSelectionLogging({
@@ -54,14 +56,13 @@ const MovingElement: React.FC<MovingElementProps> = ({
 
   // Schedule a cue shortly after a move finishes (only sometimes)
   const scheduleCueAfterMove = useCallback((moveId: number) => {
-    // Parse transition duration like '0.5s' to ms
-    const transitionMs =
-      Math.max(
-        0,
-        Math.floor(
-          parseFloat(ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION) * 1000,
-        ),
-      ) || 500;
+    // Get transition duration from CSS custom property (fallback to 500ms)
+    const durationStr = getComputedStyle(document.documentElement)
+      .getPropertyValue('--duration-position')
+      .trim();
+    const transitionMs = durationStr
+      ? Math.max(0, Math.floor(parseFloat(durationStr) * 1000))
+      : 500;
     const extraDelay = 300 + Math.random() * 900; // 0.3s - 1.2s after movement
     const totalDelay = transitionMs + extraDelay;
 
@@ -161,21 +162,30 @@ const MovingElement: React.FC<MovingElementProps> = ({
     }, ANIMATION_CONSTANTS.POSITION_UPDATE_DELAY);
 
     // Change position at random intervals with lightweight collision detection
-    const interval = setInterval(
-      () => {
+    const scheduleNextMove = () => {
+      const randomDelay =
+        Math.random() * (animationInterval.max - animationInterval.min) +
+        animationInterval.min;
+
+      return setTimeout(() => {
         const newPosition = getPosition(true); // Use current positions
         setPosition(newPosition);
         onPositionUpdate(elementId, newPosition);
         lastMoveIdRef.current += 1;
         scheduleCueAfterMove(lastMoveIdRef.current);
-      },
-      Math.random() * (animationInterval.max - animationInterval.min) +
-        animationInterval.min,
-    );
+        // Schedule the next move with a new random interval
+        moveTimeoutRef.current = scheduleNextMove();
+      }, randomDelay);
+    };
+
+    moveTimeoutRef.current = scheduleNextMove();
 
     // Cleanup function
     return () => {
-      clearInterval(interval);
+      if (moveTimeoutRef.current) {
+        clearTimeout(moveTimeoutRef.current);
+        moveTimeoutRef.current = null;
+      }
       onRemove(elementId);
       if (cueTimeoutRef.current) {
         window.clearTimeout(cueTimeoutRef.current);
@@ -197,7 +207,6 @@ const MovingElement: React.FC<MovingElementProps> = ({
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
-        transitionDuration: ANIMATION_CONSTANTS.POSITION_TRANSITION_DURATION,
       }}
     >
       {currentMovingObject?.formLink && (

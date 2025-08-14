@@ -2,8 +2,9 @@
   position: absolute;
   z-index: 1;
   transform: translate(-50%, -50%);
-  transition-property: top, left;
-  transition-timing-function: ease;
+  transition:
+    top var(--duration-position) ease,
+    left var(--duration-position) ease;
   pointer-events: auto;
 }
 
