@@ -34,6 +34,7 @@ export function generatePosition(
 
   // Fallback: try a small number of random positions that avoid the restricted areas
   // and lightly check collisions to reduce overlaps
+  // Pre-calculate reused values for performance
   const lightPadding = Math.max(
     ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_MIN,
     Math.floor(
@@ -43,6 +44,9 @@ export function generatePosition(
   );
   const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
   const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
+  const lightPaddedWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH + lightPadding * 2;
+  const lightPaddedHeight =
+    ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2;
   const viewportWidth =
     window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   const viewportHeight =
@@ -69,8 +73,8 @@ export function generatePosition(
     const candidateBounds = {
       top: candidate.top - halfHeight - lightPadding,
       left: candidate.left - halfWidth - lightPadding,
-      width: ANIMATION_CONSTANTS.OBJECT_WIDTH + lightPadding * 2,
-      height: ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2,
+      width: lightPaddedWidth,
+      height: lightPaddedHeight,
     };
 
     let hasCollision = false;
@@ -78,8 +82,8 @@ export function generatePosition(
       const existingBounds = {
         top: pos.top - halfHeight - lightPadding,
         left: pos.left - halfWidth - lightPadding,
-        width: ANIMATION_CONSTANTS.OBJECT_WIDTH + lightPadding * 2,
-        height: ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2,
+        width: lightPaddedWidth,
+        height: lightPaddedHeight,
       };
       if (checkCollision(candidateBounds, existingBounds)) {
         hasCollision = true;
