@@ -86,9 +86,9 @@
 
 .popup-content .button {
   margin-top: 0px;
-  background-color: #eaa06b;
-  color: #546930;
-  border: 2px solid #546930;
+  background-color: var(--color-bg);
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
   padding: 10px 20px;
   font-weight: 550;
   cursor: pointer;
@@ -106,9 +106,9 @@
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  border: 2px solid #546930;
-  background: #eaa06b;
-  color: #546930;
+  border: 2px solid var(--color-accent);
+  background: var(--color-bg);
+  color: var(--color-accent);
   font-size: 24px;
   line-height: 28px;
   display: flex;
@@ -119,14 +119,14 @@
 }
 .popup-close:hover,
 .popup-close:focus-visible {
-  background: #546930;
-  color: #f9c49c;
+  background: var(--color-accent);
+  color: var(--color-accent-2);
   outline: none;
 }
 
 .popup-content .button:hover {
-  background-color: #546930;
-  color: #f9c49c;
+  background-color: var(--color-accent);
+  color: var(--color-accent-2);
   transform: translateY(-2px);
   box-shadow: none;
 }
@@ -135,9 +135,9 @@
   margin: 1rem 0;
   padding: 0.75rem 1rem;
   background-color: rgba(84, 105, 48, 0.15);
-  border-left: 4px solid #546930;
+  border-left: 4px solid var(--color-accent);
   border-radius: 4px;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--color-foreground);
   font-size: 1.1rem;
   line-height: 1.4;
   font-style: normal;

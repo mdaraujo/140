@@ -55,7 +55,7 @@
   transition: filter 200ms;
 }
 .shadow-link:hover {
-  filter: drop-shadow(10px 3px 1px #546930);
+  filter: drop-shadow(10px 3px 1px var(--color-accent));
 }
 
 /* Prevent scrollbar flicker from absolute moving elements and hover scaling */
