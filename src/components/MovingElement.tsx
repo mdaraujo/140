@@ -5,7 +5,7 @@ import { Position } from '../types/Position';
 import { AnimationInterval } from '../types/ResponsiveConfig';
 import { selectWeightedRandom } from '../utils/weightedSelection';
 import { generatePosition } from '../utils/positionHelpers';
-import { useSelectionLogging } from '../hooks/useSelectionLogging';
+import { useMovingObjects } from '../contexts/MovingObjectsContext';
 import { ANIMATION_CONSTANTS } from '../data/constants';
 
 interface MovingElementProps {
@@ -43,11 +43,8 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const cueTimeoutRef = useRef<number | null>(null);
   const moveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Selection logging hook
-  const { logSelection } = useSelectionLogging({
-    movingObjects,
-    selectionCountsRef,
-  });
+  // Get selection logging from context
+  const { logSelection } = useMovingObjects();
 
   // Update ref with current positions
   useEffect(() => {
