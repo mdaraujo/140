@@ -1,16 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import QuestionHeader from '../components/QuestionHeader';
+import Footer from '../components/Footer';
 import MovingElement from '../components/MovingElement';
 import PopupModal from '../components/PopupModal';
+import QuestionHeader from '../components/QuestionHeader';
 import { MovingObject } from '../types/MovingObject';
 import { movingObjects, eAgoraObject } from '../data/movingObjects';
-import { FORMS } from '../data/constants';
-import { useTestingUtilities } from '../hooks/useTestingUtilities';
-import { useResponsiveMovingObjects } from '../hooks/useResponsiveMovingObjects';
 import { useObjectSpawning } from '../hooks/useObjectSpawning';
+import { useResponsiveMovingObjects } from '../hooks/useResponsiveMovingObjects';
+import { useTestingUtilities } from '../hooks/useTestingUtilities';
 import { Position } from '../types/Position';
-import '../components/QuestionHeader.css';
-import '../components/Footer.css';
 
 const Home: React.FC = () => {
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1);
@@ -102,37 +100,7 @@ const Home: React.FC = () => {
         onClose={closePopup}
       />
 
-      <footer className="footer" ref={footerRef}>
-        <p>
-          <strong>Associação 140</strong>
-        </p>
-        <p>Movimento Artístico e Sociocultural</p>
-        <p>
-          <a href={FORMS.fichaSocio} target="_blank" rel="noopener noreferrer">
-            <strong>Torna-te sócio!</strong>
-          </a>
-        </p>
-        <p>
-          <i className="fa fa-instagram" aria-hidden="true"></i>
-          &nbsp;
-          <a
-            href="https://www.instagram.com/cento.quarenta/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            cento.quarenta
-          </a>
-        </p>
-        <p>
-          <i className="fa fa-envelope-o" aria-hidden="true"></i>
-          &nbsp;
-          <a href="mailto:geral@140.pt">geral@140.pt</a>
-        </p>
-        <p>
-          <i className="fa fa-copyright" aria-hidden="true"></i>
-          &nbsp;2024-2025 Penafiel
-        </p>
-      </footer>
+      <Footer ref={footerRef} />
     </>
   );
 };
