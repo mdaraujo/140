@@ -34,7 +34,7 @@
   will-change: transform;
 }
 
-.logo-hover.attention-cue {
+.moving-element-hover.attention-cue {
   animation: cue-pop 2s ease-out 1;
 }
 
@@ -62,14 +62,6 @@
 html,
 body {
   overflow: hidden;
-}
-
-img.logo-hover {
-  cursor: pointer;
-}
-
-img.logo-hover:hover {
-  transform: scale(1.5);
 }
 
 @keyframes rotate-spin1 {

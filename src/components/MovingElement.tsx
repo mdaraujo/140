@@ -102,7 +102,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
     [restrictedAreas, existingPositions],
   );
 
-  const getRandomLogo = useCallback((): MovingObject => {
+  const getRandomObject = useCallback((): MovingObject => {
     const selected = selectWeightedRandom(
       movingObjects,
       selectionCountsRef.current,
@@ -121,11 +121,17 @@ const MovingElement: React.FC<MovingElementProps> = ({
         logSelection(firstObject);
         setCurrentMovingObject(firstObject);
       } else {
-        setCurrentMovingObject(getRandomLogo());
+        setCurrentMovingObject(getRandomObject());
       }
       hasSetInitialImage.current = true;
     }
-  }, [isFirst, movingObjects, getRandomLogo, selectionCountsRef]);
+  }, [
+    isFirst,
+    movingObjects,
+    getRandomObject,
+    selectionCountsRef,
+    logSelection,
+  ]);
 
   // Handle position changes and animations
   useEffect(() => {
@@ -203,7 +209,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
           <img
             src={currentMovingObject.image}
             alt="140"
-            className="logo-hover"
+            className="moving-element-hover"
           />
         </a>
       )}
@@ -215,7 +221,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
           role="button"
           tabIndex={0}
           aria-label="Abrir detalhes"
-          className={`logo-hover ${shouldCue ? 'attention-cue' : ''}`}
+          className={`moving-element-hover ${shouldCue ? 'attention-cue' : ''}`}
           onClick={() => onClick(currentMovingObject)}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {

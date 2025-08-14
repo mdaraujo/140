@@ -17,3 +17,11 @@
   transition: transform var(--duration-transform) ease;
   pointer-events: auto;
 }
+
+.moving-element-hover {
+  cursor: pointer;
+}
+
+.moving-element-hover:hover {
+  transform: scale(1.5);
+}
