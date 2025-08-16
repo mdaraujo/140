@@ -1,10 +1,28 @@
 :root {
+  --color-foreground: rgba(255, 255, 255, 0.95);
+  --color-bg: #eaa06b;
+  --color-accent: #546930;
+  --color-accent-2: #f9c49c;
+
+  /* Durations */
+  --duration-popup-in: 340ms;
+  --duration-popup-out: 300ms;
+  --duration-content-in: 360ms;
+  --duration-content-out: 220ms;
+  --duration-shadow-hover: 200ms;
+  --duration-transform: 0.3s;
+  --duration-position: 0.5s;
+
+  /* Easings */
+  --easing-popup-in: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --easing-popup-out: cubic-bezier(0.55, 0, 0.1, 1);
+
   font-family: Satoshi, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(255, 255, 255, 0.95);
-  background-color: #eaa06b;
+  color: var(--color-foreground);
+  background-color: var(--color-bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,22 +31,15 @@
 }
 
 a {
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--color-foreground);
   text-decoration: inherit;
 }
 a:hover {
-  color: #546930;
+  color: var(--color-accent);
 }
 
 body {
   margin: 0;
-  /* display: flex; */
-  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
-
-/* h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-} */

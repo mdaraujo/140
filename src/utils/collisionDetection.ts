@@ -46,6 +46,7 @@ export function findNonCollidingPosition(
     window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   const viewportHeight =
     window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  // Pre-calculate reused values
   const padding = Math.max(
     ANIMATION_CONSTANTS.COLLISION_PADDING,
     Math.floor(
@@ -55,6 +56,8 @@ export function findNonCollidingPosition(
   );
   const halfWidth = objectSize.width / 2;
   const halfHeight = objectSize.height / 2;
+  const paddedWidth = objectSize.width + padding * 2;
+  const paddedHeight = objectSize.height + padding * 2;
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const position: Position = {
@@ -77,8 +80,8 @@ export function findNonCollidingPosition(
       // Convert center position to top-left bounds and include padding
       top: position.top - halfHeight - padding,
       left: position.left - halfWidth - padding,
-      width: objectSize.width + padding * 2,
-      height: objectSize.height + padding * 2,
+      width: paddedWidth,
+      height: paddedHeight,
     };
 
     let hasCollision = false;
@@ -86,8 +89,8 @@ export function findNonCollidingPosition(
       const existingBounds: ObjectBounds = {
         top: existingPosition.top - halfHeight - padding,
         left: existingPosition.left - halfWidth - padding,
-        width: objectSize.width + padding * 2,
-        height: objectSize.height + padding * 2,
+        width: paddedWidth,
+        height: paddedHeight,
       };
 
       if (checkCollision(newBounds, existingBounds)) {

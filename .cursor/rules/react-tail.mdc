@@ -41,6 +41,8 @@ Code Style and Structure
 - Use “class:” instead of the tertiary operator in class tags whenever possible.
 - Use descriptive variable and function/const names. Also, event functions should be named with a “handle” prefix, like “handleClick” for onClick and “handleKeyDown” for onKeyDown.
 - Use descriptive variable names with auxiliary verbs (e.g., isLoaded, hasError).
+- When changing the imports of a file, allways make sure they are organized, and take the oportunity to organize if needed
+- Do not leave extra comments, for example saying something was removed
 
 UI and Styling
 

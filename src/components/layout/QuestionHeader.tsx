@@ -1,4 +1,5 @@
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
+import './QuestionHeader.css';
 
 interface QuestionHeaderProps {
   onOpenPopUp: () => void;

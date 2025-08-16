@@ -11,30 +11,24 @@ export const FORMS = {
 
 // Animation and Layout Constants
 export const ANIMATION_CONSTANTS = {
-  // Object dimensions
-  OBJECT_WIDTH: 80,
-  OBJECT_HEIGHT: 80,
+  // Object dimensions (keep synchronized with CSS)
+  OBJECT_WIDTH: 80, // px - matches .moving-element img width
+  OBJECT_HEIGHT: 80, // px - auto height based on width ratio
 
-  // Collision detection
-  COLLISION_PADDING: 20,
+  // Collision detection - initial placement (more thorough)
   COLLISION_ATTEMPTS_INITIAL: 50,
+  COLLISION_PADDING: 20, // px - minimum space around objects
+  HEAVY_COLLISION_PADDING_RATIO: 0.12, // multiplier of OBJECT_WIDTH for object-object spacing
+
+  // Collision detection - movement (lighter/faster)
   COLLISION_ATTEMPTS_MOVEMENT: 30,
-
-  // Lightweight collision search (fallback/default) parameters
   LIGHT_COLLISION_TRIES: 30,
-  LIGHT_COLLISION_PADDING_MIN: 8, // px
-  LIGHT_COLLISION_PADDING_RATIO: 0.1, // of OBJECT_WIDTH
+  LIGHT_COLLISION_PADDING_MIN: 8, // px - minimum padding for light collision
+  LIGHT_COLLISION_PADDING_RATIO: 0.1, // multiplier of OBJECT_WIDTH
 
-  // Heavy search padding scaling (object-object spacing buffer)
-  HEAVY_COLLISION_PADDING_RATIO: 0.12, // of OBJECT_WIDTH
+  // Layout constraints
+  VIEWPORT_USAGE_RATIO: 0.9, // fraction of viewport to use for positioning
 
-  // Viewport usage
-  VIEWPORT_USAGE_RATIO: 0.9,
-
-  // Timing
-  POSITION_UPDATE_DELAY: 100, // ms delay for first position update
-
-  // Transition styles
-  POSITION_TRANSITION_DURATION: '0.5s',
-  TRANSFORM_TRANSITION_DURATION: '0.3s',
+  // Timing (transition durations in CSS variables)
+  POSITION_UPDATE_DELAY: 100, // ms - delay before first position update
 };
