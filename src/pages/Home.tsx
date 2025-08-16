@@ -1,8 +1,7 @@
 import React from 'react';
-import Footer from '../components/Footer';
-import MovingElement from '../components/MovingElement';
-import PopupModal from '../components/PopupModal';
-import QuestionHeader from '../components/QuestionHeader';
+import { Footer, QuestionHeader } from '../components/layout';
+import { MovingElement } from '../components/moving';
+import { PopupModal } from '../components/ui';
 import { movingObjects } from '../data/movingObjects';
 import { useMovingObjects } from '../contexts/MovingObjectsContext';
 import { useUIState } from '../contexts/UIStateContext';
