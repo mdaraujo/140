@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const {
     movingObjectCount,
     objectPositions,
-    selectionCounts,
+    randomPickCounts,
     restrictedAreas,
     responsiveConfig,
     updateObjectPosition,
@@ -45,7 +45,7 @@ const Home: React.FC = () => {
           onClick={openPopup}
           restrictedAreas={restrictedAreas}
           isFirst={movingObjectCount === 1}
-          selectionCountsRef={{ current: selectionCounts }}
+          selectionCountsRef={{ current: randomPickCounts }}
           animationInterval={responsiveConfig.animationInterval}
           existingPositions={objectPositions}
           onPositionUpdate={updateObjectPosition}

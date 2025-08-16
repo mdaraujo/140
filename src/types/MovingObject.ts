@@ -13,6 +13,6 @@ export interface MovingObject {
   location: string | null;
   /** Detailed description shown in popup modal */
   description?: string;
-  /** Selection weight for weighted random selection (higher = more likely) */
+  /** Weight for weighted random algorithm (higher = more likely to be picked) */
   weight?: number;
 }

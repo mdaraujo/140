@@ -8,11 +8,11 @@ import {
 /**
  * Custom hook to expose testing utilities to the browser console
  * @param movingObjects Array of moving objects to test with
- * @param selectionCountsRef Ref to the current selection counts
+ * @param randomPickCountsRef Ref to the current weighted algorithm pick counts
  */
 export function useTestingUtilities(
   movingObjects: MovingObject[],
-  selectionCountsRef: React.MutableRefObject<Map<string, number>>,
+  randomPickCountsRef: React.MutableRefObject<Map<string, number>>,
 ) {
   useEffect(() => {
     if (!import.meta.env.DEV) {
@@ -24,10 +24,10 @@ export function useTestingUtilities(
     // @ts-expect-error - Adding to window for testing
     window.demonstrateDiminishingEffect = () =>
       demonstrateDiminishingEffect(movingObjects);
-    // @ts-expect-error - Adding current selection counts to window
-    window.getCurrentSelectionCounts = () => {
-      console.log('\n=== Current Selection Counts ===');
-      const counts = Array.from(selectionCountsRef.current.entries()).map(
+    // @ts-expect-error - Adding current random pick counts to window
+    window.getCurrentRandomPickCounts = () => {
+      console.log('\n=== Current Weighted Algorithm Stats ===');
+      const counts = Array.from(randomPickCountsRef.current.entries()).map(
         ([image, count]) => ({
           image: image.split('/').pop() || 'unknown',
           count,
@@ -35,7 +35,7 @@ export function useTestingUtilities(
       );
       console.table(counts);
       console.log('================================\n');
-      return selectionCountsRef.current;
+      return randomPickCountsRef.current;
     };
-  }, [movingObjects, selectionCountsRef]);
+  }, [movingObjects, randomPickCountsRef]);
 }

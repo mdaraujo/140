@@ -17,7 +17,7 @@ interface MovingObjectsState {
   // Object management
   movingObjectCount: number;
   objectPositions: Map<string, Position>;
-  selectionCounts: Map<string, number>;
+  randomPickCounts: Map<string, number>;
 
   // UI state
   restrictedAreas: DOMRect[];
@@ -35,9 +35,9 @@ interface MovingObjectsActions {
   updateObjectPosition: (elementId: string, position: Position) => void;
   removeObjectPosition: (elementId: string) => void;
 
-  // Selection tracking
-  logSelection: (movingObject: MovingObject) => void;
-  getSelectionCounts: () => Map<string, number>;
+  // Weighted random algorithm tracking
+  logRandomPick: (movingObject: MovingObject) => void;
+  getRandomPickCounts: () => Map<string, number>;
 
   // Configuration
   setRestrictedAreas: (areas: DOMRect[]) => void;
@@ -95,7 +95,7 @@ export function MovingObjectsProvider({
 
   // Refs for performance (avoid re-renders on position updates)
   const objectPositionsRef = useRef<Map<string, Position>>(new Map());
-  const selectionCountsRef = useRef<Map<string, number>>(new Map());
+  const randomPickCountsRef = useRef<Map<string, number>>(new Map());
 
   // Position management actions
   const updateObjectPosition = useCallback(
@@ -109,30 +109,30 @@ export function MovingObjectsProvider({
     objectPositionsRef.current.delete(elementId);
   }, []);
 
-  // Selection tracking actions
-  const logSelection = useCallback(
-    (selected: MovingObject) => {
-      // Update selection count
-      const currentCount = selectionCountsRef.current.get(selected.image) || 0;
+  // Weighted random algorithm tracking actions
+  const logRandomPick = useCallback(
+    (picked: MovingObject) => {
+      // Update random pick count for diminishing weights algorithm
+      const currentCount = randomPickCountsRef.current.get(picked.image) || 0;
       const newCount = currentCount + 1;
-      selectionCountsRef.current.set(selected.image, newCount);
+      randomPickCountsRef.current.set(picked.image, newCount);
 
-      // Log individual selection
-      const imageName = selected.image.split('/').pop() || 'unknown';
-      const effectiveWeight = (selected.weight || 1) / newCount;
+      // Log individual random pick
+      const imageName = picked.image.split('/').pop() || 'unknown';
+      const effectiveWeight = (picked.weight || 1) / newCount;
 
       console.log(
-        `🎯 Selected: ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(2)})`,
+        `🎲 Random Pick: ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(2)})`,
       );
 
-      // Show all current counts every 5 selections
-      const totalSelections = Array.from(
-        selectionCountsRef.current.values(),
+      // Show all current counts every 5 random picks
+      const totalRandomPicks = Array.from(
+        randomPickCountsRef.current.values(),
       ).reduce((sum, count) => sum + count, 0);
 
-      if (totalSelections % 5 === 0) {
-        console.log('\n📊 Current Selection Counts:');
-        const allCounts = Array.from(selectionCountsRef.current.entries()).map(
+      if (totalRandomPicks % 5 === 0) {
+        console.log('\n📊 Current Weighted Algorithm Stats:');
+        const allCounts = Array.from(randomPickCountsRef.current.entries()).map(
           ([image, count]) => ({
             image: image.split('/').pop() || 'unknown',
             count,
@@ -143,20 +143,23 @@ export function MovingObjectsProvider({
           }),
         );
         console.table(allCounts);
-        console.log(`Total selections: ${totalSelections}\n`);
+        console.log(`Total random picks: ${totalRandomPicks}\n`);
       }
     },
     [initialMovingObjects],
   );
 
-  const getSelectionCounts = useCallback(() => selectionCountsRef.current, []);
+  const getRandomPickCounts = useCallback(
+    () => randomPickCountsRef.current,
+    [],
+  );
 
   // Context value
   const contextValue: MovingObjectsContextType = {
     // State
     movingObjectCount,
     objectPositions: objectPositionsRef.current,
-    selectionCounts: selectionCountsRef.current,
+    randomPickCounts: randomPickCountsRef.current,
     restrictedAreas,
     responsiveConfig,
 
@@ -164,8 +167,8 @@ export function MovingObjectsProvider({
     setMovingObjectCount,
     updateObjectPosition,
     removeObjectPosition,
-    logSelection,
-    getSelectionCounts,
+    logRandomPick,
+    getRandomPickCounts,
     setRestrictedAreas,
     setResponsiveConfig,
   };

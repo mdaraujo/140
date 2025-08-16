@@ -43,8 +43,8 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const cueTimeoutRef = useRef<number | null>(null);
   const moveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Get selection logging from context
-  const { logSelection } = useMovingObjects();
+  // Get weighted random pick tracking from context
+  const { logRandomPick } = useMovingObjects();
 
   // Update ref with current positions
   useEffect(() => {
@@ -101,22 +101,22 @@ const MovingElement: React.FC<MovingElementProps> = ({
   );
 
   const getRandomObject = useCallback((): MovingObject => {
-    const selected = selectWeightedRandom(
+    const picked = selectWeightedRandom(
       movingObjects,
       selectionCountsRef.current,
     );
 
-    logSelection(selected);
-    return selected;
-  }, [movingObjects, selectionCountsRef, logSelection]);
+    logRandomPick(picked);
+    return picked;
+  }, [movingObjects, selectionCountsRef, logRandomPick]);
 
   // Set initial image only once
   useEffect(() => {
     if (!hasSetInitialImage.current) {
       if (isFirst) {
-        // For the first object, manually select and count the first item
+        // For the first object, manually pick and count the first item
         const firstObject = movingObjects[0];
-        logSelection(firstObject);
+        logRandomPick(firstObject);
         setCurrentMovingObject(firstObject);
       } else {
         setCurrentMovingObject(getRandomObject());
@@ -128,7 +128,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
     movingObjects,
     getRandomObject,
     selectionCountsRef,
-    logSelection,
+    logRandomPick,
   ]);
 
   // Handle position changes and animations

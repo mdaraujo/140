@@ -23,7 +23,7 @@ export function useMovingObjectsManager(): UseMovingObjectsManagerReturn {
     setMovingObjectCount,
     setRestrictedAreas,
     setResponsiveConfig,
-    getSelectionCounts,
+    getRandomPickCounts,
   } = useMovingObjects();
 
   // Refs for restricted area calculation
@@ -34,7 +34,7 @@ export function useMovingObjectsManager(): UseMovingObjectsManagerReturn {
   const responsiveConfig = useResponsiveMovingObjects();
 
   // Set up testing utilities (only in dev)
-  useTestingUtilities(movingObjects, { current: getSelectionCounts() });
+  useTestingUtilities(movingObjects, { current: getRandomPickCounts() });
 
   // Update responsive config in context when it changes
   useEffect(() => {
