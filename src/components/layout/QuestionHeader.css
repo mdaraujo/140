@@ -106,3 +106,32 @@
     margin-right: 24vw;
   }
 }
+
+/* Rotation animations for question header letters */
+@keyframes rotate-spin1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-spin2 {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rotate1 {
+    animation: rotate-spin1 infinite 15s linear;
+  }
+
+  .rotate2 {
+    animation: rotate-spin2 infinite 8s linear;
+  }
+}

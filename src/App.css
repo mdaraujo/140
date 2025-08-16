@@ -3,51 +3,9 @@
   padding: 2rem 0;
 }
 
-/* Subtle pulse cue for initial discoverability */
-.pulse-once {
-  animation: pulse-subtle 2.4s ease-out 1;
-}
-
-@keyframes pulse-subtle {
-  0% {
-    transform: scale(1);
-  }
-  15% {
-    transform: scale(1.12);
-  }
-  35% {
-    transform: scale(1);
-  }
-  55% {
-    transform: scale(1.08);
-  }
-  75% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Occasional attention cue */
+/* Global utility classes */
 .attention-cue {
   will-change: transform;
-}
-
-.moving-element-hover.attention-cue {
-  animation: cue-pop 2s ease-out 1;
-}
-
-@keyframes cue-pop {
-  0% {
-    transform: scale(1);
-  }
-  45% {
-    transform: scale(1.15);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 
 .shadow-link {
@@ -62,34 +20,4 @@
 html,
 body {
   overflow: hidden;
-}
-
-@keyframes rotate-spin1 {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .rotate1 {
-    animation: rotate-spin1 infinite 15s linear;
-  }
-}
-
-@keyframes rotate-spin2 {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .rotate2 {
-    animation: rotate-spin2 infinite 8s linear;
-  }
 }
