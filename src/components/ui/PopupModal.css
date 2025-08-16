@@ -84,6 +84,7 @@
   height: auto;
   z-index: 10;
   display: block;
+  max-height: 60vh;
 }
 
 .popup-content .button {
@@ -92,7 +93,7 @@
   color: var(--color-accent);
   border: 2px solid var(--color-accent);
   padding: 10px 20px;
-  font-weight: 550;
+  font-weight: 520;
   cursor: pointer;
   position: relative;
   display: inline-block;
@@ -143,7 +144,7 @@
   font-size: 1.1rem;
   line-height: 1.4;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 420;
   text-align: center;
   max-width: 400px;
   white-space: pre-line;
@@ -153,10 +154,6 @@
 @media only screen and (max-width: 768px) {
   .popup-content {
     max-width: 90vw;
-    max-height: 88vh;
-  }
-  .popup-content img {
-    max-height: 60vh;
   }
   .artist-description {
     font-size: 1rem;
@@ -166,14 +163,9 @@
   }
 }
 
-/* Desktop styles */
-@media only screen and (min-width: 992px) {
-  .popup {
-    align-items: center;
-    padding-top: 0;
-  }
+/* Desktop styles (>=768px) */
+@media only screen and (min-width: 768px) {
   .popup-content {
-    max-height: 85vh;
     width: auto;
     max-width: none;
     display: flex;
@@ -181,7 +173,6 @@
     align-items: center;
   }
   .popup-content img {
-    max-height: 65vh;
     width: auto;
     margin: 0;
     flex-shrink: 0;
