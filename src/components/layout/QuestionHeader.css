@@ -100,9 +100,9 @@
   }
   /* Nudge E right and ? left to frame AGORA */
   .question .l1 {
-    margin-left: 28vw;
+    margin-left: 24vw;
   }
   .question .l3 {
-    margin-right: 28vw;
+    margin-right: 24vw;
   }
 }
