@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useRef,
-  useState,
-  useCallback,
-  ReactNode,
-} from 'react';
+import { createContext, useContext, useRef, useState, useCallback, ReactNode } from 'react';
 import { MovingObject } from '../types/MovingObject';
 import { Position } from '../types/Position';
 import { ResponsiveConfig } from '../types/ResponsiveConfig';
@@ -47,16 +40,12 @@ interface MovingObjectsActions {
 /**
  * Combined context interface
  */
-interface MovingObjectsContextType
-  extends MovingObjectsState,
-    MovingObjectsActions {}
+interface MovingObjectsContextType extends MovingObjectsState, MovingObjectsActions {}
 
 /**
  * React Context for moving objects state
  */
-const MovingObjectsContext = createContext<MovingObjectsContextType | null>(
-  null,
-);
+const MovingObjectsContext = createContext<MovingObjectsContextType | null>(null);
 
 /**
  * Hook to access moving objects context
@@ -66,9 +55,7 @@ const MovingObjectsContext = createContext<MovingObjectsContextType | null>(
 export function useMovingObjects(): MovingObjectsContextType {
   const context = useContext(MovingObjectsContext);
   if (!context) {
-    throw new Error(
-      'useMovingObjects must be used within a MovingObjectsProvider',
-    );
+    throw new Error('useMovingObjects must be used within a MovingObjectsProvider');
   }
   return context;
 }
@@ -91,20 +78,16 @@ export function MovingObjectsProvider({
   // State management
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1);
   const [restrictedAreas, setRestrictedAreas] = useState<DOMRect[]>([]);
-  const [responsiveConfig, setResponsiveConfig] =
-    useState<ResponsiveConfig | null>(null);
+  const [responsiveConfig, setResponsiveConfig] = useState<ResponsiveConfig | null>(null);
 
   // Refs for performance (avoid re-renders on position updates)
   const objectPositionsRef = useRef<Map<string, Position>>(new Map());
   const randomPickCountsRef = useRef<Map<string, number>>(new Map());
 
   // Position management actions
-  const updateObjectPosition = useCallback(
-    (elementId: string, position: Position) => {
-      objectPositionsRef.current.set(elementId, position);
-    },
-    [],
-  );
+  const updateObjectPosition = useCallback((elementId: string, position: Position) => {
+    objectPositionsRef.current.set(elementId, position);
+  }, []);
 
   const removeObjectPosition = useCallback((elementId: string) => {
     objectPositionsRef.current.delete(elementId);
@@ -127,9 +110,10 @@ export function MovingObjectsProvider({
       );
 
       // Show all current counts every 5 random picks
-      const totalRandomPicks = Array.from(
-        randomPickCountsRef.current.values(),
-      ).reduce((sum, count) => sum + count, 0);
+      const totalRandomPicks = Array.from(randomPickCountsRef.current.values()).reduce(
+        (sum, count) => sum + count,
+        0,
+      );
 
       if (totalRandomPicks % 5 === 0) {
         console.log('\n📊 Current Weighted Algorithm Stats:');
@@ -138,9 +122,7 @@ export function MovingObjectsProvider({
             image: image.split('/').pop() || 'unknown',
             count,
             effectiveWeight:
-              (initialMovingObjects.find((obj) => obj.image === image)
-                ?.weight || 1) /
-              (count + 1),
+              (initialMovingObjects.find((obj) => obj.image === image)?.weight || 1) / (count + 1),
           }),
         );
         console.table(allCounts);
@@ -150,10 +132,7 @@ export function MovingObjectsProvider({
     [initialMovingObjects],
   );
 
-  const getRandomPickCounts = useCallback(
-    () => randomPickCountsRef.current,
-    [],
-  );
+  const getRandomPickCounts = useCallback(() => randomPickCountsRef.current, []);
 
   // Context value
   const contextValue: MovingObjectsContextType = {
@@ -175,8 +154,6 @@ export function MovingObjectsProvider({
   };
 
   return (
-    <MovingObjectsContext.Provider value={contextValue}>
-      {children}
-    </MovingObjectsContext.Provider>
+    <MovingObjectsContext.Provider value={contextValue}>{children}</MovingObjectsContext.Provider>
   );
 }

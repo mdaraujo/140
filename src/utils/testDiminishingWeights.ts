@@ -7,10 +7,7 @@ import { MovingObject } from '../types/MovingObject';
  * @param iterations Number of selections to simulate
  * @returns Object with detailed selection statistics
  */
-export function testDiminishingWeights(
-  items: MovingObject[],
-  iterations: number = 50,
-) {
+export function testDiminishingWeights(items: MovingObject[], iterations: number = 50) {
   const selectionCounts = new Map<string, number>();
   const selectionHistory: string[] = [];
 
@@ -56,10 +53,7 @@ export function testDiminishingWeights(
 /**
  * Console log the diminishing weights test results
  */
-export function logDiminishingWeightsTest(
-  items: MovingObject[],
-  iterations: number = 50,
-) {
+export function logDiminishingWeightsTest(items: MovingObject[], iterations: number = 50) {
   const testResults = testDiminishingWeights(items, iterations);
 
   console.log('\n=== Diminishing Weights Test ===');
@@ -94,9 +88,7 @@ export function demonstrateDiminishingEffect(items: MovingObject[]) {
       const count = selectionCounts.get(item.image) || 0;
       const effectiveWeight = baseWeight / (count + 1);
 
-      console.log(
-        `  ${key}: ${effectiveWeight.toFixed(2)} (selected ${count} times)`,
-      );
+      console.log(`  ${key}: ${effectiveWeight.toFixed(2)} (selected ${count} times)`);
     });
 
     // Simulate a selection

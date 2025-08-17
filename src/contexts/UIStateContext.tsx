@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  ReactNode,
-} from 'react';
+import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { MovingObject } from '../types/MovingObject';
 import { trackModalOpen } from '../utils/analytics';
 
@@ -63,14 +57,10 @@ interface UIStateProviderProps {
 /**
  * Provider component for UI state management
  */
-export function UIStateProvider({
-  children,
-  headerObject,
-}: UIStateProviderProps): JSX.Element {
+export function UIStateProvider({ children, headerObject }: UIStateProviderProps): JSX.Element {
   // State management
   const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [activeMovingObject, setActiveMovingObject] =
-    useState<MovingObject | null>(null);
+  const [activeMovingObject, setActiveMovingObject] = useState<MovingObject | null>(null);
 
   // Actions
   const openPopup = useCallback((movingObject: MovingObject) => {
@@ -106,9 +96,5 @@ export function UIStateProvider({
     openHeaderPopup,
   };
 
-  return (
-    <UIStateContext.Provider value={contextValue}>
-      {children}
-    </UIStateContext.Provider>
-  );
+  return <UIStateContext.Provider value={contextValue}>{children}</UIStateContext.Provider>;
 }

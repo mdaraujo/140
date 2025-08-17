@@ -5,11 +5,7 @@
 
 interface GtagFunction {
   (command: 'event', eventName: string, params?: Record<string, unknown>): void;
-  (
-    command: 'config',
-    measurementId: string,
-    params?: Record<string, unknown>,
-  ): void;
+  (command: 'config', measurementId: string, params?: Record<string, unknown>): void;
 }
 
 declare global {
@@ -32,10 +28,7 @@ function ensureDataLayer(): unknown[] {
   return window.dataLayer;
 }
 
-export function track(
-  eventName: string,
-  params?: Record<string, unknown>,
-): void {
+export function track(eventName: string, params?: Record<string, unknown>): void {
   if (!isProdHostname()) return;
   const payload: Record<string, unknown> = {
     event: 'app_event',

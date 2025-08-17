@@ -38,24 +38,16 @@ export function generatePosition(
   const lightPadding = Math.max(
     ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_MIN,
     Math.floor(
-      ANIMATION_CONSTANTS.OBJECT_WIDTH *
-        ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_RATIO,
+      ANIMATION_CONSTANTS.OBJECT_WIDTH * ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_RATIO,
     ),
   );
   const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
   const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
   const lightPaddedWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH + lightPadding * 2;
-  const lightPaddedHeight =
-    ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2;
-  const viewportWidth =
-    window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
-  const viewportHeight =
-    window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
-  for (
-    let attempt = 0;
-    attempt < ANIMATION_CONSTANTS.LIGHT_COLLISION_TRIES;
-    attempt++
-  ) {
+  const lightPaddedHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2;
+  const viewportWidth = window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  const viewportHeight = window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  for (let attempt = 0; attempt < ANIMATION_CONSTANTS.LIGHT_COLLISION_TRIES; attempt++) {
     const candidate = generateRandomCandidate(viewportWidth, viewportHeight);
     // Skip if candidate overlaps any restricted area
     const overlapsRestricted = restrictedAreas.some((area) =>
@@ -105,10 +97,7 @@ export function generatePosition(
  * @param restrictedArea Area to avoid (e.g., main text)
  * @returns A random position
  */
-function generateRandomCandidate(
-  viewportWidth: number,
-  viewportHeight: number,
-): Position {
+function generateRandomCandidate(viewportWidth: number, viewportHeight: number): Position {
   const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
   const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
 

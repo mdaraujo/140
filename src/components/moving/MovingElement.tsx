@@ -35,8 +35,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   onRemove,
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
-  const [currentMovingObject, setCurrentMovingObject] =
-    useState<MovingObject>();
+  const [currentMovingObject, setCurrentMovingObject] = useState<MovingObject>();
   const [shouldCue, setShouldCue] = useState<boolean>(false);
   const hasSetInitialImage = useRef(false);
   const objectPositionsRef = useRef(existingPositions);
@@ -88,9 +87,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
 
   const getPosition = useCallback(
     (useCurrentPositions: boolean = false): Position => {
-      const positions = useCurrentPositions
-        ? objectPositionsRef.current
-        : existingPositions;
+      const positions = useCurrentPositions ? objectPositionsRef.current : existingPositions;
       return generatePosition(
         positions,
         restrictedAreas,
@@ -102,10 +99,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   );
 
   const getRandomObject = useCallback((): MovingObject => {
-    const picked = selectWeightedRandom(
-      movingObjects,
-      selectionCountsRef.current,
-    );
+    const picked = selectWeightedRandom(movingObjects, selectionCountsRef.current);
 
     logRandomPick(picked);
     return picked;
@@ -124,13 +118,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
       }
       hasSetInitialImage.current = true;
     }
-  }, [
-    isFirst,
-    movingObjects,
-    getRandomObject,
-    selectionCountsRef,
-    logRandomPick,
-  ]);
+  }, [isFirst, movingObjects, getRandomObject, selectionCountsRef, logRandomPick]);
 
   // Handle position changes and animations
   useEffect(() => {
@@ -162,8 +150,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
     // Change position at random intervals with lightweight collision detection
     const scheduleNextMove = () => {
       const randomDelay =
-        Math.random() * (animationInterval.max - animationInterval.min) +
-        animationInterval.min;
+        Math.random() * (animationInterval.max - animationInterval.min) + animationInterval.min;
 
       return setTimeout(() => {
         const newPosition = getPosition(true); // Use current positions
@@ -220,11 +207,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
             });
           }}
         >
-          <img
-            src={currentMovingObject.image}
-            alt="140"
-            className="moving-element-hover"
-          />
+          <img src={currentMovingObject.image} alt="140" className="moving-element-hover" />
         </a>
       )}
 

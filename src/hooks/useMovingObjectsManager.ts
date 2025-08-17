@@ -61,9 +61,7 @@ export function useMovingObjectsManager(): UseMovingObjectsManagerReturn {
 
       const interval = setInterval(
         () => {
-          setMovingObjectCount(
-            Math.min(movingObjectCount + 1, responsiveConfig.maxMovingObjects),
-          );
+          setMovingObjectCount(Math.min(movingObjectCount + 1, responsiveConfig.maxMovingObjects));
         },
         Math.random() * (maxInterval - minInterval) + minInterval,
       );

@@ -19,13 +19,7 @@ const Home: React.FC = () => {
     removeObjectPosition,
   } = useMovingObjects();
 
-  const {
-    showPopup,
-    activeMovingObject,
-    openPopup,
-    closePopup,
-    openHeaderPopup,
-  } = useUIState();
+  const { showPopup, activeMovingObject, openPopup, closePopup, openHeaderPopup } = useUIState();
 
   // Consolidated business logic hook
   const { questionRef, footerRef } = useMovingObjectsManager();
@@ -53,11 +47,7 @@ const Home: React.FC = () => {
         />
       ))}
 
-      <PopupModal
-        isOpen={showPopup}
-        movingObject={activeMovingObject}
-        onClose={closePopup}
-      />
+      <PopupModal isOpen={showPopup} movingObject={activeMovingObject} onClose={closePopup} />
 
       <Footer ref={footerRef} />
     </>
