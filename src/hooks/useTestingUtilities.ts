@@ -19,20 +19,16 @@ export function useTestingUtilities(
       return;
     }
     // @ts-expect-error - Adding to window for testing
-    window.testDiminishingWeights = () =>
-      logDiminishingWeightsTest(movingObjects, 100);
+    window.testDiminishingWeights = () => logDiminishingWeightsTest(movingObjects, 100);
     // @ts-expect-error - Adding to window for testing
-    window.demonstrateDiminishingEffect = () =>
-      demonstrateDiminishingEffect(movingObjects);
+    window.demonstrateDiminishingEffect = () => demonstrateDiminishingEffect(movingObjects);
     // @ts-expect-error - Adding current random pick counts to window
     window.getCurrentRandomPickCounts = () => {
       console.log('\n=== Current Weighted Algorithm Stats ===');
-      const counts = Array.from(randomPickCountsRef.current.entries()).map(
-        ([image, count]) => ({
-          image: image.split('/').pop() || 'unknown',
-          count,
-        }),
-      );
+      const counts = Array.from(randomPickCountsRef.current.entries()).map(([image, count]) => ({
+        image: image.split('/').pop() || 'unknown',
+        count,
+      }));
       console.table(counts);
       console.log('================================\n');
       return randomPickCountsRef.current;

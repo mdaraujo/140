@@ -9,11 +9,7 @@ interface PopupModalProps {
   onClose: () => void;
 }
 
-const PopupModal: React.FC<PopupModalProps> = ({
-  isOpen,
-  movingObject,
-  onClose,
-}) => {
+const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -128,8 +124,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
               })
             }
           >
-            E agora? Bilhetes aqui&nbsp;{' '}
-            <i className="fa fa-ticket" aria-hidden="true"></i>
+            E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
           </a>
         ) : (
           <a
@@ -146,8 +141,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
               })
             }
           >
-            Entrada Livre&nbsp;{' '}
-            <i className="fa fa-map-marker" aria-hidden="true"></i>
+            Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
           </a>
         )}
       </div>

@@ -10,10 +10,7 @@ export interface ObjectBounds {
 /**
  * Check if two rectangular areas overlap
  */
-export function checkCollision(
-  bounds1: ObjectBounds,
-  bounds2: ObjectBounds,
-): boolean {
+export function checkCollision(bounds1: ObjectBounds, bounds2: ObjectBounds): boolean {
   return !(
     bounds1.left + bounds1.width < bounds2.left ||
     bounds2.left + bounds2.width < bounds1.left ||
@@ -42,16 +39,13 @@ export function findNonCollidingPosition(
   },
   maxAttempts: number = ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_INITIAL,
 ): Position | null {
-  const viewportWidth =
-    window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
-  const viewportHeight =
-    window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  const viewportWidth = window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  const viewportHeight = window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   // Pre-calculate reused values
   const padding = Math.max(
     ANIMATION_CONSTANTS.COLLISION_PADDING,
     Math.floor(
-      ANIMATION_CONSTANTS.OBJECT_WIDTH *
-        ANIMATION_CONSTANTS.HEAVY_COLLISION_PADDING_RATIO,
+      ANIMATION_CONSTANTS.OBJECT_WIDTH * ANIMATION_CONSTANTS.HEAVY_COLLISION_PADDING_RATIO,
     ),
   );
   const halfWidth = objectSize.width / 2;
@@ -67,11 +61,7 @@ export function findNonCollidingPosition(
     };
 
     // Check if position is in any restricted area
-    if (
-      restrictedAreas.some((area) =>
-        isPositionInRestrictedArea(position, objectSize, area),
-      )
-    ) {
+    if (restrictedAreas.some((area) => isPositionInRestrictedArea(position, objectSize, area))) {
       continue;
     }
 
