@@ -43,6 +43,7 @@ const UIStateContext = createContext<UIStateContextType | null>(null);
  * Hook to access UI state context
  * @throws Error if used outside of UIStateProvider
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useUIState(): UIStateContextType {
   const context = useContext(UIStateContext);
   if (!context) {

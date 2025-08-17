@@ -62,6 +62,7 @@ const MovingObjectsContext = createContext<MovingObjectsContextType | null>(
  * Hook to access moving objects context
  * @throws Error if used outside of MovingObjectsProvider
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useMovingObjects(): MovingObjectsContextType {
   const context = useContext(MovingObjectsContext);
   if (!context) {
