@@ -7,6 +7,7 @@ import { selectWeightedRandom } from '../../utils/weightedSelection';
 import { generatePosition } from '../../utils/positionHelpers';
 import { useMovingObjects } from '../../contexts/MovingObjectsContext';
 import { ANIMATION_CONSTANTS } from '../../data/constants';
+import { trackCtaClick, trackModalOpen } from '../../utils/analytics';
 
 interface MovingElementProps {
   elementId: string;
@@ -211,6 +212,13 @@ const MovingElement: React.FC<MovingElementProps> = ({
           href={currentMovingObject.formLink}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            trackCtaClick({
+              context: 'moving_element',
+              ctaType: 'form_link',
+              linkUrl: currentMovingObject.formLink as string,
+            });
+          }}
         >
           <img
             src={currentMovingObject.image}
@@ -228,11 +236,25 @@ const MovingElement: React.FC<MovingElementProps> = ({
           tabIndex={0}
           aria-label="Abrir detalhes"
           className={`moving-element-hover ${shouldCue ? 'attention-cue' : ''}`}
-          onClick={() => onClick(currentMovingObject)}
+          onClick={() => {
+            onClick(currentMovingObject);
+            trackModalOpen({
+              context: 'moving_element',
+              objectImage: currentMovingObject.image,
+              hasTickets: !!currentMovingObject.ticketsLink,
+              hasLocation: !!currentMovingObject.location,
+            });
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               onClick(currentMovingObject);
+              trackModalOpen({
+                context: 'moving_element',
+                objectImage: currentMovingObject.image,
+                hasTickets: !!currentMovingObject.ticketsLink,
+                hasLocation: !!currentMovingObject.location,
+              });
             }
           }}
         />

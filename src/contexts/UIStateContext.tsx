@@ -6,6 +6,7 @@ import {
   ReactNode,
 } from 'react';
 import { MovingObject } from '../types/MovingObject';
+import { trackModalOpen } from '../utils/analytics';
 
 /**
  * UI State interface
@@ -84,6 +85,12 @@ export function UIStateProvider({
 
   const openHeaderPopup = useCallback(() => {
     openPopup(headerObject);
+    trackModalOpen({
+      context: 'header',
+      objectImage: headerObject.image,
+      hasTickets: !!headerObject.ticketsLink,
+      hasLocation: !!headerObject.location,
+    });
   }, [openPopup, headerObject]);
 
   // Context value

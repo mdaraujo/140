@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import './PopupModal.css';
 import { MovingObject } from '../../types/MovingObject';
+import { trackCtaClick } from '../../utils/analytics';
 
 interface PopupModalProps {
   isOpen: boolean;
@@ -56,7 +57,11 @@ const PopupModal: React.FC<PopupModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-label="Detalhes do evento"
-      onClick={handleRequestClose}
+      onClick={(e) => {
+        if (e.currentTarget === e.target) {
+          handleRequestClose();
+        }
+      }}
     >
       <div className="popup-content" tabIndex={-1}>
         <button
@@ -73,7 +78,14 @@ const PopupModal: React.FC<PopupModalProps> = ({
             href={movingObject.ticketsLink!}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            onClick={(e) => e.stopPropagation()}
+            onClick={() =>
+              trackCtaClick({
+                context: 'modal',
+                ctaType: 'tickets',
+                linkUrl: movingObject.ticketsLink as string,
+                linkText: 'Poster',
+              })
+            }
           >
             <img src={movingObject.image} alt="Pop-up Poster" />
           </a>
@@ -107,7 +119,14 @@ const PopupModal: React.FC<PopupModalProps> = ({
             target="_blank"
             rel="noopener noreferrer nofollow"
             className="button"
-            onClick={(e) => e.stopPropagation()}
+            onClick={() =>
+              trackCtaClick({
+                context: 'modal',
+                ctaType: 'tickets',
+                linkUrl: movingObject.ticketsLink as string,
+                linkText: 'E agora? Bilhetes aqui',
+              })
+            }
           >
             E agora? Bilhetes aqui&nbsp;{' '}
             <i className="fa fa-ticket" aria-hidden="true"></i>
@@ -118,7 +137,14 @@ const PopupModal: React.FC<PopupModalProps> = ({
             target="_blank"
             rel="noopener noreferrer nofollow"
             className="button"
-            onClick={(e) => e.stopPropagation()}
+            onClick={() =>
+              trackCtaClick({
+                context: 'modal',
+                ctaType: 'location',
+                linkUrl: movingObject.location || '',
+                linkText: 'Entrada Livre',
+              })
+            }
           >
             Entrada Livre&nbsp;{' '}
             <i className="fa fa-map-marker" aria-hidden="true"></i>
