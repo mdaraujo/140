@@ -40,9 +40,6 @@ export function track(eventName: string, params?: Record<string, unknown>): void
     }
   }
   ensureDataLayer().push(payload);
-  if (typeof window.gtag === 'function') {
-    window.gtag('event', eventName, params);
-  }
 }
 
 export function trackModalOpen(details: {
