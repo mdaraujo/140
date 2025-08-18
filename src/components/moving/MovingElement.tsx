@@ -29,7 +29,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   restrictedAreas = [],
   isFirst = false,
   selectionCountsRef,
-  animationInterval = { min: 2000, max: 5000 },
+  animationInterval = { min: 3500, max: 6000 },
   existingPositions,
   onPositionUpdate,
   onRemove,

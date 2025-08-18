@@ -33,25 +33,25 @@ function getConfigForScreenSize(width: number): ResponsiveConfig {
     // Mobile phones
     return {
       maxMovingObjects: 10,
-      animationInterval: { min: 3000, max: 5000 }, // Slower animations
+      animationInterval: { min: 5000, max: 8000 }, // More time between moves
     };
   } else if (width < 768) {
     // Large phones / small tablets
     return {
       maxMovingObjects: 14,
-      animationInterval: { min: 2800, max: 4500 },
+      animationInterval: { min: 4500, max: 7000 },
     };
   } else if (width < 1024) {
     // Tablets / small laptops
     return {
       maxMovingObjects: 18,
-      animationInterval: { min: 2500, max: 4000 },
+      animationInterval: { min: 4000, max: 6500 },
     };
   } else {
     // Desktop / large screens
     return {
       maxMovingObjects: 22,
-      animationInterval: { min: 2200, max: 3800 },
+      animationInterval: { min: 3500, max: 6000 },
     };
   }
 }
