@@ -3,8 +3,8 @@
   z-index: 1;
   transform: translate(-50%, -50%);
   transition:
-    top var(--duration-position) ease,
-    left var(--duration-position) ease;
+    top var(--duration-position) ease-in-out,
+    left var(--duration-position) ease-in-out;
   pointer-events: auto;
 }
 
