@@ -3,9 +3,10 @@ import './QuestionHeader.css';
 
 interface QuestionHeaderProps {
   onOpenPopUp: () => void;
+  lines?: [string, string, string];
 }
 
-const QuestionHeader = forwardRef<HTMLDivElement, QuestionHeaderProps>(({ onOpenPopUp }, ref) => {
+const QuestionHeader = forwardRef<HTMLDivElement, QuestionHeaderProps>(({ onOpenPopUp, lines = ['E', 'AGORA', '?'] }, ref) => {
   const [questionCueIndex, setQuestionCueIndex] = useState<number | null>(null);
 
   const handleClickTargetKeyDown = useCallback(
@@ -52,7 +53,7 @@ const QuestionHeader = forwardRef<HTMLDivElement, QuestionHeaderProps>(({ onOpen
           onKeyDown={handleClickTargetKeyDown}
           onClick={onOpenPopUp}
         >
-          E
+          {lines[0]}
         </span>
       </p>
       <p className="l2 shadow-link">
@@ -64,7 +65,7 @@ const QuestionHeader = forwardRef<HTMLDivElement, QuestionHeaderProps>(({ onOpen
           onKeyDown={handleClickTargetKeyDown}
           onClick={onOpenPopUp}
         >
-          AGORA
+          {lines[1]}
         </span>
       </p>
       <p className="rotate2 l3 shadow-link">
@@ -76,7 +77,7 @@ const QuestionHeader = forwardRef<HTMLDivElement, QuestionHeaderProps>(({ onOpen
           onKeyDown={handleClickTargetKeyDown}
           onClick={onOpenPopUp}
         >
-          ?
+          {lines[2]}
         </span>
       </p>
     </div>

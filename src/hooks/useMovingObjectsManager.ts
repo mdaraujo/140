@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
+import { MovingObject } from '../types/MovingObject';
 import { useMovingObjects } from '../contexts/MovingObjectsContext';
 import { useResponsiveMovingObjects } from './useResponsiveMovingObjects';
 import { useTestingUtilities } from './useTestingUtilities';
-import { movingObjects } from '../data/movingObjects';
 
 /**
  * Return type for useMovingObjectsManager hook
@@ -11,13 +11,14 @@ interface UseMovingObjectsManagerReturn {
   // Refs for components that need them
   questionRef: React.RefObject<HTMLDivElement>;
   footerRef: React.RefObject<HTMLElement>;
+  navbarRef: React.RefObject<HTMLElement>;
 }
 
 /**
  * Consolidated hook that manages all moving objects business logic
  * Combines object spawning, responsive behavior, and testing utilities
  */
-export function useMovingObjectsManager(): UseMovingObjectsManagerReturn {
+export function useMovingObjectsManager(testingObjects?: MovingObject[]): UseMovingObjectsManagerReturn {
   const {
     movingObjectCount,
     setMovingObjectCount,
@@ -29,12 +30,13 @@ export function useMovingObjectsManager(): UseMovingObjectsManagerReturn {
   // Refs for restricted area calculation
   const questionRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLElement>(null);
+  const navbarRef = useRef<HTMLElement>(null);
 
   // Get responsive configuration
   const responsiveConfig = useResponsiveMovingObjects();
 
   // Set up testing utilities (only in dev)
-  useTestingUtilities(movingObjects, { current: getRandomPickCounts() });
+  useTestingUtilities(testingObjects || [], { current: getRandomPickCounts() });
 
   // Update responsive config in context when it changes
   useEffect(() => {
@@ -91,11 +93,17 @@ export function useMovingObjectsManager(): UseMovingObjectsManagerReturn {
 
     const questionRects = getTextLineRects(questionRef.current);
     const footerRects = getTextLineRects(footerRef.current);
-    setRestrictedAreas([...questionRects, ...footerRects]);
+    const navRects: DOMRect[] = [];
+    if (navbarRef.current) {
+      const r = navbarRef.current.getBoundingClientRect();
+      navRects.push(new DOMRect(r.left, r.top, r.width, r.height));
+    }
+    setRestrictedAreas([...navRects, ...questionRects, ...footerRects]);
   }, [setRestrictedAreas]);
 
   return {
     questionRef,
     footerRef,
+    navbarRef,
   };
 }
