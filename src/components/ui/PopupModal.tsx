@@ -7,9 +7,10 @@ interface PopupModalProps {
   isOpen: boolean;
   movingObject: MovingObject | null;
   onClose: () => void;
+  showCtaButton?: boolean;
 }
 
-const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose }) => {
+const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose, showCtaButton = true }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -109,40 +110,42 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose }
           <p className="artist-description">{movingObject.description}</p>
         )}
 
-        {hasTickets ? (
-          <a
-            href={movingObject.ticketsLink!}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="button"
-            onClick={() =>
-              trackCtaClick({
-                context: 'modal',
-                ctaType: 'tickets',
-                linkUrl: movingObject.ticketsLink as string,
-                linkText: 'E agora? Bilhetes aqui',
-              })
-            }
-          >
-            E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
-          </a>
-        ) : (
-          <a
-            href={movingObject.location || ''}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="button"
-            onClick={() =>
-              trackCtaClick({
-                context: 'modal',
-                ctaType: 'location',
-                linkUrl: movingObject.location || '',
-                linkText: 'Entrada Livre',
-              })
-            }
-          >
-            Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
-          </a>
+        {showCtaButton && (
+          hasTickets ? (
+            <a
+              href={movingObject.ticketsLink!}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="button"
+              onClick={() =>
+                trackCtaClick({
+                  context: 'modal',
+                  ctaType: 'tickets',
+                  linkUrl: movingObject.ticketsLink as string,
+                  linkText: 'E agora? Bilhetes aqui',
+                })
+              }
+            >
+              E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
+            </a>
+          ) : (
+            <a
+              href={movingObject.location || ''}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="button"
+              onClick={() =>
+                trackCtaClick({
+                  context: 'modal',
+                  ctaType: 'location',
+                  linkUrl: movingObject.location || '',
+                  linkText: 'Entrada Livre',
+                })
+              }
+            >
+              Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
+            </a>
+          )
         )}
       </div>
     </div>

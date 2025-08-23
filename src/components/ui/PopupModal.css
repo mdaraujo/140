@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background: rgba(234, 160, 107, 0.92);
+  background: var(--color-overlay);
   overflow: hidden;
   opacity: 0; /* start transparent to avoid initial flash */
   transition: opacity var(--duration-popup-in) var(--easing-popup-in);
@@ -123,13 +123,13 @@
 .popup-close:hover,
 .popup-close:focus-visible {
   background: var(--color-accent);
-  color: var(--color-accent-2);
+  color: var(--color-bg);
   outline: none;
 }
 
 .popup-content .button:hover {
   background-color: var(--color-accent);
-  color: var(--color-accent-2);
+  color: var(--color-bg);
   transform: translateY(-2px);
   box-shadow: none;
 }
@@ -137,7 +137,7 @@
 .artist-description {
   margin: 1rem 0;
   padding: 0.75rem 1rem;
-  background-color: rgba(84, 105, 48, 0.15);
+  background-color: var(--color-accent-soft);
   border-left: 4px solid var(--color-accent);
   border-radius: 4px;
   color: var(--color-foreground);

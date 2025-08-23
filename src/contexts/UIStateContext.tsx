@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { MovingObject } from '../types/MovingObject';
-import { trackModalOpen } from '../utils/analytics';
+import { trackCtaClick, trackModalOpen } from '../utils/analytics';
 
 /**
  * UI State interface
@@ -75,6 +75,15 @@ export function UIStateProvider({ children, headerObject }: UIStateProviderProps
   }, []);
 
   const openHeaderPopup = useCallback(() => {
+    if (headerObject.formLink) {
+      trackCtaClick({
+        context: 'header',
+        ctaType: 'form_link',
+        linkUrl: headerObject.formLink,
+      });
+      window.open(headerObject.formLink, '_blank', 'noopener,noreferrer');
+      return;
+    }
     openPopup(headerObject);
     trackModalOpen({
       context: 'header',
