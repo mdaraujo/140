@@ -6,6 +6,8 @@ import { MovingObject } from '../types/MovingObject';
 import { MovingObjectsProvider, useMovingObjects } from '../contexts/MovingObjectsContext';
 import { UIStateProvider, useUIState } from '../contexts/UIStateContext';
 import { useMovingObjectsManager } from '../hooks/useMovingObjectsManager';
+import { events as allEvents } from '../data/events';
+import { splitEvents } from '../utils/events';
 import '../App.css';
 
 interface EventsPageProps {
@@ -14,7 +16,11 @@ interface EventsPageProps {
   randomizeFirst?: boolean;
 }
 
-function EventsContent({ headerLines, movingObjects, randomizeFirst = false }: EventsPageProps): JSX.Element | null {
+function EventsContent({
+  headerLines,
+  movingObjects,
+  randomizeFirst = false,
+}: EventsPageProps): JSX.Element | null {
   const {
     movingObjectCount,
     objectPositions,
@@ -28,9 +34,10 @@ function EventsContent({ headerLines, movingObjects, randomizeFirst = false }: E
   const { showPopup, activeMovingObject, openPopup, closePopup, openHeaderPopup } = useUIState();
   const { questionRef, footerRef, navbarRef } = useMovingObjectsManager(movingObjects);
 
-  const themeClass = useMemo(() => (headerLines[1] === 'AGORA' ? 'theme-now' : 'theme-past'), [
-    headerLines,
-  ]);
+  const themeClass = useMemo(
+    () => (headerLines[1] === 'AGORA' ? 'theme-now' : 'theme-past'),
+    [headerLines],
+  );
 
   useEffect(() => {
     const html = document.documentElement;
@@ -43,10 +50,43 @@ function EventsContent({ headerLines, movingObjects, randomizeFirst = false }: E
 
   if (!responsiveConfig) return null;
 
+  // Build fun answer text
+  const answerText = (() => {
+    const { nowEvents, pastEvents } = splitEvents(allEvents);
+    if (headerLines[1] === 'AGORA') {
+      if (nowEvents.length === 0) return 'Torna‑te sócio';
+      const next = [...nowEvents].sort(
+        (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
+      )[0];
+      const when = new Date(next.startAt).toLocaleDateString(undefined, {
+        day: '2-digit',
+        month: 'short',
+      });
+      return `${when} — ${next.name}`;
+    }
+    const JOY_WORDS = [
+      'cultura',
+      'arte',
+      'música',
+      'cerveja',
+      'festa',
+      'amizade',
+      'partilha',
+      'conversa',
+    ];
+    const word = JOY_WORDS[Math.floor(Math.random() * JOY_WORDS.length)];
+    return `Foram ${pastEvents.length} eventos e muita ${word}!`;
+  })();
+
   return (
     <div className={themeClass}>
       <Navbar ref={navbarRef} />
-      <QuestionHeader ref={questionRef} onOpenPopUp={openHeaderPopup} lines={headerLines} />
+      <QuestionHeader
+        ref={questionRef}
+        onOpenPopUp={openHeaderPopup}
+        lines={headerLines}
+        answer={answerText}
+      />
 
       {Array.from({ length: movingObjectCount }).map((_, index) => (
         <MovingElement
@@ -76,17 +116,23 @@ function EventsContent({ headerLines, movingObjects, randomizeFirst = false }: E
   );
 }
 
-const EventsPage: React.FC<EventsPageProps> = ({ headerLines, movingObjects, randomizeFirst = false }) => {
+const EventsPage: React.FC<EventsPageProps> = ({
+  headerLines,
+  movingObjects,
+  randomizeFirst = false,
+}) => {
   const headerObject = movingObjects[0] || null;
   return (
     <MovingObjectsProvider initialMovingObjects={movingObjects}>
       <UIStateProvider headerObject={headerObject || movingObjects[0]!}>
-        <EventsContent headerLines={headerLines} movingObjects={movingObjects} randomizeFirst={randomizeFirst} />
+        <EventsContent
+          headerLines={headerLines}
+          movingObjects={movingObjects}
+          randomizeFirst={randomizeFirst}
+        />
       </UIStateProvider>
     </MovingObjectsProvider>
   );
 };
 
 export default EventsPage;
-
-
