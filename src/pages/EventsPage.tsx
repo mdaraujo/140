@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { Footer, QuestionHeader, Navbar } from '../components/layout';
 import { MovingElement } from '../components/moving';
 import { PopupModal } from '../components/ui';
@@ -48,13 +48,14 @@ function EventsContent({
     };
   }, [themeClass]);
 
-  if (!responsiveConfig) return null;
-
   // Build fun answer text
   const answerText = (() => {
     const { nowEvents, pastEvents } = splitEvents(allEvents);
     if (headerLines[1] === 'AGORA') {
-      if (nowEvents.length === 0) return 'Torna‑te sócio';
+      if (nowEvents.length === 0) {
+        const OPTIONS = ['Torna-te sócio!', 'Vê o que já foi!'];
+        return OPTIONS[Math.floor(Math.random() * OPTIONS.length)];
+      }
       const next = [...nowEvents].sort(
         (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
       )[0];
@@ -78,6 +79,20 @@ function EventsContent({
     return `Foram ${pastEvents.length} eventos e muita ${word}!`;
   })();
 
+  const handleAnswerClick = useCallback(() => {
+    // On Agora page: if no events and answer suggests past, navigate to /foi
+    if (headerLines[1] === 'AGORA') {
+      const { nowEvents } = splitEvents(allEvents);
+      if (nowEvents.length === 0 && answerText.toLowerCase().includes('já foi')) {
+        window.location.assign(`${import.meta.env.BASE_URL || ''}foi`);
+        return;
+      }
+    }
+    openHeaderPopup();
+  }, [headerLines, openHeaderPopup, answerText]);
+
+  if (!responsiveConfig) return null;
+
   return (
     <div className={themeClass}>
       <Navbar ref={navbarRef} />
@@ -86,6 +101,7 @@ function EventsContent({
         onOpenPopUp={openHeaderPopup}
         lines={headerLines}
         answer={answerText}
+        onAnswerClick={handleAnswerClick}
       />
 
       {Array.from({ length: movingObjectCount }).map((_, index) => (

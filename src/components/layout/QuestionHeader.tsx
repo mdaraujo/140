@@ -5,10 +5,11 @@ interface QuestionHeaderProps {
   onOpenPopUp: () => void;
   lines?: [string, string, string];
   answer?: string;
+  onAnswerClick?: () => void;
 }
 
 const QuestionHeader = forwardRef<HTMLDivElement, QuestionHeaderProps>(
-  ({ onOpenPopUp, lines = ['E', 'AGORA', '?'], answer }, ref) => {
+  ({ onOpenPopUp, lines = ['E', 'AGORA', '?'], answer, onAnswerClick }, ref) => {
     const [questionCueIndex, setQuestionCueIndex] = useState<number | null>(null);
 
     const handleClickTargetKeyDown = useCallback(
@@ -91,10 +92,10 @@ const QuestionHeader = forwardRef<HTMLDivElement, QuestionHeaderProps>(
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                onOpenPopUp();
+                (onAnswerClick || onOpenPopUp)();
               }
             }}
-            onClick={onOpenPopUp}
+            onClick={() => (onAnswerClick || onOpenPopUp)()}
           >
             <span className="answer-tail" aria-hidden="true">
               ↳

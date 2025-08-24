@@ -40,10 +40,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className }, ref) => {
           <NavLink to="/" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
             E Agora?
           </NavLink>
-          <NavLink
-            to="/passado"
-            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
-          >
+          <NavLink to="/foi" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
             E o que foi?
           </NavLink>
         </div>
@@ -72,7 +69,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className }, ref) => {
           E Agora?
         </NavLink>
         <NavLink
-          to="/passado"
+          to="/foi"
           className="menu-link"
           role="menuitem"
           onClick={() => setIsMenuOpen(false)}
@@ -85,5 +82,3 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className }, ref) => {
 });
 
 export default Navbar;
-
-
