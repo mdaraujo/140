@@ -154,7 +154,7 @@
   font-style: normal;
   font-weight: 420;
   text-align: center;
-  max-width: 400px;
+  max-width: 100%;
   white-space: pre-line;
   pointer-events: auto; /* allow selecting/copying without closing */
 }
@@ -163,6 +163,11 @@
 @media only screen and (max-width: 768px) {
   .popup-content {
     max-width: 86vw;
+  }
+  .popup-content img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
   }
   .artist-description {
     font-size: 1rem;
@@ -175,20 +180,21 @@
 /* Desktop styles (>=768px) */
 @media only screen and (min-width: 768px) {
   .popup-content {
-    max-width: none;
+    max-width: 720px;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
   }
   .popup-content img {
     width: auto;
+    max-width: 100%;
     margin: 0;
     flex-shrink: 0;
   }
   .artist-description {
     flex-shrink: 0;
     margin: 1rem 0 0.5rem 0;
-    max-width: 700px;
+    max-width: 100%;
   }
   .popup-content .button {
     flex-shrink: 0;
