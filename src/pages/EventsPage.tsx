@@ -84,7 +84,9 @@ function EventsContent({
     if (headerLines[1] === 'AGORA') {
       const { nowEvents } = splitEvents(allEvents);
       if (nowEvents.length === 0 && answerText.toLowerCase().includes('já foi')) {
-        window.location.assign(`${import.meta.env.BASE_URL || ''}foi`);
+        const base =
+          (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
+        window.location.assign(`${base}foi`);
         return;
       }
     }
