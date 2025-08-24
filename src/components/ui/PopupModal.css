@@ -29,6 +29,10 @@
   max-height: 85vh;
   margin-bottom: 20px;
   position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none; /* Let clicks on empty content area reach overlay to close */
   transform: scale(1);
   animation: content-pop-in var(--duration-content-in) var(--easing-popup-in)
     both;
@@ -85,6 +89,7 @@
   z-index: 10;
   display: block;
   max-height: 60vh;
+  pointer-events: auto; /* clickable */
 }
 
 .popup-content .button {
@@ -100,6 +105,7 @@
   text-decoration: none;
   border-radius: 4px;
   transition: all 0.3s ease;
+  pointer-events: auto; /* clickable */
 }
 
 .popup-close {
@@ -119,6 +125,8 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
+  pointer-events: auto; /* clickable */
+  z-index: 20;
 }
 .popup-close:hover,
 .popup-close:focus-visible {
@@ -148,6 +156,7 @@
   text-align: center;
   max-width: 400px;
   white-space: pre-line;
+  pointer-events: auto; /* allow selecting/copying without closing */
 }
 
 /* Mobile styles (<=768px) */
@@ -166,9 +175,8 @@
 /* Desktop styles (>=768px) */
 @media only screen and (min-width: 768px) {
   .popup-content {
-    width: auto;
     max-width: none;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
   }
