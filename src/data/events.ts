@@ -107,5 +107,3 @@ export const events: EventItem[] = [
     weight: 1,
   },
 ];
-
-

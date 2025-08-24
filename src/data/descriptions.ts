@@ -1,22 +1,22 @@
 export const DESCRIPTIONS = {
   gumaJazz:
-    'A Associação 140 convida o público para a primeira edição do GumaJazz, um evento que celebra o jazz, a improvisação, o artesanato e a criação comunitária no coração do verão. O festival acontece no dia 17 de agosto de 2025, a partir das 15h.',
+    '17 de agosto, Rua da Escola, Gumarães (Penafiel). O GumaJazz fez florescer a escola: feira de arte e artesanato, workshop de improvisação e atuações de Gentrifugação, Miguel Meirinhos, Clara Lacerda Trio e Barananu. Entrada livre.',
   lojaPopUp:
-    'Uma despedida calorosa da nossa Loja Pop Up “Até Já”, com curadoria afetiva de projetos locais e objetos feitos com as mãos. Uma tarde para descobrir, conversar e levar um pedaço da 140 para casa — sempre com música e boa disposição.',
+    '28 de dezembro, 15h-20h, Penafiel. O 140 Pop-Up revelou vontades e a urgência de uma sede: visita/reflexão (Cacifo), performance LEMBRETE (Sofia Moço Novo), conversa sobre o Plano de Atividades 2025 e concerto NEXUS (noise/ambient/synth). Até já.',
   beernissageJam:
-    'Uma noite para brindar ao encontro e à improvisação. A Beernissage junta cerveja artesanal e jam session aberta: traz o teu instrumento, ouve, aplaude e deixa-te levar pelo som que se cria em conjunto.',
+    '11 de janeiro, Beernissage com curadoria 140: jam session aberta, DJ sets, exposição coletiva e barril fresquinho. Sabores penafidelenses saciaram a sede de cultura e arte — um arranque construtivo para o novo ano.',
   beernissageBruxa:
-    'Na Beernissage, Bruxa conduz-nos por texturas sonoras densas e hipnóticas. Uma viagem entre canções e ambientes, onde a eletrónica abraça a voz e a poesia. Para escutar de perto, com atenção.',
+    '8 de fevereiro, Cervejaria Fidélis. A Beernissage recebeu Bruxa (telas e desenhos), fotografias de Alice Veludo e DJ sets de Bruxa, CaptãoMer, Wiseloop e Xapu. Entre conversa, arte e cerveja, a noite celebrou curadoria 140 e comunidade.',
   vozesQueRasgam:
-    'Performance vocal e cênica que explora a fragilidade e a força da voz. Rasgos de melodia, sussurros e silêncio encontram-se num espaço íntimo, convidando-nos a escutar o corpo e o que dele transborda.',
+    '1 de março, Ponto C. “Vozes que Rasgam” reuniu Kali, Alicemnenhumlugar, Moria, Bruma e Vaga numa noite em que hip-hop e rap foram resistência e expressão. Rimas‑manifesto e batidas‑marcha rasgaram o silêncio e deixaram marcas.',
   beernissageClaudia:
-    'Encontro com a obra de Cláudia, numa Beernissage que cruza artes visuais, conversa e música. Um brinde à criação, ao olhar atento e às pequenas revelações que surgem quando partilhamos o tempo.',
+    '8 de março, Cervejaria Fidélis. Exposição de Cláudia Oliveira (textos para ler devagar), performance “Eu e uma guitarra” de Diana Coelho, palco aberto e DJ set Killer Queen. Um brinde à arte com barril fresquinho.',
   plantasia:
-    'Sessão de escuta dedicada ao clássico de Mort Garson, “Mother Earth’s Plantasia”. Um momento de partilha sensorial para desacelerar e respirar, entre plantas, amigos e a vibração curiosa destes sons botânicos.',
+    '23 de março, Casa da Caturra (Ponto C). Tarde de escuta de “Mother Earth’s Plantasia”, de Mort Garson, com notas botânicas de Eduardo Peixoto de Almeida. Plantas, amigos e vibração verde a desacelerar ao sol.',
   beernissageLourenco:
-    'Edição especial da Beernissage com Lourenço. Canções de autor, histórias em voz alta e um copo na mão: a proximidade que só a 140 cria, com o público a dois passos do palco.',
+    '12 de abril, Cervejaria Fidélis. Lourenço, Caralho apresentou uma exposição de cores vivas e materiais reutilizados. Música com José Vale (guitarra experimental), Xavi e Edu (impro), DJ Rabbit e DJ UGHO numa noite de risco e conversa.',
   abrilLiberdade:
-    'Celebração do 25 de Abril com música, palavra e comunidade. Uma programação plural que homenageia a memória e a luta, afirmando a Liberdade como prática diária, viva e criativa.',
+    '25 de Abril, Penafiel. Conversa de Café sobre a Revolução, oficina de cartazes e Marcha da Liberdade no Largo da Ajuda, com o Grupo de Fados Literatus. Liberdade vivida nas ruas, nas mãos e nas vozes.',
   ohmeJulho:
-    'A edição de julho das Ohme Sessions traz-nos encontros improváveis entre músicos da cena local. Jazz, experimentalismo e risco — uma noite de descoberta e energia contagiante.',
+    '26 de julho, Casa da Caturra (Ponto C). OHME Sessions saiu do digital para showcases íntimos: DJ Vaga no arranque e open mic, atuações de Relax MFK e Keso, fecho com DJ Casca. Noite vibrante da cena urbana.',
 };
