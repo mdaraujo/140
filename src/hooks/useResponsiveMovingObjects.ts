@@ -38,19 +38,19 @@ function getConfigForScreenSize(width: number): ResponsiveConfig {
   } else if (width < 768) {
     // Large phones / small tablets
     return {
-      maxMovingObjects: 14,
+      maxMovingObjects: 12,
       animationInterval: { min: 4500, max: 7000 },
     };
   } else if (width < 1024) {
     // Tablets / small laptops
     return {
-      maxMovingObjects: 18,
+      maxMovingObjects: 15,
       animationInterval: { min: 4000, max: 6500 },
     };
   } else {
     // Desktop / large screens
     return {
-      maxMovingObjects: 22,
+      maxMovingObjects: 20,
       animationInterval: { min: 3500, max: 6000 },
     };
   }
