@@ -10,7 +10,12 @@ interface PopupModalProps {
   showCtaButton?: boolean;
 }
 
-const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose, showCtaButton = true }) => {
+const PopupModal: React.FC<PopupModalProps> = ({
+  isOpen,
+  movingObject,
+  onClose,
+  showCtaButton = true,
+}) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const prefersReducedMotion =
@@ -28,6 +33,13 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose, 
     setIsVisible(false);
     window.setTimeout(() => onClose(), 300); // sync with CSS transition
   }, [isClosing, onClose, prefersReducedMotion]);
+
+  const handleDescriptionClick = useCallback(() => {
+    // Close only on mobile viewports
+    if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+      handleRequestClose();
+    }
+  }, [handleRequestClose]);
 
   // Close on Escape key for accessibility
   useEffect(() => {
@@ -119,11 +131,13 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose, 
         )}
 
         {movingObject.description && (
-          <p className="artist-description">{movingObject.description}</p>
+          <p className="artist-description" onClick={handleDescriptionClick}>
+            {movingObject.description}
+          </p>
         )}
 
-        {showCtaButton && (
-          hasTickets ? (
+        {showCtaButton &&
+          (hasTickets ? (
             <a
               href={movingObject.ticketsLink!}
               target="_blank"
@@ -157,8 +171,7 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose, 
             >
               Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
             </a>
-          )
-        )}
+          ))}
       </div>
     </div>
   );
