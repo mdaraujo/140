@@ -63,7 +63,7 @@ export function fallbackSocioObjects(): MovingObject[] {
       location: null,
       weight: 1,
     },
-    {
+    /*{
       image: src('logo_r1_1.png'),
       formLink: FORMS.fichaSocio,
       ticketsLink: null,
@@ -90,6 +90,6 @@ export function fallbackSocioObjects(): MovingObject[] {
       ticketsLink: null,
       location: null,
       weight: 1,
-    },
+    },*/
   ];
 }
