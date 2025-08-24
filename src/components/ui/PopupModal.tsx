@@ -13,13 +13,21 @@ interface PopupModalProps {
 const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose, showCtaButton = true }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const prefersReducedMotion =
+    typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
 
   const handleRequestClose = useCallback(() => {
     if (isClosing) return;
+    if (prefersReducedMotion) {
+      onClose();
+      return;
+    }
     setIsClosing(true);
     setIsVisible(false);
-    window.setTimeout(() => onClose(), 300); // sync with CSS transition fallback
-  }, [isClosing, onClose]);
+    window.setTimeout(() => onClose(), 300); // sync with CSS transition
+  }, [isClosing, onClose, prefersReducedMotion]);
 
   // Close on Escape key for accessibility
   useEffect(() => {
@@ -39,10 +47,14 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose, 
   useEffect(() => {
     if (isOpen) {
       setIsClosing(false);
-      // let initial styles apply before making visible to avoid flicker
-      requestAnimationFrame(() => setIsVisible(true));
+      if (prefersReducedMotion) {
+        setIsVisible(true);
+      } else {
+        // let initial styles apply before making visible to avoid flicker
+        requestAnimationFrame(() => setIsVisible(true));
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, prefersReducedMotion]);
 
   if (!isOpen || !movingObject) return null;
 
