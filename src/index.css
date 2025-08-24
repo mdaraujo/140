@@ -1,9 +1,9 @@
 :root {
   --color-foreground: rgba(255, 255, 255, 0.95);
-  --color-bg: #eaa06b;
-  --color-accent: #546930;
-  --color-overlay: #eaa06bea; /* bg with ~92% opacity */
-  --color-accent-soft: #54693026; /* accent at ~15% opacity */
+  --color-bg: #8d1d1d; /* 140 main red */
+  --color-accent: #3a0f0f; /* deep maroon (less black) */
+  --color-overlay: #8d1d1dea; /* bg ~92% */
+  --color-accent-soft: #3a0f0f26; /* ~15% */
 
   /* Durations */
   --duration-popup-in: 340ms;
@@ -32,18 +32,18 @@
 }
 
 .theme-now {
-  --color-bg: #eaa06b;
-  --color-accent: #546930;
-  --color-overlay: #eaa06bea;
-  --color-accent-soft: #54693026;
+  --color-bg: #8d1d1d;
+  --color-accent: #3a0f0f;
+  --color-overlay: #8d1d1dea;
+  --color-accent-soft: #3a0f0f26;
   --color-foreground: rgba(255, 255, 255, 0.95);
 }
 
 .theme-past {
-  --color-bg: #546930;
-  --color-accent: #eaa06b;
-  --color-overlay: #546930ea;
-  --color-accent-soft: #eaa06b26;
+  --color-bg: #3a0f0f; /* invert: use accent as bg */
+  --color-accent: #8d1d1d; /* invert: use main red as accent */
+  --color-overlay: #3a0f0fea;
+  --color-accent-soft: #8d1d1d26;
   --color-foreground: rgba(255, 255, 255, 0.95);
 }
 
