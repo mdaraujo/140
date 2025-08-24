@@ -15,6 +15,7 @@ interface MovingElementProps {
   onClick: (movingObject: MovingObject) => void;
   restrictedAreas?: DOMRect[];
   isFirst?: boolean;
+  randomizeFirst?: boolean;
   selectionCountsRef: React.MutableRefObject<Map<string, number>>;
   animationInterval?: AnimationInterval;
   existingPositions: Map<string, Position>;
@@ -28,6 +29,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   onClick,
   restrictedAreas = [],
   isFirst = false,
+  randomizeFirst = false,
   selectionCountsRef,
   animationInterval = { min: 3500, max: 6000 },
   existingPositions,
@@ -108,8 +110,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   // Set initial image only once
   useEffect(() => {
     if (!hasSetInitialImage.current) {
-      if (isFirst) {
-        // For the first object, manually pick and count the first item
+      if (isFirst && !randomizeFirst) {
         const firstObject = movingObjects[0];
         logRandomPick(firstObject);
         setCurrentMovingObject(firstObject);
@@ -118,7 +119,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
       }
       hasSetInitialImage.current = true;
     }
-  }, [isFirst, movingObjects, getRandomObject, selectionCountsRef, logRandomPick]);
+  }, [isFirst, randomizeFirst, movingObjects, getRandomObject, selectionCountsRef, logRandomPick]);
 
   // Handle position changes and animations
   useEffect(() => {

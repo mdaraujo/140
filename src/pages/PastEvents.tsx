@@ -7,9 +7,13 @@ const PastEvents: React.FC = () => {
   const { pastEvents } = splitEvents(events);
   const moving = eventsToMovingObjects(pastEvents);
 
-  return <EventsPage headerLines={['E', 'O QUE FOI', '?']} movingObjects={moving} />;
+  return (
+    <EventsPage
+      headerLines={['E', 'O QUE FOI', '?']}
+      movingObjects={moving}
+      randomizeFirst={pastEvents.length > 5}
+    />
+  );
 };
 
 export default PastEvents;
-
-

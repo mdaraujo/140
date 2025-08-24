@@ -5,9 +5,16 @@ import { eventsToMovingObjects, fallbackSocioObjects, splitEvents } from '../uti
 
 const Home: React.FC = () => {
   const { nowEvents } = splitEvents(events);
-  const moving = nowEvents.length ? eventsToMovingObjects(nowEvents) : fallbackSocioObjects();
+  const usingFallback = nowEvents.length === 0;
+  const moving = usingFallback ? fallbackSocioObjects() : eventsToMovingObjects(nowEvents);
 
-  return <EventsPage headerLines={['E', 'AGORA', '?']} movingObjects={moving} />;
+  return (
+    <EventsPage
+      headerLines={['E', 'AGORA', '?']}
+      movingObjects={moving}
+      randomizeFirst={usingFallback || nowEvents.length > 2}
+    />
+  );
 };
 
 export default Home;

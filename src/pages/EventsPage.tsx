@@ -11,9 +11,10 @@ import '../App.css';
 interface EventsPageProps {
   headerLines: [string, string, string];
   movingObjects: MovingObject[];
+  randomizeFirst?: boolean;
 }
 
-function EventsContent({ headerLines, movingObjects }: EventsPageProps): JSX.Element | null {
+function EventsContent({ headerLines, movingObjects, randomizeFirst = false }: EventsPageProps): JSX.Element | null {
   const {
     movingObjectCount,
     objectPositions,
@@ -55,6 +56,7 @@ function EventsContent({ headerLines, movingObjects }: EventsPageProps): JSX.Ele
           onClick={openPopup}
           restrictedAreas={restrictedAreas}
           isFirst={movingObjectCount === 1}
+          randomizeFirst={randomizeFirst}
           selectionCountsRef={{ current: randomPickCounts }}
           animationInterval={responsiveConfig.animationInterval}
           existingPositions={objectPositions}
@@ -74,12 +76,12 @@ function EventsContent({ headerLines, movingObjects }: EventsPageProps): JSX.Ele
   );
 }
 
-const EventsPage: React.FC<EventsPageProps> = ({ headerLines, movingObjects }) => {
+const EventsPage: React.FC<EventsPageProps> = ({ headerLines, movingObjects, randomizeFirst = false }) => {
   const headerObject = movingObjects[0] || null;
   return (
     <MovingObjectsProvider initialMovingObjects={movingObjects}>
       <UIStateProvider headerObject={headerObject || movingObjects[0]!}>
-        <EventsContent headerLines={headerLines} movingObjects={movingObjects} />
+        <EventsContent headerLines={headerLines} movingObjects={movingObjects} randomizeFirst={randomizeFirst} />
       </UIStateProvider>
     </MovingObjectsProvider>
   );
