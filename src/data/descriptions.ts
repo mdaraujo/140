@@ -1,5 +1,5 @@
 export const DESCRIPTIONS = {
-  cartaz:
+  gumaJazz:
     'A Associação 140 convida o público para a primeira edição do GumaJazz, um evento que celebra o jazz, a improvisação, o artesanato e a criação comunitária no coração do verão. O festival acontece no dia 17 de agosto de 2025, a partir das 15h.',
   lojaPopUp:
     'Uma despedida calorosa da nossa Loja Pop Up “Até Já”, com curadoria afetiva de projetos locais e objetos feitos com as mãos. Uma tarde para descobrir, conversar e levar um pedaço da 140 para casa — sempre com música e boa disposição.',

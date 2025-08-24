@@ -3,31 +3,28 @@ import { LOCATIONS } from './constants';
 import { DESCRIPTIONS } from './descriptions';
 
 // Assets
-import GUMAJAZZ_cartaz from '../assets/GUMAJAZZ_cartaz.jpg';
-import OHME_Sessions_Julho from '../assets/25_07_26_ohme_sessions_julho.jpg';
+import GumaJazz from '../assets/25_08_17_GumaJazz.jpg';
+import OhmeSessions from '../assets/25_07_26_Ohme_Sessions.jpg';
 import LojaPopUp from '../assets/24_12_28_LojaPopUp_AteJa.jpeg';
 import Beernissage_Jam from '../assets/25_01_11_Beernissage_Jam.jpeg';
 import Beernissage_Bruxa from '../assets/25_02_08_Beernissage_Bruxa.jpeg';
-import VozesQueRasgam from '../assets/25_03_01_vozes_que_rasgam.jpeg';
+import VozesQueRasgam from '../assets/25_03_01_Vozes_Que_Rasgam.jpeg';
 import Beernissage_Claudia from '../assets/25_03_08_Beernissage_Claudia.jpeg';
 import MotherEarthsPlantasia from '../assets/25_03_23_Mother_Earths_Plantasia.jpeg';
 import Beernissage_Lourenco from '../assets/25_04_12_Beernissage_Lourenco.jpeg';
 import AbrilLiberdade from '../assets/25_04_25_de_Abril_Liberdade.jpeg';
 
 export const events: EventItem[] = [
-  // GumaJazz (Cartaz - single entry)
   {
-    id: 'guma-cartaz',
+    id: '2025-08-17-gumajazz',
     name: 'GumaJazz',
-    description: DESCRIPTIONS.cartaz,
-    image: GUMAJAZZ_cartaz,
+    description: DESCRIPTIONS.gumaJazz,
+    image: GumaJazz,
     location: LOCATIONS.gumaJazz,
     startAt: '2025-08-17T15:00:00',
     endAt: '2025-08-17T23:59:00',
     weight: 1,
   },
-
-  // Other past events (named by file date; times approximate)
   {
     id: '2024-12-28-loja-pop-up',
     name: 'Loja Pop Up - Até Já',
@@ -103,7 +100,7 @@ export const events: EventItem[] = [
   {
     id: '2025-07-26-ohme-sessions-julho',
     name: 'Ohme Sessions - Julho',
-    image: OHME_Sessions_Julho,
+    image: OhmeSessions,
     startAt: '2025-07-26T21:00:00',
     endAt: '2025-07-26T23:30:00',
     description: DESCRIPTIONS.ohmeJulho,
