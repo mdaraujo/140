@@ -135,6 +135,17 @@
   .question .l3 {
     margin-right: 24vw;
   }
+
+  /* Make the answer bubble more compact on mobile */
+  .answer-bubble {
+    font-size: 1.8rem;
+    line-height: 1.15;
+    padding: 0.6rem 0.9rem;
+    max-width: 80%;
+  }
+  .answer-bubble .answer-tail {
+    font-size: 1em;
+  }
 }
 
 /* Rotation animations for question header letters */
