@@ -40,11 +40,12 @@
 }
 
 .theme-past {
-  --color-bg: #3a0f0f; /* invert: use accent as bg */
-  --color-accent: #8d1d1d; /* invert: use main red as accent */
-  --color-overlay: #3a0f0fea;
-  --color-accent-soft: #8d1d1d26;
-  --color-foreground: rgba(255, 255, 255, 0.95);
+  /* Swap bg and foreground from main theme */
+  --color-bg: rgba(255, 255, 255, 0.95);
+  --color-foreground: #8d1d1d;
+  --color-accent: #3a0f0f;
+  --color-overlay: #ffffffea;
+  --color-accent-soft: #3a0f0f26;
 }
 
 a {

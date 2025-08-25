@@ -74,6 +74,30 @@
   outline: none;
 }
 
+/* In NOW theme, invert menu to match PAST page colors */
+.theme-now .navbar-menu {
+  background: var(--color-foreground);
+}
+.theme-now .menu-link {
+  color: var(--color-bg);
+}
+.theme-now .navbar-menu .menu-link:hover,
+.theme-now .navbar-menu .menu-link:focus-visible {
+  color: var(--color-accent);
+}
+
+/* In PAST theme, use NOW page colors for menu */
+.theme-past .navbar-menu {
+  background: var(--color-foreground);
+}
+.theme-past .menu-link {
+  color: rgba(255, 255, 255, 0.95);
+}
+.theme-past .navbar-menu .menu-link:hover,
+.theme-past .navbar-menu .menu-link:focus-visible {
+  color: var(--color-accent);
+}
+
 @media only screen and (min-width: 769px) {
   .navbar-center {
     display: flex;
@@ -85,5 +109,3 @@
     display: none !important;
   }
 }
-
-
