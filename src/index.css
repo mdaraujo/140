@@ -1,9 +1,21 @@
 :root {
-  --color-foreground: rgba(255, 255, 255, 0.95);
-  --color-bg: #8d1d1d; /* 140 main red */
-  --color-accent: #3a0f0f; /* deep maroon (less black) */
+  /* Brand tokens */
+  --brand-red: #8d1d1d;
+  --accent-deep: #3a0f0f;
+  --light-surface: rgba(255, 255, 255, 0.95);
+  --overlay-alpha: 0.92; /* reference only */
+  --accent-soft-alpha: 0.15; /* reference only */
+
+  /* Effective theme vars (defaults = NOW) */
+  --color-bg: var(--brand-red);
+  --color-accent: var(--accent-deep);
+  --color-foreground: var(--light-surface);
   --color-overlay: #8d1d1dea; /* bg ~92% */
   --color-accent-soft: #3a0f0f26; /* ~15% */
+
+  /* Navbar tokens (can be overridden per theme) */
+  --navbar-menu-bg: var(--color-accent);
+  --navbar-menu-fg: var(--color-foreground);
 
   /* Durations */
   --duration-popup-in: 340ms;
@@ -32,20 +44,19 @@
 }
 
 .theme-now {
-  --color-bg: #8d1d1d;
-  --color-accent: #3a0f0f;
-  --color-overlay: #8d1d1dea;
-  --color-accent-soft: #3a0f0f26;
-  --color-foreground: rgba(255, 255, 255, 0.95);
+  /* Navbar inversion to match past page */
+  --navbar-menu-bg: var(--light-surface);
+  --navbar-menu-fg: var(--brand-red);
 }
 
 .theme-past {
   /* Swap bg and foreground from main theme */
-  --color-bg: rgba(255, 255, 255, 0.95);
-  --color-foreground: #8d1d1d;
-  --color-accent: #3a0f0f;
+  --color-bg: var(--light-surface);
+  --color-foreground: var(--brand-red);
   --color-overlay: #ffffffea;
-  --color-accent-soft: #3a0f0f26;
+  /* Navbar uses main (now) colors */
+  --navbar-menu-bg: var(--brand-red);
+  --navbar-menu-fg: var(--light-surface);
 }
 
 a {
@@ -63,10 +74,7 @@ body {
 }
 
 .theme-now body,
-.theme-now {
-  background-color: var(--color-bg);
-}
-
+.theme-now,
 .theme-past body,
 .theme-past {
   background-color: var(--color-bg);
