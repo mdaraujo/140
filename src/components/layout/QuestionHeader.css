@@ -97,11 +97,13 @@
   background: transparent;
   color: var(--color-foreground);
   font-weight: 500;
-  font-size: 3rem;
+  font-size: clamp(1.1rem, 4vw, 3rem);
   line-height: 0.9;
   letter-spacing: 0.3px;
   pointer-events: auto;
-  transition: transform var(--duration-transform) ease, filter var(--duration-shadow-hover);
+  transition:
+    transform var(--duration-transform) ease,
+    filter var(--duration-shadow-hover);
   cursor: pointer;
   max-width: 80%;
 }
@@ -112,7 +114,7 @@
 .answer-bubble:hover,
 .answer-bubble:focus-visible {
   transform: translateY(-2px) scale(1.03);
-  filter: drop-shadow(6px 2px 0 var(--color-accent));
+  filter: drop-shadow(6px 2px 0 var(--shadow-accent));
   outline: none;
 }
 

@@ -24,7 +24,7 @@
 }
 
 .nav-link {
-  padding: 0.25rem 0.5rem;
+  padding: 0.35rem 0.6rem;
   border-radius: 4px;
 }
 .nav-link.active {
@@ -70,7 +70,7 @@
 }
 .navbar-menu .menu-link:hover,
 .navbar-menu .menu-link:focus-visible {
-  color: var(--color-accent);
+  color: var(--link-hover);
   outline: none;
 }
 
