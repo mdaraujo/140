@@ -3,26 +3,46 @@ import { LOCATIONS } from './constants';
 import { DESCRIPTIONS } from './descriptions';
 
 // Assets
-import GumaJazz from '../assets/25_08_17_GumaJazz.jpg';
-import OhmeSessions from '../assets/25_07_26_Ohme_Sessions.jpg';
-import LojaPopUp from '../assets/24_12_28_LojaPopUp_AteJa.jpeg';
-import Beernissage_Jam from '../assets/25_01_11_Beernissage_Jam.jpeg';
+import LojaPopUp_Ola from '../assets/24_12_01_LojaPopUp_1_Ola.jpg';
+import LojaPopUp_PuroL from '../assets/24_12_15_LojaPopUp_2_PuroL.jpg';
+import LojaPopUp_Oficinas from '../assets/24_12_21_LojaPopUp_3_Oficinas.jpg';
+import LojaPopUp from '../assets/24_12_28_LojaPopUp_4_AteJa.jpeg';
+import Beernissage_Jam from '../assets/25_01_11_Beernissage_Jam_2.jpg';
 import Beernissage_Bruxa from '../assets/25_02_08_Beernissage_Bruxa.jpeg';
 import VozesQueRasgam from '../assets/25_03_01_Vozes_Que_Rasgam.jpeg';
 import Beernissage_Claudia from '../assets/25_03_08_Beernissage_Claudia.jpeg';
 import MotherEarthsPlantasia from '../assets/25_03_23_Mother_Earths_Plantasia.jpeg';
 import Beernissage_Lourenco from '../assets/25_04_12_Beernissage_Lourenco.jpeg';
 import AbrilLiberdade from '../assets/25_04_25_de_Abril_Liberdade.jpeg';
+import OhmeSessions from '../assets/25_07_26_Ohme_Sessions.jpg';
+import GumaJazz from '../assets/25_08_17_GumaJazz.jpg';
 
 export const events: EventItem[] = [
   {
-    id: '2025-08-17-gumajazz',
-    name: 'GumaJazz',
-    description: DESCRIPTIONS.gumaJazz,
-    image: GumaJazz,
-    location: LOCATIONS.gumaJazz,
-    startAt: '2025-08-17T15:00:00',
-    endAt: '2025-08-17T23:59:00',
+    id: '2024-12-01-loja-pop-up-ola',
+    name: 'Loja Pop Up - Olá',
+    image: LojaPopUp_Ola,
+    startAt: '2024-12-01T10:00:00',
+    endAt: '2024-12-01T11:30:00',
+    description: DESCRIPTIONS.lojaPopUpOla,
+    weight: 1,
+  },
+  {
+    id: '2024-12-15-loja-pop-up-puro-l',
+    name: 'Loja Pop Up - Puro L',
+    image: LojaPopUp_PuroL,
+    startAt: '2024-12-15T12:00:00',
+    endAt: '2024-12-15T13:00:00',
+    description: DESCRIPTIONS.lojaPopUpPuroL,
+    weight: 1,
+  },
+  {
+    id: '2024-12-21-loja-pop-up-oficinas',
+    name: 'Loja Pop Up - Oficinas',
+    image: LojaPopUp_Oficinas,
+    startAt: '2024-12-21T13:00:00',
+    endAt: '2024-12-21T14:00:00',
+    description: DESCRIPTIONS.lojaPopUpOficinas,
     weight: 1,
   },
   {
@@ -103,7 +123,17 @@ export const events: EventItem[] = [
     image: OhmeSessions,
     startAt: '2025-07-26T21:00:00',
     endAt: '2025-07-26T23:30:00',
-    description: DESCRIPTIONS.ohmeJulho,
+    description: DESCRIPTIONS.ohmeSessions,
+    weight: 1,
+  },
+  {
+    id: '2025-08-17-gumajazz',
+    name: 'GumaJazz',
+    description: DESCRIPTIONS.gumaJazz,
+    image: GumaJazz,
+    location: LOCATIONS.gumaJazz,
+    startAt: '2025-08-17T15:00:00',
+    endAt: '2025-08-17T23:59:00',
     weight: 1,
   },
 ];
