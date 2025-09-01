@@ -8,6 +8,7 @@ import { generatePosition } from '../../utils/positionHelpers';
 import { useMovingObjects } from '../../contexts/MovingObjectsContext';
 import { ANIMATION_CONSTANTS } from '../../data/constants';
 import { trackCtaClick, trackModalOpen } from '../../utils/analytics';
+import { isPositionDebugEnabled } from '../../utils/debug';
 
 interface MovingElementProps {
   elementId: string;
@@ -90,14 +91,23 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const getPosition = useCallback(
     (useCurrentPositions: boolean = false): Position => {
       const positions = useCurrentPositions ? objectPositionsRef.current : existingPositions;
-      return generatePosition(
+      const pos = generatePosition(
         positions,
         restrictedAreas,
         true, // Use collision detection
         ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_MOVEMENT,
       );
+      if (isPositionDebugEnabled()) {
+        console.log('[moving] getPosition', {
+          elementId,
+          useCurrentPositions,
+          restrictedAreasCount: restrictedAreas?.length ?? 0,
+          pos,
+        });
+      }
+      return pos;
     },
-    [restrictedAreas, existingPositions],
+    [restrictedAreas, existingPositions, elementId],
   );
 
   const getRandomObject = useCallback((): MovingObject => {
@@ -133,6 +143,13 @@ const MovingElement: React.FC<MovingElementProps> = ({
       true, // Use collision detection
       ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_INITIAL,
     );
+    if (isPositionDebugEnabled()) {
+      console.log('[moving] initialPosition', {
+        elementId,
+        restrictedAreasCount: restrictedAreas?.length ?? 0,
+        initialPosition,
+      });
+    }
     setPosition(initialPosition);
     onPositionUpdate(elementId, initialPosition);
     // Consider initial placement as a move end
