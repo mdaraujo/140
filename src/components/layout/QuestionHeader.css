@@ -106,6 +106,7 @@
     filter var(--duration-shadow-hover);
   cursor: pointer;
   max-width: 80%;
+  will-change: transform, filter;
 }
 .answer-bubble .answer-tail {
   font-size: 1.2em;
@@ -116,6 +117,44 @@
   transform: translateY(-2px) scale(1.03);
   filter: drop-shadow(6px 2px 0 var(--shadow-accent));
   outline: none;
+  animation-play-state: paused;
+}
+
+.answer-bubble:active {
+  animation-play-state: paused;
+}
+
+@keyframes answer-float {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+  75% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes answer-pop-in {
+  0% {
+    transform: scale(0.96);
+    filter: drop-shadow(0 0 0 var(--shadow-accent));
+  }
+  55% {
+    transform: scale(1.08);
+    filter: drop-shadow(6px 2px 0 var(--shadow-accent));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 var(--shadow-accent));
+  }
 }
 
 /* Mobile styles (<=768px) */
@@ -176,5 +215,13 @@
 
   .rotate2 {
     animation: rotate-spin2 infinite 8s linear;
+  }
+
+  .answer-bubble.is-floating {
+    animation: answer-float 10s ease-in-out 0s infinite;
+  }
+
+  .answer-bubble.answer-pop-in {
+    animation: answer-pop-in 800ms ease-out 1;
   }
 }

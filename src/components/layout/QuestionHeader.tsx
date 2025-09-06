@@ -85,10 +85,16 @@ const QuestionHeader = forwardRef<HTMLDivElement, QuestionHeaderProps>(
         </p>
         {answer && (
           <div
-            className="answer-bubble"
+            className={`answer-bubble answer-pop-in`}
             role={'button'}
             aria-live="polite"
             tabIndex={0}
+            onAnimationEnd={(e) => {
+              if (e.animationName.includes('answer-pop-in')) {
+                e.currentTarget.classList.remove('answer-pop-in');
+                e.currentTarget.classList.add('is-floating');
+              }
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
