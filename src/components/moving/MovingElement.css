@@ -15,8 +15,11 @@
 .moving-element img {
   width: 80px; /* keep in sync with ANIMATION_CONSTANTS.OBJECT_WIDTH */
   height: auto;
-  transition: transform var(--duration-transform) ease;
+  transition:
+    transform var(--duration-transform) ease,
+    opacity 160ms ease;
   pointer-events: auto;
+  opacity: 0.7;
 }
 
 .moving-element-hover {
@@ -25,6 +28,15 @@
 
 .moving-element-hover:hover {
   transform: scale(1.5);
+  opacity: 1;
+}
+
+.moving-element-hover:focus-visible {
+  opacity: 1;
+}
+
+.moving-element-hover.pinned {
+  opacity: 1;
 }
 
 /* Attention cue animation for moving elements */
