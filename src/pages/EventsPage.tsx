@@ -139,10 +139,9 @@ const EventsPage: React.FC<EventsPageProps> = ({
   movingObjects,
   randomizeFirst = false,
 }) => {
-  const headerObject = movingObjects[0] || null;
   return (
     <MovingObjectsProvider initialMovingObjects={movingObjects}>
-      <UIStateProvider headerObject={headerObject || movingObjects[0]!}>
+      <UIStateProvider movingObjects={movingObjects}>
         <EventsContent
           headerLines={headerLines}
           movingObjects={movingObjects}
