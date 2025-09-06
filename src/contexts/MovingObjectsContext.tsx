@@ -107,7 +107,7 @@ export function MovingObjectsProvider({
       const effectiveWeight = (picked.weight || 1) * Math.pow(DECAY_FACTOR, newCount);
 
       console.log(
-        `🎲 Random Pick: ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(2)})`,
+        `🎲 Random Pick: ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(6)})`,
       );
 
       // Show all current counts every 5 random picks
@@ -118,14 +118,16 @@ export function MovingObjectsProvider({
 
       if (totalRandomPicks % 5 === 0) {
         console.log('\n📊 Current Weighted Algorithm Stats:');
-        const allCounts = Array.from(randomPickCountsRef.current.entries()).map(([image, count]) => {
-          const base = initialMovingObjects.find((obj) => obj.image === image)?.weight || 1;
-          return {
-            image: image.split('/').pop() || 'unknown',
-            count,
-            effectiveWeight: base * Math.pow(DECAY_FACTOR, count),
-          };
-        });
+        const allCounts = Array.from(randomPickCountsRef.current.entries()).map(
+          ([image, count]) => {
+            const base = initialMovingObjects.find((obj) => obj.image === image)?.weight || 1;
+            return {
+              image: image.split('/').pop() || 'unknown',
+              count,
+              effectiveWeight: base * Math.pow(DECAY_FACTOR, count),
+            };
+          },
+        );
         console.table(allCounts);
         console.log(`Total random picks: ${totalRandomPicks}\n`);
       }

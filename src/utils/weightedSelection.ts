@@ -6,7 +6,7 @@ import { MovingObject } from '../types/MovingObject';
  * @param selectionCounts Optional map of how many times each item has been selected
  * @returns A randomly selected item based on weights
  */
-export const DECAY_FACTOR = 0.25; // 25% of previous effective weight after each selection
+export const DECAY_FACTOR = 0.01; // 1% of previous effective weight after each selection
 
 export function selectWeightedRandom(
   items: MovingObject[],
@@ -21,7 +21,7 @@ export function selectWeightedRandom(
     const baseWeight = item.weight || 1;
     const selectionCount = selectionCounts?.get(item.image) || 0;
     // Exponential decay based on how many times the item was selected
-    // count=0 => 1x, count=1 => 0.25x, count=2 => 0.0625x, ...
+    // count=0 => 1x, count=1 => 0.01x, count=2 => 0.0001x, ...
     return baseWeight * Math.pow(DECAY_FACTOR, selectionCount);
   });
 
