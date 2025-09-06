@@ -8,17 +8,17 @@ export const DESCRIPTIONS = {
   lojaPopUp:
     'Encerrámos a Loja 140 POP-UP com arte, performance e música. Mostrámos que juntos criámos algo maior.',
   beernissageJam:
-    '11 de janeiro, Beernissage com curadoria 140: jam session aberta, DJ sets, exposição coletiva e barril fresquinho. Sabores penafidelenses saciaram a sede de cultura e arte — um arranque construtivo para o novo ano.',
+    'Jam aberta, novas caras e exposição coletiva na Fidélis. Um arranque de 2025 cheio de improviso e cocriação. Um início de 2025 que marcou o ritmo do 140.',
   beernissageBruxa:
-    '8 de fevereiro, Cervejaria Fidélis. A Beernissage recebeu Bruxa (telas e desenhos), fotografias de Alice Veludo e DJ sets de Bruxa, CaptãoMer, Wiseloop e Xapu. Entre conversa, arte e cerveja, a noite celebrou curadoria 140 e comunidade.',
+    'Bruxa trouxe metamorfoses, Alice Veludo imagens do quotidiano. Arte e som fundiram-se na Fidélis com coletivo Sala 1.2.7, a trazer inovação sonora ao brewpub.',
   vozesQueRasgam:
-    '1 de março, Ponto C. “Vozes que Rasgam” reuniu Kali, Alicemnenhumlugar, Moria, Bruma e Vaga numa noite em que hip-hop e rap foram resistência e expressão. Rimas‑manifesto e batidas‑marcha rasgaram o silêncio e deixaram marcas.',
+    'No Ponto C, vozes, versos e corpos ergueram-se em forma de manifesto. Energia, resistência e liberdade encheram a noite dedicada a mulher que rasgou preconceitos da cultura underground.',
   beernissageClaudia:
-    '8 de março, Cervejaria Fidélis. Exposição de Cláudia Oliveira (textos para ler devagar), performance “Eu e uma guitarra” de Diana Coelho, palco aberto e DJ set Killer Queen. Um brinde à arte com barril fresquinho.',
+    'Palavras, poemas e música preencheram a Fidélis. A exposição de Cláudia Oliveira deixou espaço para a criação e exploração poética.',
   plantasia:
-    '23 de março, Casa da Caturra (Ponto C). Tarde de escuta de “Mother Earth’s Plantasia”, de Mort Garson, com notas botânicas de Eduardo Peixoto de Almeida. Plantas, amigos e vibração verde a desacelerar ao sol.',
+    'Sol, Plantas e Humanos - ouvimos “Mother’s Earth Plantasia” de Mort Garson entre plantas, teclas e raízes foi uma tarde de florescimento guiada pelo Eduardo Peixoto de Almeida.',
   beernissageLourenco:
-    '12 de abril, Cervejaria Fidélis. Lourenço, Caralho apresentou uma exposição de cores vivas e materiais reutilizados. Música com José Vale (guitarra experimental), Xavi e Edu (impro), DJ Rabbit e DJ UGHO numa noite de risco e conversa.',
+    'Improviso consciente e coletivo, som cru, guitarras em rutura e DJ sets incendiaram a noite na Fidélis.',
   abrilLiberdade:
     '25 de Abril, Penafiel. Conversa de Café sobre a Revolução, oficina de cartazes e Marcha da Liberdade no Largo da Ajuda, com o Grupo de Fados Literatus. Liberdade vivida nas ruas, nas mãos e nas vozes.',
   ohmeSessions:
