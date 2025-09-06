@@ -66,17 +66,20 @@ function EventsContent({
       return `${when} — ${next.name}`;
     }
     const JOY_WORDS = [
-      'cultura',
-      'arte',
-      'música',
-      'cerveja',
-      'festa',
-      'amizade',
-      'partilha',
-      'conversa',
+      'muita cultura',
+      'muito movimento',
+      'muitas sinergias',
+      'muita autenticidade',
+      'muitas inovações',
+      'muita improvisação',
+      'muitas colaborações',
+      'muitas fusões',
+      'muitas partilhas',
+      'muita liberdade',
+      'muitas utopias',
     ];
     const word = JOY_WORDS[Math.floor(Math.random() * JOY_WORDS.length)];
-    return `Foram ${pastEvents.length} eventos e muita ${word}!`;
+    return `Foram ${pastEvents.length} eventos e ${word}!`;
   })();
 
   const handleAnswerClick = useCallback(() => {
