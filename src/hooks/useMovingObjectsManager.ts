@@ -49,17 +49,20 @@ export function useMovingObjectsManager(
   // Object spawning logic (consolidated from useObjectSpawning)
   useEffect(() => {
     if (movingObjectCount < responsiveConfig.maxMovingObjects) {
-      // Make the first moving objects appear faster, then slow down
+      // Early spawns (faster than normal)
       let minInterval: number;
       let maxInterval: number;
 
       if (movingObjectCount < 2) {
-        minInterval = 600; // 0.6s
-        maxInterval = 1200; // 1.2s
+        // First 1–2 spawns at ~30% of normal interval
+        minInterval = responsiveConfig.animationInterval.min * 0.3;
+        maxInterval = responsiveConfig.animationInterval.max * 0.3;
       } else if (movingObjectCount < 4) {
-        minInterval = responsiveConfig.animationInterval.min * 0.6; // Faster initial appearance
+        // Next couple spawns at ~60% of normal interval
+        minInterval = responsiveConfig.animationInterval.min * 0.6;
         maxInterval = responsiveConfig.animationInterval.max * 0.6;
       } else {
+        // Afterwards use normal interval
         minInterval = responsiveConfig.animationInterval.min;
         maxInterval = responsiveConfig.animationInterval.max;
       }
