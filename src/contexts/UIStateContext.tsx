@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { MovingObject } from '../types/MovingObject';
-import { trackModalOpen } from '../utils/analytics';
+import { useMovingObjects } from './MovingObjectsContext';
+import { trackCtaClick, trackModalOpen } from '../utils/analytics';
+import { selectWeightedRandom } from '../utils/weightedSelection';
 
 /**
  * UI State interface
@@ -51,16 +53,17 @@ export function useUIState(): UIStateContextType {
  */
 interface UIStateProviderProps {
   children: ReactNode;
-  headerObject: MovingObject;
+  movingObjects: MovingObject[];
 }
 
 /**
  * Provider component for UI state management
  */
-export function UIStateProvider({ children, headerObject }: UIStateProviderProps): JSX.Element {
+export function UIStateProvider({ children, movingObjects }: UIStateProviderProps): JSX.Element {
   // State management
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [activeMovingObject, setActiveMovingObject] = useState<MovingObject | null>(null);
+  const { getRandomPickCounts } = useMovingObjects();
 
   // Actions
   const openPopup = useCallback((movingObject: MovingObject) => {
@@ -75,14 +78,29 @@ export function UIStateProvider({ children, headerObject }: UIStateProviderProps
   }, []);
 
   const openHeaderPopup = useCallback(() => {
-    openPopup(headerObject);
+    const selectionCounts = getRandomPickCounts();
+    const candidates = movingObjects && movingObjects.length > 0 ? movingObjects : [];
+    if (candidates.length === 0) return;
+    const chosen = selectWeightedRandom(candidates, selectionCounts);
+
+    if (chosen.formLink) {
+      trackCtaClick({
+        context: 'header',
+        ctaType: 'form_link',
+        linkUrl: chosen.formLink,
+      });
+      window.open(chosen.formLink, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    openPopup(chosen);
     trackModalOpen({
       context: 'header',
-      objectImage: headerObject.image,
-      hasTickets: !!headerObject.ticketsLink,
-      hasLocation: !!headerObject.location,
+      objectImage: chosen.image,
+      hasTickets: !!chosen.ticketsLink,
+      hasLocation: !!chosen.location,
     });
-  }, [openPopup, headerObject]);
+  }, [getRandomPickCounts, movingObjects, openPopup]);
 
   // Context value
   const contextValue: UIStateContextType = {

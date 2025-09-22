@@ -2,6 +2,7 @@ import { createContext, useContext, useRef, useState, useCallback, ReactNode } f
 import { MovingObject } from '../types/MovingObject';
 import { Position } from '../types/Position';
 import { ResponsiveConfig } from '../types/ResponsiveConfig';
+import { DECAY_FACTOR } from '../utils/weightedSelection';
 
 /**
  * State interface for moving objects management
@@ -103,10 +104,10 @@ export function MovingObjectsProvider({
 
       // Log individual random pick
       const imageName = picked.image.split('/').pop() || 'unknown';
-      const effectiveWeight = (picked.weight || 1) / newCount;
+      const effectiveWeight = (picked.weight || 1) * Math.pow(DECAY_FACTOR, newCount);
 
       console.log(
-        `🎲 Random Pick: ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(2)})`,
+        `🎲 Random Pick: ${imageName} (count: ${newCount}, effective weight: ${effectiveWeight.toFixed(6)})`,
       );
 
       // Show all current counts every 5 random picks
@@ -118,12 +119,14 @@ export function MovingObjectsProvider({
       if (totalRandomPicks % 5 === 0) {
         console.log('\n📊 Current Weighted Algorithm Stats:');
         const allCounts = Array.from(randomPickCountsRef.current.entries()).map(
-          ([image, count]) => ({
-            image: image.split('/').pop() || 'unknown',
-            count,
-            effectiveWeight:
-              (initialMovingObjects.find((obj) => obj.image === image)?.weight || 1) / (count + 1),
-          }),
+          ([image, count]) => {
+            const base = initialMovingObjects.find((obj) => obj.image === image)?.weight || 1;
+            return {
+              image: image.split('/').pop() || 'unknown',
+              count,
+              effectiveWeight: base * Math.pow(DECAY_FACTOR, count),
+            };
+          },
         );
         console.table(allCounts);
         console.log(`Total random picks: ${totalRandomPicks}\n`);

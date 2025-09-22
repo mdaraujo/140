@@ -1,4 +1,4 @@
-import { selectWeightedRandom } from './weightedSelection';
+import { selectWeightedRandom, DECAY_FACTOR } from './weightedSelection';
 import { MovingObject } from '../types/MovingObject';
 
 /**
@@ -38,7 +38,7 @@ export function testDiminishingWeights(items: MovingObject[], iterations: number
       originalWeight: item.weight || 1,
       timesSelected: count,
       percentage: percentage.toFixed(1),
-      finalEffectiveWeight: (item.weight || 1) / (count + 1),
+      finalEffectiveWeight: (item.weight || 1) * Math.pow(DECAY_FACTOR, count),
     };
   });
 
@@ -86,9 +86,9 @@ export function demonstrateDiminishingEffect(items: MovingObject[]) {
       const key = item.image.split('/').pop() || 'unknown';
       const baseWeight = item.weight || 1;
       const count = selectionCounts.get(item.image) || 0;
-      const effectiveWeight = baseWeight / (count + 1);
+      const effectiveWeight = baseWeight * Math.pow(DECAY_FACTOR, count);
 
-      console.log(`  ${key}: ${effectiveWeight.toFixed(2)} (selected ${count} times)`);
+      console.log(`  ${key}: ${effectiveWeight.toFixed(6)} (selected ${count} times)`);
     });
 
     // Simulate a selection

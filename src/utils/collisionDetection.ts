@@ -20,6 +20,7 @@ export function checkCollision(bounds1: ObjectBounds, bounds2: ObjectBounds): bo
 }
 
 import { ANIMATION_CONSTANTS } from '../data/constants';
+import { isPositionDebugEnabled } from './debug';
 
 /**
  * Find a position that doesn't collide with existing objects
@@ -62,6 +63,9 @@ export function findNonCollidingPosition(
 
     // Check if position is in any restricted area
     if (restrictedAreas.some((area) => isPositionInRestrictedArea(position, objectSize, area))) {
+      if (isPositionDebugEnabled()) {
+        console.log('[position][heavy] reject: restricted area overlap', { attempt: attempt + 1 });
+      }
       continue;
     }
 
@@ -90,7 +94,13 @@ export function findNonCollidingPosition(
     }
 
     if (!hasCollision) {
+      if (isPositionDebugEnabled()) {
+        console.log('[position][heavy] success', { attempt: attempt + 1, position });
+      }
       return position;
+    }
+    if (isPositionDebugEnabled()) {
+      console.log('[position][heavy] reject: collision', { attempt: attempt + 1 });
     }
   }
 

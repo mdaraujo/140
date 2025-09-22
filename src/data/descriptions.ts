@@ -1,14 +1,28 @@
 export const DESCRIPTIONS = {
-  cartaz:
-    'A Associação 140 convida o público para a primeira edição do GumaJazz, um evento que celebra o jazz, a improvisação, o artesanato e a criação comunitária no coração do verão. O festival acontece no dia 17 de agosto de 2025, a partir das 15h.',
-  workshop15h:
-    'O Clara Lacerda Trio dinamiza um workshop aberto a todas as pessoas a partir dos 6 anos, músicos e não músicos. Uma proposta educativa e sensorial que celebra a improvisação como linguagem inclusiva.',
-  gentrifugacao17h:
-    'Performance-instalação site-specific de Joana Raquel e Diana Gil, que resgata a memória dos lavadouros como espaços de trabalho, resistência e poesia. Através da música, palavra e intervenção visual.',
-  miguelMeirinhos18h:
-    'Pianista e compositor natural do Porto apresenta um solo centrado na escuta, no risco e na liberdade. O seu piano constrói narrativas em tempo real, com atenção ao instante, ao som e ao silêncio.',
-  claraLacerdaTrio21h:
-    'Reencontro do trio que se formou em 2017 e regressa ao local onde tudo começou: Clara Lacerda (piano), Xavier Nunes (contrabaixo) e Eduardo Dias (bateria). Repertório de composições originais a Thelonious Monk e Duke Ellington.',
-  barananu22h:
-    'Música para dançar, rir e brincar. Com improviso, groove e espírito lúdico, Barananu junta seis músicos de diferentes áreas num espetáculo vibrante e imprevisível.',
+  lojaPopUpOla:
+    'A nossa loja POP-UP no Edifício São Martinho abriu no dia 1 de dezembro, o Alexandre Centeio trouxe o som, a Boa Esperança trouxe a conversa e juntos criámos um momento para lembrar.',
+  lojaPopUpPuroL:
+    'Conversa intimista com Puro L na 140 Pop-Up, uma viagem ao processo criativo que celebrou arte e cultura de Penafiel.',
+  lojaPopUpOficinas:
+    'Nos dias 21 e 22 de dezembro, as Oficinas Criativas trouxeram magia e imaginação a miúdos e graúdos — criámos música, moldámos barro e jogámos com palavras.',
+  lojaPopUp:
+    'Encerrámos a Loja 140 POP-UP com arte, performance e música. Mostrámos que juntos criámos algo maior.',
+  beernissageJam:
+    'Jam aberta, novas caras e exposição coletiva na Fidélis. Um arranque de 2025 cheio de improviso e cocriação. Um início de 2025 que marcou o ritmo do 140.',
+  beernissageBruxa:
+    'Bruxa trouxe metamorfoses, Alice Veludo imagens do quotidiano. Arte e som fundiram-se na Fidélis com coletivo Sala 1.2.7, a trazer inovação sonora ao brewpub.',
+  vozesQueRasgam:
+    'No Ponto C, vozes, versos e corpos ergueram-se em forma de manifesto. Energia, resistência e liberdade encheram a noite dedicada a mulher que rasgou preconceitos da cultura underground.',
+  beernissageClaudia:
+    'Palavras, poemas e música preencheram a Fidélis. A exposição de Cláudia Oliveira deixou espaço para a criação e exploração poética.',
+  plantasia:
+    'Sol, Plantas e Humanos - ouvimos “Mother’s Earth Plantasia” de Mort Garson entre plantas, teclas e raízes foi uma tarde de florescimento guiada pelo Eduardo Peixoto de Almeida.',
+  beernissageLourenco:
+    'Improviso consciente e coletivo, som cru, guitarras em rutura e DJ sets incendiaram a noite na Fidélis.',
+  abrilLiberdade:
+    '25 de Abril, Penafiel. Conversa de Café sobre a Revolução, oficina de cartazes e Marcha da Liberdade no Largo da Ajuda, com o Grupo de Fados Literatus. Liberdade vivida nas ruas, nas mãos e nas vozes.',
+  ohmeSessions:
+    '26 de julho, Casa da Caturra (Ponto C). OHME Sessions saiu do digital para showcases íntimos: DJ Vaga no arranque e open mic, atuações de Relax MFK e Keso, fecho com DJ Casca. Noite vibrante da cena urbana.',
+  gumaJazz:
+    '17 de agosto, Rua da Escola, Gumarães (Penafiel). O GumaJazz fez florescer a escola: feira de arte e artesanato, workshop de improvisação e atuações de Gentrifugação, Miguel Meirinhos, Clara Lacerda Trio e Barananu. Entrada livre.',
 };

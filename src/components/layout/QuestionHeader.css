@@ -86,6 +86,77 @@
   margin-right: 150px;
 }
 
+.answer-bubble {
+  margin: 0 auto 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.2rem;
+  border: 2px dashed var(--color-foreground);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-foreground);
+  font-weight: 500;
+  font-size: clamp(1.1rem, 4vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: 0.3px;
+  pointer-events: auto;
+  transition:
+    transform var(--duration-transform) ease,
+    filter var(--duration-shadow-hover);
+  cursor: pointer;
+  max-width: 80%;
+  will-change: transform, filter;
+}
+.answer-bubble .answer-tail {
+  font-size: 1.2em;
+}
+
+.answer-bubble:hover,
+.answer-bubble:focus-visible {
+  transform: translateY(-2px) scale(1.03);
+  filter: drop-shadow(6px 2px 0 var(--shadow-accent));
+  outline: none;
+  animation-play-state: paused;
+}
+
+.answer-bubble:active {
+  animation-play-state: paused;
+}
+
+@keyframes answer-float {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+  75% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes answer-pop-in {
+  0% {
+    transform: scale(0.96);
+    filter: drop-shadow(0 0 0 var(--shadow-accent));
+  }
+  55% {
+    transform: scale(1.08);
+    filter: drop-shadow(6px 2px 0 var(--shadow-accent));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 var(--shadow-accent));
+  }
+}
+
 /* Mobile styles (<=768px) */
 @media only screen and (max-width: 768px) {
   /* Question sizing and spacing */
@@ -104,6 +175,17 @@
   }
   .question .l3 {
     margin-right: 24vw;
+  }
+
+  /* Make the answer bubble more compact on mobile */
+  .answer-bubble {
+    font-size: 1.8rem;
+    line-height: 1.15;
+    padding: 0.6rem 0.9rem;
+    max-width: 80%;
+  }
+  .answer-bubble .answer-tail {
+    font-size: 1em;
   }
 }
 
@@ -133,5 +215,13 @@
 
   .rotate2 {
     animation: rotate-spin2 infinite 8s linear;
+  }
+
+  .answer-bubble.is-floating {
+    animation: answer-float 10s ease-in-out 0s infinite;
+  }
+
+  .answer-bubble.answer-pop-in {
+    animation: answer-pop-in 800ms ease-out 1;
   }
 }

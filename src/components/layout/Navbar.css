@@ -1,0 +1,87 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: transparent;
+  color: var(--color-foreground);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-left .brand {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.navbar-center {
+  display: none;
+  gap: 1rem;
+}
+
+.nav-link {
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+}
+.nav-link.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.navbar-right .hamburger {
+  width: 40px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.hamburger-bars {
+  display: inline-block;
+  width: 20px;
+  height: 12px;
+  background:
+    linear-gradient(currentColor 2px, transparent 0) 0 0/100% 33%,
+    linear-gradient(currentColor 2px, transparent 0) 0 50%/100% 33%,
+    linear-gradient(currentColor 2px, transparent 0) 0 100%/100% 33%;
+}
+
+.navbar-menu {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem 1rem;
+  background: var(--navbar-menu-bg);
+}
+.navbar-menu.open {
+  display: flex;
+}
+.menu-link {
+  padding: 0.5rem 0.25rem;
+  color: var(--navbar-menu-fg);
+}
+.navbar-menu .menu-link:hover,
+.navbar-menu .menu-link:focus-visible {
+  color: var(--link-hover);
+  outline: none;
+}
+
+@media only screen and (min-width: 769px) {
+  .navbar-center {
+    display: flex;
+  }
+  .navbar-right {
+    display: none;
+  }
+  .navbar-menu {
+    display: none !important;
+  }
+}

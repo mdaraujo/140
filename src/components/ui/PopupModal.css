@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background: rgba(234, 160, 107, 0.92);
+  background: var(--color-overlay);
   overflow: hidden;
   opacity: 0; /* start transparent to avoid initial flash */
   transition: opacity var(--duration-popup-in) var(--easing-popup-in);
@@ -29,6 +29,10 @@
   max-height: 85vh;
   margin-bottom: 20px;
   position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none; /* Let clicks on empty content area reach overlay to close */
   transform: scale(1);
   animation: content-pop-in var(--duration-content-in) var(--easing-popup-in)
     both;
@@ -85,6 +89,7 @@
   z-index: 10;
   display: block;
   max-height: 60vh;
+  pointer-events: auto; /* clickable */
 }
 
 .popup-content .button {
@@ -100,6 +105,7 @@
   text-decoration: none;
   border-radius: 4px;
   transition: all 0.3s ease;
+  pointer-events: auto; /* clickable */
 }
 
 .popup-close {
@@ -119,17 +125,19 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
+  pointer-events: auto; /* clickable */
+  z-index: 20;
 }
 .popup-close:hover,
 .popup-close:focus-visible {
   background: var(--color-accent);
-  color: var(--color-accent-2);
+  color: var(--color-bg);
   outline: none;
 }
 
 .popup-content .button:hover {
   background-color: var(--color-accent);
-  color: var(--color-accent-2);
+  color: var(--color-bg);
   transform: translateY(-2px);
   box-shadow: none;
 }
@@ -137,7 +145,7 @@
 .artist-description {
   margin: 1rem 0;
   padding: 0.75rem 1rem;
-  background-color: rgba(84, 105, 48, 0.15);
+  background-color: var(--color-accent-soft);
   border-left: 4px solid var(--color-accent);
   border-radius: 4px;
   color: var(--color-foreground);
@@ -146,14 +154,20 @@
   font-style: normal;
   font-weight: 420;
   text-align: center;
-  max-width: 400px;
+  max-width: 100%;
   white-space: pre-line;
+  pointer-events: auto; /* allow selecting/copying without closing */
 }
 
 /* Mobile styles (<=768px) */
 @media only screen and (max-width: 768px) {
   .popup-content {
     max-width: 86vw;
+  }
+  .popup-content img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
   }
   .artist-description {
     font-size: 1rem;
@@ -166,21 +180,21 @@
 /* Desktop styles (>=768px) */
 @media only screen and (min-width: 768px) {
   .popup-content {
-    width: auto;
-    max-width: none;
-    display: flex;
+    max-width: 720px;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
   }
   .popup-content img {
     width: auto;
+    max-width: 100%;
     margin: 0;
     flex-shrink: 0;
   }
   .artist-description {
     flex-shrink: 0;
     margin: 1rem 0 0.5rem 0;
-    max-width: 700px;
+    max-width: 100%;
   }
   .popup-content .button {
     flex-shrink: 0;

@@ -8,6 +8,7 @@ import { generatePosition } from '../../utils/positionHelpers';
 import { useMovingObjects } from '../../contexts/MovingObjectsContext';
 import { ANIMATION_CONSTANTS } from '../../data/constants';
 import { trackCtaClick, trackModalOpen } from '../../utils/analytics';
+import { isPositionDebugEnabled } from '../../utils/debug';
 
 interface MovingElementProps {
   elementId: string;
@@ -15,6 +16,7 @@ interface MovingElementProps {
   onClick: (movingObject: MovingObject) => void;
   restrictedAreas?: DOMRect[];
   isFirst?: boolean;
+  randomizeFirst?: boolean;
   selectionCountsRef: React.MutableRefObject<Map<string, number>>;
   animationInterval?: AnimationInterval;
   existingPositions: Map<string, Position>;
@@ -28,6 +30,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   onClick,
   restrictedAreas = [],
   isFirst = false,
+  randomizeFirst = false,
   selectionCountsRef,
   animationInterval = { min: 3500, max: 6000 },
   existingPositions,
@@ -36,6 +39,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const [currentMovingObject, setCurrentMovingObject] = useState<MovingObject>();
+  const [isPinned, setIsPinned] = useState<boolean>(false);
   const [shouldCue, setShouldCue] = useState<boolean>(false);
   const hasSetInitialImage = useRef(false);
   const objectPositionsRef = useRef(existingPositions);
@@ -88,14 +92,23 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const getPosition = useCallback(
     (useCurrentPositions: boolean = false): Position => {
       const positions = useCurrentPositions ? objectPositionsRef.current : existingPositions;
-      return generatePosition(
+      const pos = generatePosition(
         positions,
         restrictedAreas,
         true, // Use collision detection
         ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_MOVEMENT,
       );
+      if (isPositionDebugEnabled()) {
+        console.log('[moving] getPosition', {
+          elementId,
+          useCurrentPositions,
+          restrictedAreasCount: restrictedAreas?.length ?? 0,
+          pos,
+        });
+      }
+      return pos;
     },
-    [restrictedAreas, existingPositions],
+    [restrictedAreas, existingPositions, elementId],
   );
 
   const getRandomObject = useCallback((): MovingObject => {
@@ -108,8 +121,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   // Set initial image only once
   useEffect(() => {
     if (!hasSetInitialImage.current) {
-      if (isFirst) {
-        // For the first object, manually pick and count the first item
+      if (isFirst && !randomizeFirst) {
         const firstObject = movingObjects[0];
         logRandomPick(firstObject);
         setCurrentMovingObject(firstObject);
@@ -118,7 +130,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
       }
       hasSetInitialImage.current = true;
     }
-  }, [isFirst, movingObjects, getRandomObject, selectionCountsRef, logRandomPick]);
+  }, [isFirst, randomizeFirst, movingObjects, getRandomObject, selectionCountsRef, logRandomPick]);
 
   // Handle position changes and animations
   useEffect(() => {
@@ -132,6 +144,13 @@ const MovingElement: React.FC<MovingElementProps> = ({
       true, // Use collision detection
       ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_INITIAL,
     );
+    if (isPositionDebugEnabled()) {
+      console.log('[moving] initialPosition', {
+        elementId,
+        restrictedAreasCount: restrictedAreas?.length ?? 0,
+        initialPosition,
+      });
+    }
     setPosition(initialPosition);
     onPositionUpdate(elementId, initialPosition);
     // Consider initial placement as a move end
@@ -186,6 +205,46 @@ const MovingElement: React.FC<MovingElementProps> = ({
     // Note: getPosition not included to prevent re-positioning cascade
   ]);
 
+  const handleAnchorClick = useCallback(() => {
+    setIsPinned(true);
+    if (!currentMovingObject?.formLink) return;
+    trackCtaClick({
+      context: 'moving_element',
+      ctaType: 'form_link',
+      linkUrl: currentMovingObject.formLink as string,
+    });
+  }, [currentMovingObject]);
+
+  const handleImageClick = useCallback(() => {
+    if (!currentMovingObject) return;
+    setIsPinned(true);
+    onClick(currentMovingObject);
+    trackModalOpen({
+      context: 'moving_element',
+      objectImage: currentMovingObject.image,
+      hasTickets: !!currentMovingObject.ticketsLink,
+      hasLocation: !!currentMovingObject.location,
+    });
+  }, [currentMovingObject, onClick]);
+
+  const handleImageKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLImageElement>) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (!currentMovingObject) return;
+        setIsPinned(true);
+        onClick(currentMovingObject);
+        trackModalOpen({
+          context: 'moving_element',
+          objectImage: currentMovingObject.image,
+          hasTickets: !!currentMovingObject.ticketsLink,
+          hasLocation: !!currentMovingObject.location,
+        });
+      }
+    },
+    [currentMovingObject, onClick],
+  );
+
   return (
     <div
       className="shadow-link moving-element"
@@ -199,15 +258,13 @@ const MovingElement: React.FC<MovingElementProps> = ({
           href={currentMovingObject.formLink}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => {
-            trackCtaClick({
-              context: 'moving_element',
-              ctaType: 'form_link',
-              linkUrl: currentMovingObject.formLink as string,
-            });
-          }}
+          onClick={handleAnchorClick}
         >
-          <img src={currentMovingObject.image} alt="140" className="moving-element-hover" />
+          <img
+            src={currentMovingObject.image}
+            alt="140"
+            className={`moving-element-hover ${isPinned ? 'pinned' : ''}`}
+          />
         </a>
       )}
 
@@ -218,28 +275,11 @@ const MovingElement: React.FC<MovingElementProps> = ({
           role="button"
           tabIndex={0}
           aria-label="Abrir detalhes"
-          className={`moving-element-hover ${shouldCue ? 'attention-cue' : ''}`}
-          onClick={() => {
-            onClick(currentMovingObject);
-            trackModalOpen({
-              context: 'moving_element',
-              objectImage: currentMovingObject.image,
-              hasTickets: !!currentMovingObject.ticketsLink,
-              hasLocation: !!currentMovingObject.location,
-            });
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              onClick(currentMovingObject);
-              trackModalOpen({
-                context: 'moving_element',
-                objectImage: currentMovingObject.image,
-                hasTickets: !!currentMovingObject.ticketsLink,
-                hasLocation: !!currentMovingObject.location,
-              });
-            }
-          }}
+          className={`moving-element-hover ${isPinned ? 'pinned' : ''} ${
+            shouldCue && !isPinned ? 'attention-cue' : ''
+          }`}
+          onClick={handleImageClick}
+          onKeyDown={handleImageKeyDown}
         />
       )}
     </div>

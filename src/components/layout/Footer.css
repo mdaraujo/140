@@ -4,7 +4,7 @@
   bottom: 0;
   width: 100%;
   text-align: center;
-  padding: 10px 0;
+  padding: 6px 0;
   font-size: 1em;
   line-height: 1.2;
   pointer-events: none;
@@ -13,6 +13,7 @@
 /* Footer text should not block interactions */
 .footer p {
   pointer-events: none;
+  margin: 12px 0;
 }
 
 .footer a {
@@ -30,6 +31,6 @@
 @media only screen and (max-width: 768px) {
   /* Footer spacing only on mobile, slightly tighter but readable */
   .footer p {
-    margin: 10px 0;
+    margin: 8px 0;
   }
 }

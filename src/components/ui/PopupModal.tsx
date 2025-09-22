@@ -7,18 +7,39 @@ interface PopupModalProps {
   isOpen: boolean;
   movingObject: MovingObject | null;
   onClose: () => void;
+  showCtaButton?: boolean;
 }
 
-const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose }) => {
+const PopupModal: React.FC<PopupModalProps> = ({
+  isOpen,
+  movingObject,
+  onClose,
+  showCtaButton = true,
+}) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const prefersReducedMotion =
+    typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
 
   const handleRequestClose = useCallback(() => {
     if (isClosing) return;
+    if (prefersReducedMotion) {
+      onClose();
+      return;
+    }
     setIsClosing(true);
     setIsVisible(false);
-    window.setTimeout(() => onClose(), 300); // sync with CSS transition fallback
-  }, [isClosing, onClose]);
+    window.setTimeout(() => onClose(), 300); // sync with CSS transition
+  }, [isClosing, onClose, prefersReducedMotion]);
+
+  const handleDescriptionClick = useCallback(() => {
+    // Close only on mobile viewports
+    if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+      handleRequestClose();
+    }
+  }, [handleRequestClose]);
 
   // Close on Escape key for accessibility
   useEffect(() => {
@@ -38,10 +59,14 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose }
   useEffect(() => {
     if (isOpen) {
       setIsClosing(false);
-      // let initial styles apply before making visible to avoid flicker
-      requestAnimationFrame(() => setIsVisible(true));
+      if (prefersReducedMotion) {
+        setIsVisible(true);
+      } else {
+        // let initial styles apply before making visible to avoid flicker
+        requestAnimationFrame(() => setIsVisible(true));
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, prefersReducedMotion]);
 
   if (!isOpen || !movingObject) return null;
 
@@ -106,44 +131,47 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, movingObject, onClose }
         )}
 
         {movingObject.description && (
-          <p className="artist-description">{movingObject.description}</p>
+          <p className="artist-description" onClick={handleDescriptionClick}>
+            {movingObject.description}
+          </p>
         )}
 
-        {hasTickets ? (
-          <a
-            href={movingObject.ticketsLink!}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="button"
-            onClick={() =>
-              trackCtaClick({
-                context: 'modal',
-                ctaType: 'tickets',
-                linkUrl: movingObject.ticketsLink as string,
-                linkText: 'E agora? Bilhetes aqui',
-              })
-            }
-          >
-            E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
-          </a>
-        ) : (
-          <a
-            href={movingObject.location || ''}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="button"
-            onClick={() =>
-              trackCtaClick({
-                context: 'modal',
-                ctaType: 'location',
-                linkUrl: movingObject.location || '',
-                linkText: 'Entrada Livre',
-              })
-            }
-          >
-            Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
-          </a>
-        )}
+        {showCtaButton &&
+          (hasTickets ? (
+            <a
+              href={movingObject.ticketsLink!}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="button"
+              onClick={() =>
+                trackCtaClick({
+                  context: 'modal',
+                  ctaType: 'tickets',
+                  linkUrl: movingObject.ticketsLink as string,
+                  linkText: 'E agora? Bilhetes aqui',
+                })
+              }
+            >
+              E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
+            </a>
+          ) : (
+            <a
+              href={movingObject.location || ''}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="button"
+              onClick={() =>
+                trackCtaClick({
+                  context: 'modal',
+                  ctaType: 'location',
+                  linkUrl: movingObject.location || '',
+                  linkText: 'Entrada Livre',
+                })
+              }
+            >
+              Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
+            </a>
+          ))}
       </div>
     </div>
   );

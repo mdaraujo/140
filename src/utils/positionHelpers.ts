@@ -1,6 +1,7 @@
 import { Position } from '../types/Position';
 import { checkCollision, findNonCollidingPosition } from './collisionDetection';
 import { ANIMATION_CONSTANTS } from '../data/constants';
+import { isPositionDebugEnabled } from './debug';
 
 /**
  * Generate a random position with optional collision detection
@@ -16,6 +17,20 @@ export function generatePosition(
   useCollisionDetection: boolean = true,
   maxAttempts: number = ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_MOVEMENT,
 ): Position {
+  if (isPositionDebugEnabled()) {
+    const areasPreview = restrictedAreas.slice(0, 3).map((a) => ({
+      top: Math.round(a.top),
+      left: Math.round(a.left),
+      width: Math.round(a.width),
+      height: Math.round(a.height),
+    }));
+    console.log('[position] generatePosition', {
+      restrictedAreasCount: restrictedAreas.length,
+      areasPreview,
+      useCollisionDetection,
+      maxAttempts,
+    });
+  }
   if (useCollisionDetection) {
     const collisionFreePosition = findNonCollidingPosition(
       existingPositions,
@@ -28,6 +43,9 @@ export function generatePosition(
     );
 
     if (collisionFreePosition) {
+      if (isPositionDebugEnabled()) {
+        console.log('[position] using heavy collision-free position', collisionFreePosition);
+      }
       return collisionFreePosition;
     }
   }
@@ -47,6 +65,8 @@ export function generatePosition(
   const lightPaddedHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2;
   const viewportWidth = window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   const viewportHeight = window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
+  let rejectedByRestricted = 0;
+  let rejectedByCollision = 0;
   for (let attempt = 0; attempt < ANIMATION_CONSTANTS.LIGHT_COLLISION_TRIES; attempt++) {
     const candidate = generateRandomCandidate(viewportWidth, viewportHeight);
     // Skip if candidate overlaps any restricted area
@@ -60,6 +80,7 @@ export function generatePosition(
       ),
     );
     if (overlapsRestricted) {
+      rejectedByRestricted += 1;
       continue;
     }
     const candidateBounds = {
@@ -84,12 +105,29 @@ export function generatePosition(
     }
 
     if (!hasCollision) {
+      if (isPositionDebugEnabled()) {
+        console.log('[position] using light fallback position', {
+          attempt: attempt + 1,
+          rejectedByRestricted,
+          rejectedByCollision,
+          candidate,
+        });
+      }
       return candidate;
     }
+    rejectedByCollision += 1;
   }
 
   // Final simple fallback
-  return generateRandomCandidate(viewportWidth, viewportHeight);
+  const finalCandidate = generateRandomCandidate(viewportWidth, viewportHeight);
+  if (isPositionDebugEnabled()) {
+    console.log('[position] using final random fallback', {
+      rejectedByRestricted,
+      rejectedByCollision,
+      finalCandidate,
+    });
+  }
+  return finalCandidate;
 }
 
 /**
