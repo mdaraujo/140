@@ -16,6 +16,10 @@ import Beernissage_Lourenco from '../assets/25_04_12_Beernissage_Lourenco.jpeg';
 import AbrilLiberdade from '../assets/25_04_25_de_Abril_Liberdade.jpeg';
 import OhmeSessions from '../assets/25_07_26_Ohme_Sessions.jpg';
 import GumaJazz from '../assets/25_08_17_GumaJazz.jpg';
+import Aniversario_Capa from '../assets/25_09_26_Aniversario_Capa.jpg';
+import Aniversario_Exposicao from '../assets/25_09_26_Aniversario_Exposicao.jpg';
+import Aniversario_PequenoAlmoco from '../assets/25_09_27_Aniversario_PequenoAlmoco.jpg';
+import Aniversario_Raku from '../assets/25_09_27_Aniversario_Raku.jpg';
 
 export const events: EventItem[] = [
   {
@@ -134,6 +138,42 @@ export const events: EventItem[] = [
     location: LOCATIONS.gumaJazz,
     startAt: '2025-08-17T15:00:00',
     endAt: '2025-08-17T23:59:00',
+    weight: 1,
+  },
+  {
+    id: '2025-09-26-aniversario-capa',
+    name: 'Aniversário 140',
+    image: Aniversario_Capa,
+    startAt: '2025-09-26T17:30:00',
+    endAt: '2025-09-27T21:00:00',
+    description: DESCRIPTIONS.aniversarioCapa,
+    weight: 1,
+  },
+  {
+    id: '2025-09-26-aniversario-exposicao',
+    name: 'Aniversário - Exposição',
+    image: Aniversario_Exposicao,
+    startAt: '2025-09-26T17:30:00',
+    endAt: '2025-09-26T20:00:00',
+    description: DESCRIPTIONS.aniversarioExposicao,
+    weight: 1,
+  },
+  {
+    id: '2025-09-27-aniversario-pequeno-almoco',
+    name: 'Aniversário - Pequeno-almoço',
+    image: Aniversario_PequenoAlmoco,
+    startAt: '2025-09-27T10:00:00',
+    endAt: '2025-09-27T13:00:00',
+    description: DESCRIPTIONS.aniversarioPequenoAlmoco,
+    weight: 1,
+  },
+  {
+    id: '2025-09-27-aniversario-raku',
+    name: 'Aniversário - Raku',
+    image: Aniversario_Raku,
+    startAt: '2025-09-27T17:00:00',
+    endAt: '2025-09-27T21:00:00',
+    description: DESCRIPTIONS.aniversarioRaku,
     weight: 1,
   },
 ];

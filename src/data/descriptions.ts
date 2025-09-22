@@ -25,4 +25,12 @@ export const DESCRIPTIONS = {
     '26 de julho, Casa da Caturra (Ponto C). OHME Sessions saiu do digital para showcases íntimos: DJ Vaga no arranque e open mic, atuações de Relax MFK e Keso, fecho com DJ Casca. Noite vibrante da cena urbana.',
   gumaJazz:
     '17 de agosto, Rua da Escola, Gumarães (Penafiel). O GumaJazz fez florescer a escola: feira de arte e artesanato, workshop de improvisação e atuações de Gentrifugação, Miguel Meirinhos, Clara Lacerda Trio e Barananu. Entrada livre.',
+  aniversarioCapa:
+    '140 faz anos! Um dia inteiro de celebração com comunidade, arte, música e partilha. Junta-te às atividades ao longo do dia e sopra as velas connosco.',
+  aniversarioExposicao:
+    'Exposição comemorativa do 140: memórias, cartazes, objetos e imagens que contam a história do nosso percurso coletivo.',
+  aniversarioPequenoAlmoco:
+    'Pequeno-almoço comunitário para abrir o dia. Traz algo para partilhar e começa a celebração connosco.',
+  aniversarioRaku:
+    'Sessão de Raku: experimentação cerâmica ao vivo, fogo e surpresa — cria, queima e leva a tua peça.',
 };
