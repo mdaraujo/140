@@ -16,6 +16,14 @@ interface EventsPageProps {
   randomizeFirst?: boolean;
 }
 
+function formatDayShortMonthPt(dateInput: string | Date): string {
+  const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+  const day = date.toLocaleString('pt-PT', { day: '2-digit' });
+  const monthShort = date.toLocaleString('pt-PT', { month: 'short' });
+  const month = monthShort.replace('', '');
+  return `${day} ${month}`;
+}
+
 function EventsContent({
   headerLines,
   movingObjects,
@@ -59,11 +67,8 @@ function EventsContent({
       const next = [...nowEvents].sort(
         (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
       )[0];
-      const when = new Date(next.startAt).toLocaleDateString(undefined, {
-        day: '2-digit',
-        month: 'short',
-      });
-      return `${when} — ${next.name}`;
+      const when = formatDayShortMonthPt(next.startAt);
+      return `${next.name}, ${when}`;
     }
     const JOY_WORDS = [
       'muita cultura',
