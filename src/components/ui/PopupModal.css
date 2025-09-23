@@ -34,16 +34,14 @@
   align-items: center;
   pointer-events: none; /* Let clicks on empty content area reach overlay to close */
   transform: scale(1);
-  animation: content-pop-in var(--duration-content-in) var(--easing-popup-in)
-    both;
+  animation: content-pop-in var(--duration-content-in) var(--easing-popup-in) both;
   will-change: transform, opacity;
   backface-visibility: hidden;
   transform: translateZ(0);
 }
 
 .closing .popup-content {
-  animation: content-pop-out var(--duration-content-out) var(--easing-popup-out)
-    both;
+  animation: content-pop-out var(--duration-content-out) var(--easing-popup-out) both;
 }
 
 @keyframes content-pop-in {
@@ -174,6 +172,9 @@
     padding: 0.5rem 0.75rem;
     margin: 0.75rem 0;
     text-align: left;
+  }
+  .popup-content .button {
+    align-self: flex-start;
   }
 }
 

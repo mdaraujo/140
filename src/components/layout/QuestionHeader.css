@@ -97,7 +97,7 @@
   background: transparent;
   color: var(--color-foreground);
   font-weight: 500;
-  font-size: clamp(1.1rem, 4vw, 3rem);
+  font-size: clamp(1rem, 3.2vw, 2.4rem);
   line-height: 0.9;
   letter-spacing: 0.3px;
   pointer-events: auto;
@@ -179,7 +179,7 @@
 
   /* Make the answer bubble more compact on mobile */
   .answer-bubble {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     line-height: 1.15;
     padding: 0.6rem 0.9rem;
     max-width: 80%;
