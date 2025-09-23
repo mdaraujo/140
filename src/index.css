@@ -1,6 +1,6 @@
 :root {
   /* Brand tokens */
-  --brand-red: #8d1d1d;
+  --brand-red: #d02a28;
   --accent-deep: #286141;
   --light-surface: rgba(255, 255, 255, 0.95);
   --overlay-alpha: 0.92; /* reference only */
@@ -10,7 +10,7 @@
   --color-bg: var(--brand-red);
   --color-accent: var(--accent-deep);
   --color-foreground: var(--light-surface);
-  --color-overlay: #8d1d1dea; /* bg ~92% */
+  --color-overlay: #d02a28ea; /* bg ~92% */
   --color-accent-soft: #28614126; /* ~15% */
 
   /* Navbar tokens (can be overridden per theme) */
