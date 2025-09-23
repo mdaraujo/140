@@ -148,10 +148,11 @@ export const events: EventItem[] = [
     endAt: '2025-09-27T21:00:00',
     description: DESCRIPTIONS.aniversarioCapa,
     weight: 1,
+    isHeaderOnly: true,
   },
   {
     id: '2025-09-26-aniversario-exposicao',
-    name: 'Aniversário - Exposição',
+    name: 'Aniversário 140',
     image: Aniversario_Exposicao,
     startAt: '2025-09-26T17:30:00',
     endAt: '2025-09-26T20:00:00',
@@ -160,7 +161,7 @@ export const events: EventItem[] = [
   },
   {
     id: '2025-09-27-aniversario-pequeno-almoco',
-    name: 'Aniversário - Pequeno-almoço',
+    name: 'Aniversário 140',
     image: Aniversario_PequenoAlmoco,
     startAt: '2025-09-27T10:00:00',
     endAt: '2025-09-27T13:00:00',
@@ -169,7 +170,7 @@ export const events: EventItem[] = [
   },
   {
     id: '2025-09-27-aniversario-raku',
-    name: 'Aniversário - Raku',
+    name: 'Aniversário 140',
     image: Aniversario_Raku,
     startAt: '2025-09-27T17:00:00',
     endAt: '2025-09-27T21:00:00',

@@ -7,7 +7,7 @@ import { MovingObjectsProvider, useMovingObjects } from '../contexts/MovingObjec
 import { UIStateProvider, useUIState } from '../contexts/UIStateContext';
 import { useMovingObjectsManager } from '../hooks/useMovingObjectsManager';
 import { events as allEvents } from '../data/events';
-import { splitEvents } from '../utils/events';
+import { splitEvents, getHeaderMovingObject } from '../utils/events';
 import '../App.css';
 
 interface EventsPageProps {
@@ -147,9 +147,13 @@ const EventsPage: React.FC<EventsPageProps> = ({
   movingObjects,
   randomizeFirst = false,
 }) => {
+  const headerMovingObject = useMemo(
+    () => (headerLines[1] === 'AGORA' ? getHeaderMovingObject(allEvents) : null),
+    [headerLines],
+  );
   return (
     <MovingObjectsProvider initialMovingObjects={movingObjects}>
-      <UIStateProvider movingObjects={movingObjects}>
+      <UIStateProvider movingObjects={movingObjects} headerMovingObject={headerMovingObject}>
         <EventsContent
           headerLines={headerLines}
           movingObjects={movingObjects}
