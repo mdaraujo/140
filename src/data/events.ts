@@ -147,6 +147,7 @@ export const events: EventItem[] = [
     startAt: '2025-09-26T17:30:00',
     endAt: '2025-09-27T21:00:00',
     description: DESCRIPTIONS.aniversarioCapa,
+    location: LOCATIONS.pontoC,
     weight: 1,
     isHeaderOnly: true,
   },
@@ -157,6 +158,7 @@ export const events: EventItem[] = [
     startAt: '2025-09-26T17:30:00',
     endAt: '2025-09-26T20:00:00',
     description: DESCRIPTIONS.aniversarioExposicao,
+    location: LOCATIONS.pontoC,
     weight: 1,
   },
   {
@@ -166,6 +168,7 @@ export const events: EventItem[] = [
     startAt: '2025-09-27T10:00:00',
     endAt: '2025-09-27T13:00:00',
     description: DESCRIPTIONS.aniversarioPequenoAlmoco,
+    location: LOCATIONS.pontoC,
     weight: 1,
   },
   {
@@ -175,6 +178,7 @@ export const events: EventItem[] = [
     startAt: '2025-09-27T17:00:00',
     endAt: '2025-09-27T21:00:00',
     description: DESCRIPTIONS.aniversarioRaku,
+    location: LOCATIONS.pontoC,
     weight: 1,
   },
 ];
