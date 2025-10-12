@@ -26,11 +26,11 @@ export const DESCRIPTIONS = {
   gumaJazz:
     '17 de agosto, Rua da Escola, Gumarães (Penafiel). O GumaJazz fez florescer a escola: feira de arte e artesanato, workshop de improvisação e atuações de Gentrifugação, Miguel Meirinhos, Clara Lacerda Trio e Barananu. Entrada livre.',
   aniversarioCapa:
-    '140 faz anos! Um dia inteiro de celebração com comunidade, arte, música e partilha. Junta-te às atividades ao longo do dia e sopra as velas connosco.',
+    '1 ano de festa, venham mais 40!\nTrês dias de arte, música e comunidade! E Agora?\nAparece no Ponto C este fim de semana e celebra connosco um ano de cultura em Penafiel.',
   aniversarioExposicao:
-    'Exposição comemorativa do 140: memórias, cartazes, objetos e imagens que contam a história do nosso percurso coletivo.',
+    'Sexta feira, dia 26 às 17h30 na Sala Eurico.\nVem conhecer o universo do artista Penafidelense Alexandre Morais na exposição individual “Inquietação num mundo fragmentado”.',
   aniversarioPequenoAlmoco:
-    'Pequeno-almoço comunitário para abrir o dia. Traz algo para partilhar e começa a celebração connosco.',
+    'Sábado, dia 27 às 10h no Anfiteatro temos o Pequeno-almoço sonoro para abrir o dia. Traz algo para partilhar e começa a celebração connosco, a rabbit dá-nos música.',
   aniversarioRaku:
-    'Sessão de Raku: experimentação cerâmica ao vivo, fogo e surpresa — cria, queima e leva a tua peça.',
+    'Sábado, dia 27 às 17h no Jardim, vem moldar cerâmica no Workshop orientado por MC Keramicos. Às 21h, abrimos o forno e vemos a incandescência das peças no processo de RAKU.',
 };
