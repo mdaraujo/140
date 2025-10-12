@@ -31,7 +31,7 @@ export function eventsToMovingObjects(events: EventItem[]): MovingObject[] {
 }
 
 export function getHeaderMovingObject(events: EventItem[]): MovingObject | null {
-  const header = events.find((e) => e.isHeaderOnly === true);
+  const header = events.find((e) => e.isHeaderOnly === true && isNow(e));
   if (!header) return null;
   return {
     image: header.image,
