@@ -91,10 +91,13 @@ function EventsContent({
     // On Agora page: if no events and answer suggests past, navigate to /foi
     if (headerLines[1] === 'AGORA') {
       const { nowEvents } = splitEvents(allEvents);
+      const base = (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
       if (nowEvents.length === 0 && answerText.toLowerCase().includes('já foi')) {
-        const base =
-          (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
         window.location.assign(`${base}foi`);
+        return;
+      }
+      if (answerText.toLowerCase().includes('torna-te sócio')) {
+        window.location.assign(`${base}socio`);
         return;
       }
     }

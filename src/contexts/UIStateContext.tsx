@@ -99,12 +99,15 @@ export function UIStateProvider({
     const chosen = selectWeightedRandom(candidates, selectionCounts);
 
     if (chosen.formLink) {
+      const base = ((import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL ||
+        '/') as string;
+      const socioPath = `${base}socio`;
       trackCtaClick({
         context: 'header',
         ctaType: 'form_link',
-        linkUrl: chosen.formLink,
+        linkUrl: socioPath,
       });
-      window.open(chosen.formLink, '_blank', 'noopener,noreferrer');
+      window.location.assign(socioPath);
       return;
     }
 
