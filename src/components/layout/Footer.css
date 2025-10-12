@@ -21,11 +21,27 @@
   padding: 6px 12px;
   pointer-events: auto; /* allow clicks on children */
   white-space: nowrap;
+  overflow: hidden; /* for marquee overflow */
+}
+
+.footer-marquee {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  animation: footer-scroll 24s linear infinite;
+  will-change: transform;
 }
 
 .footer-text {
   font-size: 0.95rem;
 }
+
+/* Marquee effect for footer text cluster */
+.footer-text,
+.footer-social {
+  position: relative;
+}
+/* reserved for marquee container state if needed later */
 
 .footer-social {
   display: inline-flex;
@@ -65,20 +81,29 @@
     padding: 2px 6px;
   }
   .footer-nav {
-    gap: 12px;
-    padding: 4px 8px;
+    gap: 18px; /* keep desktop sizing on mobile */
+    padding: 6px 12px;
   }
   .footer-social {
-    gap: 4px;
+    gap: 0; /* same tightness as desktop */
   }
   .footer-icons {
-    gap: 3px;
+    gap: 0; /* same tightness as desktop */
   }
   .footer-icon {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
   .footer-text {
-    font-size: 0.85rem;
+    font-size: 0.95rem; /* match desktop */
+  }
+}
+
+@keyframes footer-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
