@@ -3,7 +3,6 @@ import './MovingElement.css';
 import { MovingObject } from '../../types/MovingObject';
 import { Position } from '../../types/Position';
 import { AnimationInterval } from '../../types/ResponsiveConfig';
-import { selectWeightedRandom } from '../../utils/weightedSelection';
 import { generatePosition } from '../../utils/positionHelpers';
 import { useMovingObjects } from '../../contexts/MovingObjectsContext';
 import { ANIMATION_CONSTANTS } from '../../data/constants';
@@ -17,7 +16,6 @@ interface MovingElementProps {
   restrictedAreas?: DOMRect[];
   isFirst?: boolean;
   randomizeFirst?: boolean;
-  selectionCountsRef: React.MutableRefObject<Map<string, number>>;
   animationInterval?: AnimationInterval;
   existingPositions: Map<string, Position>;
   onPositionUpdate: (elementId: string, position: Position) => void;
@@ -31,7 +29,6 @@ const MovingElement: React.FC<MovingElementProps> = ({
   restrictedAreas = [],
   isFirst = false,
   randomizeFirst = false,
-  selectionCountsRef,
   animationInterval = { min: 3500, max: 6000 },
   existingPositions,
   onPositionUpdate,
@@ -47,8 +44,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
   const cueTimeoutRef = useRef<number | null>(null);
   const moveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Get weighted random pick tracking from context
-  const { logRandomPick } = useMovingObjects();
+  const { assignUniqueMovingObject, releaseAssignedMovingObject } = useMovingObjects();
 
   // Update ref with current positions
   useEffect(() => {
@@ -111,26 +107,15 @@ const MovingElement: React.FC<MovingElementProps> = ({
     [restrictedAreas, existingPositions, elementId],
   );
 
-  const getRandomObject = useCallback((): MovingObject => {
-    const picked = selectWeightedRandom(movingObjects, selectionCountsRef.current);
-
-    logRandomPick(picked);
-    return picked;
-  }, [movingObjects, selectionCountsRef, logRandomPick]);
-
   // Set initial image only once
   useEffect(() => {
     if (!hasSetInitialImage.current) {
-      if (isFirst && !randomizeFirst) {
-        const firstObject = movingObjects[0];
-        logRandomPick(firstObject);
-        setCurrentMovingObject(firstObject);
-      } else {
-        setCurrentMovingObject(getRandomObject());
-      }
+      const preferred = isFirst && !randomizeFirst ? movingObjects[0] : undefined;
+      const assigned = assignUniqueMovingObject(elementId, preferred);
+      if (assigned) setCurrentMovingObject(assigned);
       hasSetInitialImage.current = true;
     }
-  }, [isFirst, randomizeFirst, movingObjects, getRandomObject, selectionCountsRef, logRandomPick]);
+  }, [isFirst, randomizeFirst, movingObjects, assignUniqueMovingObject, elementId]);
 
   // Handle position changes and animations
   useEffect(() => {
@@ -191,6 +176,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
         moveTimeoutRef.current = null;
       }
       onRemove(elementId);
+      releaseAssignedMovingObject(elementId);
       if (cueTimeoutRef.current) {
         window.clearTimeout(cueTimeoutRef.current);
         cueTimeoutRef.current = null;

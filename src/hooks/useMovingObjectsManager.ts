@@ -28,6 +28,8 @@ export function useMovingObjectsManager(
     setRestrictedAreas,
     setResponsiveConfig,
     getRandomPickCounts,
+    totalUniqueObjects,
+    isUniqueAssignmentEnabled,
   } = useMovingObjects();
 
   // Refs for restricted area calculation
@@ -48,7 +50,11 @@ export function useMovingObjectsManager(
 
   // Object spawning logic (consolidated from useObjectSpawning)
   useEffect(() => {
-    if (movingObjectCount < responsiveConfig.maxMovingObjects) {
+    // Cap spawns by unique objects only when uniqueness is enabled
+    const hardCap = isUniqueAssignmentEnabled
+      ? Math.min(responsiveConfig.maxMovingObjects, totalUniqueObjects)
+      : responsiveConfig.maxMovingObjects;
+    if (movingObjectCount < hardCap) {
       // Early spawns (faster than normal)
       let minInterval: number;
       let maxInterval: number;
@@ -69,14 +75,20 @@ export function useMovingObjectsManager(
 
       const interval = setInterval(
         () => {
-          setMovingObjectCount(Math.min(movingObjectCount + 1, responsiveConfig.maxMovingObjects));
+          setMovingObjectCount(Math.min(movingObjectCount + 1, hardCap));
         },
         Math.random() * (maxInterval - minInterval) + minInterval,
       );
 
       return () => clearInterval(interval);
     }
-  }, [movingObjectCount, responsiveConfig, setMovingObjectCount]);
+  }, [
+    movingObjectCount,
+    responsiveConfig,
+    totalUniqueObjects,
+    isUniqueAssignmentEnabled,
+    setMovingObjectCount,
+  ]);
 
   // Compute and subscribe to restricted areas changes (resize, DOM changes)
   const computeAndSetRestrictedAreas = useCallback(() => {

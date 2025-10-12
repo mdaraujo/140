@@ -14,15 +14,16 @@ interface EventsPageProps {
   headerLines: [string, string, string];
   movingObjects: MovingObject[];
   randomizeFirst?: boolean;
+  enforceUniqueAssignments?: boolean;
 }
 
-function formatDayShortMonthPt(dateInput: string | Date): string {
+/*function formatDayShortMonthPt(dateInput: string | Date): string {
   const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
   const day = date.toLocaleString('pt-PT', { day: '2-digit' });
   const monthShort = date.toLocaleString('pt-PT', { month: 'short' });
   const month = monthShort.replace('', '');
   return `${day} ${month}`;
-}
+}*/
 
 function EventsContent({
   headerLines,
@@ -32,7 +33,6 @@ function EventsContent({
   const {
     movingObjectCount,
     objectPositions,
-    randomPickCounts,
     restrictedAreas,
     responsiveConfig,
     updateObjectPosition,
@@ -67,8 +67,8 @@ function EventsContent({
       const next = [...nowEvents].sort(
         (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
       )[0];
-      const when = formatDayShortMonthPt(next.startAt);
-      return `${next.name}, ${when}`;
+      // const when = formatDayShortMonthPt(next.startAt);
+      return `${next.name} !`;
     }
     const JOY_WORDS = [
       'muita cultura',
@@ -123,7 +123,6 @@ function EventsContent({
           restrictedAreas={restrictedAreas}
           isFirst={movingObjectCount === 1}
           randomizeFirst={randomizeFirst}
-          selectionCountsRef={{ current: randomPickCounts }}
           animationInterval={responsiveConfig.animationInterval}
           existingPositions={objectPositions}
           onPositionUpdate={updateObjectPosition}
@@ -146,18 +145,23 @@ const EventsPage: React.FC<EventsPageProps> = ({
   headerLines,
   movingObjects,
   randomizeFirst = false,
+  enforceUniqueAssignments = true,
 }) => {
   const headerMovingObject = useMemo(
     () => (headerLines[1] === 'AGORA' ? getHeaderMovingObject(allEvents) : null),
     [headerLines],
   );
   return (
-    <MovingObjectsProvider initialMovingObjects={movingObjects}>
+    <MovingObjectsProvider
+      initialMovingObjects={movingObjects}
+      enforceUniqueAssignments={enforceUniqueAssignments}
+    >
       <UIStateProvider movingObjects={movingObjects} headerMovingObject={headerMovingObject}>
         <EventsContent
           headerLines={headerLines}
           movingObjects={movingObjects}
           randomizeFirst={randomizeFirst}
+          enforceUniqueAssignments={enforceUniqueAssignments}
         />
       </UIStateProvider>
     </MovingObjectsProvider>

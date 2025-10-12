@@ -3,6 +3,7 @@ import { MovingObject } from '../types/MovingObject';
 import { Position } from '../types/Position';
 import { ResponsiveConfig } from '../types/ResponsiveConfig';
 import { DECAY_FACTOR } from '../utils/weightedSelection';
+import { selectWeightedRandom } from '../utils/weightedSelection';
 
 /**
  * State interface for moving objects management
@@ -12,6 +13,8 @@ interface MovingObjectsState {
   movingObjectCount: number;
   objectPositions: Map<string, Position>;
   randomPickCounts: Map<string, number>;
+  totalUniqueObjects: number;
+  isUniqueAssignmentEnabled: boolean;
 
   // UI state
   restrictedAreas: DOMRect[];
@@ -28,6 +31,12 @@ interface MovingObjectsActions {
   setMovingObjectCount: (count: number) => void;
   updateObjectPosition: (elementId: string, position: Position) => void;
   removeObjectPosition: (elementId: string) => void;
+
+  // Unique assignment of moving objects to on-screen elements
+  assignUniqueMovingObject: (elementId: string, preferred?: MovingObject) => MovingObject | null;
+  releaseAssignedMovingObject: (elementId: string) => void;
+
+  setUniqueAssignmentEnabled: (enabled: boolean) => void;
 
   // Weighted random algorithm tracking
   logRandomPick: (movingObject: MovingObject) => void;
@@ -67,6 +76,7 @@ export function useMovingObjects(): MovingObjectsContextType {
 interface MovingObjectsProviderProps {
   children: ReactNode;
   initialMovingObjects: MovingObject[];
+  enforceUniqueAssignments?: boolean;
 }
 
 /**
@@ -75,15 +85,20 @@ interface MovingObjectsProviderProps {
 export function MovingObjectsProvider({
   children,
   initialMovingObjects,
+  enforceUniqueAssignments = true,
 }: MovingObjectsProviderProps): JSX.Element {
   // State management
   const [movingObjectCount, setMovingObjectCount] = useState<number>(1);
   const [restrictedAreas, setRestrictedAreas] = useState<DOMRect[]>([]);
   const [responsiveConfig, setResponsiveConfig] = useState<ResponsiveConfig | null>(null);
+  const [isUniqueAssignmentEnabled, setUniqueAssignmentEnabled] =
+    useState<boolean>(enforceUniqueAssignments);
 
   // Refs for performance (avoid re-renders on position updates)
   const objectPositionsRef = useRef<Map<string, Position>>(new Map());
   const randomPickCountsRef = useRef<Map<string, number>>(new Map());
+  const assignedImageByElementRef = useRef<Map<string, string>>(new Map());
+  const assignedImagesRef = useRef<Set<string>>(new Set());
 
   // Position management actions
   const updateObjectPosition = useCallback((elementId: string, position: Position) => {
@@ -137,12 +152,65 @@ export function MovingObjectsProvider({
 
   const getRandomPickCounts = useCallback(() => randomPickCountsRef.current, []);
 
+  // Assign a unique moving object (no duplicates on screen). Optionally prefer a specific object.
+  const assignUniqueMovingObject = useCallback(
+    (elementId: string, preferred?: MovingObject): MovingObject | null => {
+      const alreadyAssigned = assignedImageByElementRef.current.get(elementId);
+      if (alreadyAssigned) {
+        const existing = initialMovingObjects.find((obj) => obj.image === alreadyAssigned) || null;
+        return existing;
+      }
+
+      if (preferred) {
+        if (isUniqueAssignmentEnabled) {
+          if (!assignedImagesRef.current.has(preferred.image)) {
+            assignedImageByElementRef.current.set(elementId, preferred.image);
+            assignedImagesRef.current.add(preferred.image);
+            logRandomPick(preferred);
+            return preferred;
+          }
+        } else {
+          assignedImageByElementRef.current.set(elementId, preferred.image);
+          logRandomPick(preferred);
+          return preferred;
+        }
+      }
+
+      const candidates = isUniqueAssignmentEnabled
+        ? initialMovingObjects.filter((obj) => !assignedImagesRef.current.has(obj.image))
+        : initialMovingObjects;
+      if (candidates.length === 0) return null;
+
+      let chosen: MovingObject;
+      try {
+        chosen = selectWeightedRandom(candidates, randomPickCountsRef.current);
+      } catch {
+        chosen = candidates[0];
+      }
+
+      assignedImageByElementRef.current.set(elementId, chosen.image);
+      if (isUniqueAssignmentEnabled) assignedImagesRef.current.add(chosen.image);
+      logRandomPick(chosen);
+      return chosen;
+    },
+    [initialMovingObjects, isUniqueAssignmentEnabled, logRandomPick],
+  );
+
+  const releaseAssignedMovingObject = useCallback((elementId: string) => {
+    const image = assignedImageByElementRef.current.get(elementId);
+    if (!image) return;
+    assignedImageByElementRef.current.delete(elementId);
+    assignedImagesRef.current.delete(image);
+  }, []);
+
   // Context value
   const contextValue: MovingObjectsContextType = {
     // State
     movingObjectCount,
     objectPositions: objectPositionsRef.current,
     randomPickCounts: randomPickCountsRef.current,
+    totalUniqueObjects: initialMovingObjects.length,
+    isUniqueAssignmentEnabled,
     restrictedAreas,
     responsiveConfig,
 
@@ -154,6 +222,9 @@ export function MovingObjectsProvider({
     getRandomPickCounts,
     setRestrictedAreas,
     setResponsiveConfig,
+    assignUniqueMovingObject,
+    releaseAssignedMovingObject,
+    setUniqueAssignmentEnabled,
   };
 
   return (
