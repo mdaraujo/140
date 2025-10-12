@@ -3,6 +3,14 @@ import { checkCollision, findNonCollidingPosition } from './collisionDetection';
 import { ANIMATION_CONSTANTS } from '../data/constants';
 import { isPositionDebugEnabled } from './debug';
 
+function getMovingObjectSize(): number {
+  const root = getComputedStyle(document.documentElement);
+  const sizeVar = root.getPropertyValue('--moving-object-size').trim();
+  const parsed = sizeVar.endsWith('px') ? parseFloat(sizeVar) : Number(sizeVar);
+  if (Number.isFinite(parsed) && parsed > 0) return parsed;
+  return ANIMATION_CONSTANTS.OBJECT_WIDTH;
+}
+
 /**
  * Generate a random position with optional collision detection
  * @param existingPositions Current positions of other objects
@@ -32,12 +40,13 @@ export function generatePosition(
     });
   }
   if (useCollisionDetection) {
+    const currentSize = getMovingObjectSize();
     const collisionFreePosition = findNonCollidingPosition(
       existingPositions,
       restrictedAreas,
       {
-        width: ANIMATION_CONSTANTS.OBJECT_WIDTH,
-        height: ANIMATION_CONSTANTS.OBJECT_HEIGHT,
+        width: currentSize,
+        height: currentSize,
       },
       maxAttempts,
     );
@@ -53,16 +62,15 @@ export function generatePosition(
   // Fallback: try a small number of random positions that avoid the restricted areas
   // and lightly check collisions to reduce overlaps
   // Pre-calculate reused values for performance
+  const currentSize = getMovingObjectSize();
   const lightPadding = Math.max(
     ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_MIN,
-    Math.floor(
-      ANIMATION_CONSTANTS.OBJECT_WIDTH * ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_RATIO,
-    ),
+    Math.floor(currentSize * ANIMATION_CONSTANTS.LIGHT_COLLISION_PADDING_RATIO),
   );
-  const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
-  const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
-  const lightPaddedWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH + lightPadding * 2;
-  const lightPaddedHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT + lightPadding * 2;
+  const halfWidth = currentSize / 2;
+  const halfHeight = currentSize / 2;
+  const lightPaddedWidth = currentSize + lightPadding * 2;
+  const lightPaddedHeight = currentSize + lightPadding * 2;
   const viewportWidth = window.innerWidth * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   const viewportHeight = window.innerHeight * ANIMATION_CONSTANTS.VIEWPORT_USAGE_RATIO;
   let rejectedByRestricted = 0;
@@ -74,8 +82,8 @@ export function generatePosition(
       topLeftWidthHeightOverlap(
         candidate.top - halfHeight,
         candidate.left - halfWidth,
-        ANIMATION_CONSTANTS.OBJECT_WIDTH,
-        ANIMATION_CONSTANTS.OBJECT_HEIGHT,
+        currentSize,
+        currentSize,
         area,
       ),
     );
@@ -136,11 +144,12 @@ export function generatePosition(
  * @returns A random position
  */
 function generateRandomCandidate(viewportWidth: number, viewportHeight: number): Position {
-  const halfWidth = ANIMATION_CONSTANTS.OBJECT_WIDTH / 2;
-  const halfHeight = ANIMATION_CONSTANTS.OBJECT_HEIGHT / 2;
+  const size = getMovingObjectSize();
+  const halfWidth = size / 2;
+  const halfHeight = size / 2;
 
-  const usableWidth = viewportWidth - ANIMATION_CONSTANTS.OBJECT_WIDTH;
-  const usableHeight = viewportHeight - ANIMATION_CONSTANTS.OBJECT_HEIGHT;
+  const usableWidth = viewportWidth - size;
+  const usableHeight = viewportHeight - size;
   const left = halfWidth + Math.random() * usableWidth;
   const top = halfHeight + Math.random() * usableHeight;
   return { top, left };

@@ -31,6 +31,9 @@
   --duration-transform: 0.3s;
   --duration-position: 1.2s;
 
+  /* Moving element size (synced with collision via JS) */
+  --moving-object-size: 80px;
+
   /* Easings */
   --easing-popup-in: cubic-bezier(0.22, 0.61, 0.36, 1);
   --easing-popup-out: cubic-bezier(0.55, 0, 0.1, 1);
@@ -62,6 +65,25 @@
   /* Navbar uses main (now) colors */
   --navbar-menu-bg: var(--brand-red);
   --navbar-menu-fg: var(--light-surface);
+}
+
+/* Responsive scaling for moving elements */
+@media (min-width: 768px) {
+  :root {
+    --moving-object-size: 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --moving-object-size: 112px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --moving-object-size: 128px;
+  }
 }
 
 a {

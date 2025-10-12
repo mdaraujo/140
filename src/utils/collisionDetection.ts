@@ -22,6 +22,14 @@ export function checkCollision(bounds1: ObjectBounds, bounds2: ObjectBounds): bo
 import { ANIMATION_CONSTANTS } from '../data/constants';
 import { isPositionDebugEnabled } from './debug';
 
+function getMovingObjectSize(): number {
+  const root = getComputedStyle(document.documentElement);
+  const sizeVar = root.getPropertyValue('--moving-object-size').trim();
+  const parsed = sizeVar.endsWith('px') ? parseFloat(sizeVar) : Number(sizeVar);
+  if (Number.isFinite(parsed) && parsed > 0) return parsed;
+  return ANIMATION_CONSTANTS.OBJECT_WIDTH;
+}
+
 /**
  * Find a position that doesn't collide with existing objects
  * @param existingPositions Array of current object positions
@@ -35,8 +43,8 @@ export function findNonCollidingPosition(
   existingPositions: Map<string, Position>,
   restrictedAreas: DOMRect[] = [],
   objectSize: { width: number; height: number } = {
-    width: ANIMATION_CONSTANTS.OBJECT_WIDTH,
-    height: ANIMATION_CONSTANTS.OBJECT_HEIGHT,
+    width: getMovingObjectSize(),
+    height: getMovingObjectSize(),
   },
   maxAttempts: number = ANIMATION_CONSTANTS.COLLISION_ATTEMPTS_INITIAL,
 ): Position | null {
