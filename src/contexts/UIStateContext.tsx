@@ -54,12 +54,17 @@ export function useUIState(): UIStateContextType {
 interface UIStateProviderProps {
   children: ReactNode;
   movingObjects: MovingObject[];
+  headerMovingObject?: MovingObject | null;
 }
 
 /**
  * Provider component for UI state management
  */
-export function UIStateProvider({ children, movingObjects }: UIStateProviderProps): JSX.Element {
+export function UIStateProvider({
+  children,
+  movingObjects,
+  headerMovingObject,
+}: UIStateProviderProps): JSX.Element {
   // State management
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [activeMovingObject, setActiveMovingObject] = useState<MovingObject | null>(null);
@@ -78,6 +83,16 @@ export function UIStateProvider({ children, movingObjects }: UIStateProviderProp
   }, []);
 
   const openHeaderPopup = useCallback(() => {
+    if (headerMovingObject) {
+      openPopup(headerMovingObject);
+      trackModalOpen({
+        context: 'header',
+        objectImage: headerMovingObject.image,
+        hasTickets: !!headerMovingObject.ticketsLink,
+        hasLocation: !!headerMovingObject.location,
+      });
+      return;
+    }
     const selectionCounts = getRandomPickCounts();
     const candidates = movingObjects && movingObjects.length > 0 ? movingObjects : [];
     if (candidates.length === 0) return;
@@ -100,7 +115,7 @@ export function UIStateProvider({ children, movingObjects }: UIStateProviderProp
       hasTickets: !!chosen.ticketsLink,
       hasLocation: !!chosen.location,
     });
-  }, [getRandomPickCounts, movingObjects, openPopup]);
+  }, [getRandomPickCounts, movingObjects, openPopup, headerMovingObject]);
 
   // Context value
   const contextValue: UIStateContextType = {

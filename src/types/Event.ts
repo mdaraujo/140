@@ -9,6 +9,5 @@ export interface EventItem {
   startAt: string; // ISO 8601
   endAt: string; // ISO 8601
   weight?: number;
+  isHeaderOnly?: boolean;
 }
-
-

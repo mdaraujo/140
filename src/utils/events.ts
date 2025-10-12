@@ -14,8 +14,8 @@ export function splitEvents(
   nowEvents: EventItem[];
   pastEvents: EventItem[];
 } {
-  const nowEvents = events.filter((e) => isNow(e, now));
-  const pastEvents = events.filter((e) => !isNow(e, now));
+  const nowEvents = events.filter((e) => !e.isHeaderOnly && isNow(e, now));
+  const pastEvents = events.filter((e) => !e.isHeaderOnly && !isNow(e, now));
   return { nowEvents, pastEvents };
 }
 
@@ -28,6 +28,19 @@ export function eventsToMovingObjects(events: EventItem[]): MovingObject[] {
     location: e.location ?? null,
     weight: e.weight ?? 1,
   }));
+}
+
+export function getHeaderMovingObject(events: EventItem[]): MovingObject | null {
+  const header = events.find((e) => e.isHeaderOnly === true);
+  if (!header) return null;
+  return {
+    image: header.image,
+    description: header.description,
+    formLink: header.formLink ?? null,
+    ticketsLink: header.ticketsLink ?? null,
+    location: header.location ?? null,
+    weight: header.weight ?? 1,
+  };
 }
 
 export function fallbackSocioObjects(): MovingObject[] {

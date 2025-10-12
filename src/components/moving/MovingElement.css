@@ -13,13 +13,13 @@
 }
 
 .moving-element img {
-  width: 80px; /* keep in sync with ANIMATION_CONSTANTS.OBJECT_WIDTH */
+  width: var(--moving-object-size);
   height: auto;
   transition:
     transform var(--duration-transform) ease,
     opacity 160ms ease;
   pointer-events: auto;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .moving-element-hover {

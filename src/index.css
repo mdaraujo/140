@@ -1,7 +1,7 @@
 :root {
   /* Brand tokens */
-  --brand-red: #8d1d1d;
-  --accent-deep: #3a0f0f;
+  --brand-red: #d02a28;
+  --accent-deep: #286141;
   --light-surface: rgba(255, 255, 255, 0.95);
   --overlay-alpha: 0.92; /* reference only */
   --accent-soft-alpha: 0.15; /* reference only */
@@ -10,8 +10,8 @@
   --color-bg: var(--brand-red);
   --color-accent: var(--accent-deep);
   --color-foreground: var(--light-surface);
-  --color-overlay: #8d1d1dea; /* bg ~92% */
-  --color-accent-soft: #3a0f0f26; /* ~15% */
+  --color-overlay: #d02a28ea; /* bg ~92% */
+  --color-accent-soft: #28614126; /* ~15% */
 
   /* Navbar tokens (can be overridden per theme) */
   --navbar-menu-bg: var(--color-accent);
@@ -30,6 +30,9 @@
   --duration-shadow-hover: 200ms;
   --duration-transform: 0.3s;
   --duration-position: 1.2s;
+
+  /* Moving element size (synced with collision via JS) */
+  --moving-object-size: 80px;
 
   /* Easings */
   --easing-popup-in: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -62,6 +65,25 @@
   /* Navbar uses main (now) colors */
   --navbar-menu-bg: var(--brand-red);
   --navbar-menu-fg: var(--light-surface);
+}
+
+/* Responsive scaling for moving elements */
+@media (min-width: 768px) {
+  :root {
+    --moving-object-size: 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --moving-object-size: 112px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --moving-object-size: 128px;
+  }
 }
 
 a {

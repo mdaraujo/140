@@ -71,6 +71,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
   if (!isOpen || !movingObject) return null;
 
   const hasTickets = !!movingObject.ticketsLink;
+  const hasLocation = !!movingObject.location;
 
   return (
     <div
@@ -137,6 +138,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
         )}
 
         {showCtaButton &&
+          (hasTickets || hasLocation) &&
           (hasTickets ? (
             <a
               href={movingObject.ticketsLink!}
@@ -156,7 +158,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
             </a>
           ) : (
             <a
-              href={movingObject.location || ''}
+              href={movingObject.location!}
               target="_blank"
               rel="noopener noreferrer nofollow"
               className="button"
@@ -164,7 +166,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
                 trackCtaClick({
                   context: 'modal',
                   ctaType: 'location',
-                  linkUrl: movingObject.location || '',
+                  linkUrl: movingObject.location as string,
                   linkText: 'Entrada Livre',
                 })
               }
