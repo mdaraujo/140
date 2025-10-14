@@ -18,7 +18,6 @@ function Socio(): JSX.Element {
             title="Ficha de Sócio - Associação 140"
             aria-label="Formulário para te tornares sócio da Associação 140"
             loading="lazy"
-            sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
             allow="clipboard-write; fullscreen"
           />
         </div>
