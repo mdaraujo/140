@@ -19,7 +19,7 @@
     transform var(--duration-transform) ease,
     opacity 160ms ease;
   pointer-events: auto;
-  opacity: 0.6;
+  opacity: 0.75;
 }
 
 .moving-element-hover {
