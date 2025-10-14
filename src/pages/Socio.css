@@ -41,3 +41,14 @@
 .socio-fallback {
   margin: 0.75rem 0 2rem;
 }
+
+.socio-inline-link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+.socio-inline-link:hover,
+.socio-inline-link:focus-visible {
+  color: var(--link-hover);
+  outline: none;
+}

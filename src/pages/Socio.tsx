@@ -26,7 +26,7 @@ function Socio(): JSX.Element {
         <p className="socio-fallback">
           Se não conseguires ver o formulário, abre-o{' '}
           <a
-            className="shadow-link"
+            className="socio-inline-link"
             href={FORMS.fichaSocio}
             target="_blank"
             rel="noopener noreferrer"
