@@ -22,7 +22,7 @@
   position: relative;
   width: 100%;
   height: min(70vh, 900px); /* leave room for title and fallback above footer */
-  background: var(--color-overlay);
+  background: #ffffff; /* neutral background behind embedded form */
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
@@ -34,6 +34,8 @@
   width: 100%;
   height: 100%;
   border: 0;
+  display: block;
+  background-color: #ffffff; /* ensure white fills any transparent areas */
 }
 
 .socio-fallback {

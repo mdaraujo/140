@@ -6,7 +6,8 @@ export const LOCATIONS = {
 };
 
 export const FORMS = {
-  fichaSocio: 'https://forms.gle/dgnQgUeGjRHgjG2E7',
+  fichaSocio:
+    'https://docs.google.com/forms/d/e/1FAIpQLSdOoDJWoQyr5hBeSVZCLBmwwe8CDpKESzF9U27Fn8ZgM6R12Q/viewform?embedded=true',
   gumaJazz: 'https://forms.gle/9GpUC4mz8hfMp1S38',
 };
 
