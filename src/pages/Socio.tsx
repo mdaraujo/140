@@ -14,7 +14,7 @@ function Socio(): JSX.Element {
         <div className="socio-iframe-wrapper">
           <iframe
             className="socio-iframe"
-            src={FORMS.fichaSocio}
+            src={FORMS.fichaSocioEmbed}
             title="Ficha de Sócio - Associação 140"
             aria-label="Formulário para te tornares sócio da Associação 140"
             loading="lazy"
