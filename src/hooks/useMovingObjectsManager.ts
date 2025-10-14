@@ -115,7 +115,13 @@ export function useMovingObjectsManager(
     }
 
     const questionRects = questionRef.current ? getTextLineRects(questionRef.current) : [];
-    const footerRects = footerRef.current ? getTextLineRects(footerRef.current) : [];
+    // Footer: use a single small rectangle based on the compact nav pill
+    const footerRects = (() => {
+      const navEl = footerRef.current?.querySelector('.footer-nav') as HTMLElement | null;
+      if (!navEl) return [] as DOMRect[];
+      const r = navEl.getBoundingClientRect();
+      return [new DOMRect(r.left, r.top, r.width, r.height)];
+    })();
     const navRects: DOMRect[] = [];
     if (navbarRef.current) {
       const r = navbarRef.current.getBoundingClientRect();
