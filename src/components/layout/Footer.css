@@ -27,9 +27,20 @@
 .footer-marquee {
   display: inline-flex;
   align-items: center;
-  gap: 18px;
+  gap: 0;
   animation: footer-scroll 24s linear infinite;
   will-change: transform;
+}
+
+.footer-segment-wrapper {
+  display: inline-flex;
+}
+
+.footer-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding-right: 18px; /* space between duplicated segments */
 }
 
 .footer-text {
