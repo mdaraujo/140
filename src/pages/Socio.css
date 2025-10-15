@@ -52,3 +52,9 @@
   color: var(--link-hover);
   outline: none;
 }
+
+/* Use the same nav menu palette as the Home (theme-now) page */
+.socio-page {
+  --navbar-menu-bg: var(--light-surface);
+  --navbar-menu-fg: var(--brand-red);
+}
