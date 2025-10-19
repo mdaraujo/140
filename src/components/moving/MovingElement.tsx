@@ -191,15 +191,23 @@ const MovingElement: React.FC<MovingElementProps> = ({
     // Note: getPosition not included to prevent re-positioning cascade
   ]);
 
-  const handleAnchorClick = useCallback(() => {
-    setIsPinned(true);
-    if (!currentMovingObject?.formLink) return;
-    trackCtaClick({
-      context: 'moving_element',
-      ctaType: 'form_link',
-      linkUrl: currentMovingObject.formLink as string,
-    });
-  }, [currentMovingObject]);
+  const handleAnchorClick = useCallback(
+    (e?: React.MouseEvent<HTMLAnchorElement>) => {
+      setIsPinned(true);
+      if (!currentMovingObject?.formLink) return;
+      const base = ((import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL ||
+        '/') as string;
+      const socioPath = `${base}socio`;
+      trackCtaClick({
+        context: 'moving_element',
+        ctaType: 'form_link',
+        linkUrl: socioPath,
+      });
+      if (e) e.preventDefault();
+      window.location.assign(socioPath);
+    },
+    [currentMovingObject],
+  );
 
   const handleImageClick = useCallback(() => {
     if (!currentMovingObject) return;
@@ -240,12 +248,7 @@ const MovingElement: React.FC<MovingElementProps> = ({
       }}
     >
       {currentMovingObject?.formLink && (
-        <a
-          href={currentMovingObject.formLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={handleAnchorClick}
-        >
+        <a href="#socio" onClick={handleAnchorClick}>
           <img
             src={currentMovingObject.image}
             alt="140"

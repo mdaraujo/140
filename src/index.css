@@ -1,7 +1,7 @@
 :root {
   /* Brand tokens */
-  --brand-red: #d02a28;
-  --accent-deep: #286141;
+  --brand-red: #d13537;
+  --accent-deep: #3a0f0f; /* dark red accent */
   --light-surface: rgba(255, 255, 255, 0.95);
   --overlay-alpha: 0.92; /* reference only */
   --accent-soft-alpha: 0.15; /* reference only */
@@ -10,8 +10,8 @@
   --color-bg: var(--brand-red);
   --color-accent: var(--accent-deep);
   --color-foreground: var(--light-surface);
-  --color-overlay: #d02a28ea; /* bg ~92% */
-  --color-accent-soft: #28614126; /* ~15% */
+  --color-overlay: #d13537ea; /* bg ~92% */
+  --color-accent-soft: #3a0f0f26; /* ~15% */
 
   /* Navbar tokens (can be overridden per theme) */
   --navbar-menu-bg: var(--color-accent);

@@ -2,35 +2,119 @@
   position: fixed;
   z-index: 1;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 1em;
-  line-height: 1.2;
-  pointer-events: none;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* container lets clicks pass except icons */
 }
 
-/* Footer text should not block interactions */
-.footer p {
-  pointer-events: none;
-  margin: 12px 0;
+.footer-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px; /* general spacing between items */
+  background: var(--color-overlay);
+  border-radius: 9999px;
+  padding: 6px 12px;
+  pointer-events: auto; /* allow clicks on children */
+  white-space: nowrap;
+  overflow: hidden; /* for marquee overflow */
 }
 
-.footer a {
-  pointer-events: auto;
-}
-.footer a:hover {
-  text-decoration: underline;
-}
-.footer a:focus-visible {
-  outline: 2px dotted var(--color-accent);
-  outline-offset: 2px;
+.footer-marquee {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  animation: footer-scroll 40s linear infinite;
+  will-change: transform;
 }
 
-/* Mobile styles (<=768px) */
+.footer-segment-wrapper {
+  display: inline-flex;
+}
+
+.footer-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding-right: 18px; /* space between duplicated segments */
+}
+
+.footer-text {
+  font-size: 0.95rem;
+}
+
+/* Marquee effect for footer text cluster */
+.footer-text,
+.footer-social {
+  position: relative;
+}
+/* reserved for marquee container state if needed later */
+
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0; /* ultra-tight spacing between label and icons */
+}
+
+.footer-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0; /* icons as tight as possible */
+}
+
+.footer-icon i {
+  font-size: 1.2rem; /* increase for readability */
+  line-height: 1;
+}
+
+.footer-icon {
+  color: var(--color-foreground);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+}
+.footer-icon:hover,
+.footer-icon:focus-visible {
+  color: var(--link-hover);
+  outline: none;
+}
+
+/* Reduce footprint further on small screens */
 @media only screen and (max-width: 768px) {
-  /* Footer spacing only on mobile, slightly tighter but readable */
-  .footer p {
-    margin: 8px 0;
+  .footer {
+    padding: 2px 6px;
+  }
+  .footer-nav {
+    gap: 18px; /* keep desktop sizing on mobile */
+    padding: 6px 12px;
+  }
+  .footer-social {
+    gap: 0; /* same tightness as desktop */
+  }
+  .footer-icons {
+    gap: 0; /* same tightness as desktop */
+  }
+  .footer-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .footer-text {
+    font-size: 0.95rem; /* match desktop */
+  }
+}
+
+@keyframes footer-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }

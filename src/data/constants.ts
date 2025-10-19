@@ -6,7 +6,11 @@ export const LOCATIONS = {
 };
 
 export const FORMS = {
+  // Original share link (used for fallback/open in new tab)
   fichaSocio: 'https://forms.gle/dgnQgUeGjRHgjG2E7',
+  // Embed-friendly URL for iframes
+  fichaSocioEmbed:
+    'https://docs.google.com/forms/d/e/1FAIpQLSdOoDJWoQyr5hBeSVZCLBmwwe8CDpKESzF9U27Fn8ZgM6R12Q/viewform?embedded=true',
   gumaJazz: 'https://forms.gle/9GpUC4mz8hfMp1S38',
 };
 
