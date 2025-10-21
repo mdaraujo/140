@@ -33,4 +33,6 @@ export const DESCRIPTIONS = {
     'Sábado, dia 27 às 10h no Anfiteatro temos o Pequeno-almoço sonoro para abrir o dia. Traz algo para partilhar e começa a celebração connosco, a rabbit dá-nos música.',
   aniversarioRaku:
     'Sábado, dia 27 às 17h no Jardim, vem moldar cerâmica no Workshop orientado por MC Keramicos. Às 21h, abrimos o forno e vemos a incandescência das peças no processo de RAKU.',
+  poesiaEmConstrucao:
+    '“Poesia em Construção" inserido na programação do Escritaria 2025, junta três vozes do rap nacional - Maze, Né e Denise - num momento onde a palavra é o foco. Acompanhados pelas texturas sonoras de Alexandre Centeio é um convite à escuta e reflexão. Uma parceira com Puro L no papel de HOST e a 140 na produção e cenografia.',
 };
