@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { MovingObject } from '../types/MovingObject';
 import { useMovingObjects } from './MovingObjectsContext';
 import { trackCtaClick, trackModalOpen } from '../utils/analytics';
@@ -68,6 +68,7 @@ export function UIStateProvider({
   // State management
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [activeMovingObject, setActiveMovingObject] = useState<MovingObject | null>(null);
+  const [hasPushedHistory, setHasPushedHistory] = useState<boolean>(false);
   const { getRandomPickCounts } = useMovingObjects();
 
   // Actions
@@ -76,11 +77,53 @@ export function UIStateProvider({
     setShowPopup(true);
   }, []);
 
-  const closePopup = useCallback(() => {
+  function performClose(): void {
     setShowPopup(false);
     // Delay clearing the active object to allow for exit animations
-    setTimeout(() => setActiveMovingObject(null), 300);
-  }, []);
+    window.setTimeout(() => setActiveMovingObject(null), 300);
+    setHasPushedHistory(false);
+  }
+
+  const closePopup = useCallback(() => {
+    if (hasPushedHistory && typeof window !== 'undefined' && 'history' in window) {
+      // Go back one entry to remove the modal history layer; popstate handler will call performClose
+      window.history.back();
+      return;
+    }
+    performClose();
+  }, [hasPushedHistory]);
+
+  // When a popup is opened, push a history entry and attach back-button handler to close it
+  useEffect(() => {
+    if (!showPopup || typeof window === 'undefined' || !('history' in window)) return;
+
+    if (!hasPushedHistory) {
+      try {
+        const url = new URL(window.location.href);
+        url.hash = 'modal';
+        window.history.pushState({ modalOpen: true }, '', url.toString());
+        setHasPushedHistory(true);
+      } catch {
+        // no-op: history may be unavailable in some environments
+      }
+    }
+
+    function handlePopState(): void {
+      // Close the popup instead of navigating away when user presses back
+      performClose();
+    }
+    function handleHashChange(): void {
+      // If hash changed (e.g., back removed #modal), close the popup
+      performClose();
+    }
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [showPopup, hasPushedHistory]);
 
   const openHeaderPopup = useCallback(() => {
     if (headerMovingObject) {

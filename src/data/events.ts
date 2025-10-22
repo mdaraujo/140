@@ -20,6 +20,7 @@ import Aniversario_Capa from '../assets/25_09_26_Aniversario_Capa.jpg';
 import Aniversario_Exposicao from '../assets/25_09_26_Aniversario_Exposicao.jpg';
 import Aniversario_PequenoAlmoco from '../assets/25_09_27_Aniversario_PequenoAlmoco.jpg';
 import Aniversario_Raku from '../assets/25_09_27_Aniversario_Raku.jpg';
+import PoesiaEmConstrucao from '../assets/25_10_23_Poesia_Em_Construcao.jpg';
 
 export const events: EventItem[] = [
   {
@@ -178,6 +179,16 @@ export const events: EventItem[] = [
     startAt: '2025-09-27T17:00:00',
     endAt: '2025-09-27T23:30:00',
     description: DESCRIPTIONS.aniversarioRaku,
+    location: LOCATIONS.pontoC,
+    weight: 1,
+  },
+  {
+    id: '2025-10-23-poesia-em-construcao',
+    name: 'Poesia em Construção',
+    image: PoesiaEmConstrucao,
+    startAt: '2025-10-23T21:30:00',
+    endAt: '2025-10-24T00:00:00',
+    description: DESCRIPTIONS.poesiaEmConstrucao,
     location: LOCATIONS.pontoC,
     weight: 1,
   },

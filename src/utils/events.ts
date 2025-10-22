@@ -1,6 +1,10 @@
 import { EventItem } from '../types/Event';
 import { MovingObject } from '../types/MovingObject';
 import { FORMS } from '../data/constants';
+import logoB1 from '/logo_b_1.png';
+import logoB2 from '/logo_b_2.png';
+import logoW1 from '/logo_w_1.png';
+import logoW2 from '/logo_w_2.png';
 
 export function isNow(event: EventItem, now: Date = new Date()): boolean {
   const end = new Date(event.endAt).getTime();
@@ -44,33 +48,30 @@ export function getHeaderMovingObject(events: EventItem[]): MovingObject | null 
 }
 
 export function fallbackSocioObjects(): MovingObject[] {
-  const base: string =
-    (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
-  const src = (name: string) => `${base}${name}`;
   return [
     {
-      image: src('logo_b_1.png'),
+      image: logoB1,
       formLink: FORMS.fichaSocio,
       ticketsLink: null,
       location: null,
       weight: 1,
     },
     {
-      image: src('logo_b_2.png'),
+      image: logoB2,
       formLink: FORMS.fichaSocio,
       ticketsLink: null,
       location: null,
       weight: 1,
     },
     {
-      image: src('logo_w_1.png'),
+      image: logoW1,
       formLink: FORMS.fichaSocio,
       ticketsLink: null,
       location: null,
       weight: 1,
     },
     {
-      image: src('logo_w_2.png'),
+      image: logoW2,
       formLink: FORMS.fichaSocio,
       ticketsLink: null,
       location: null,

@@ -1,8 +1,9 @@
 .popup {
   width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
+  height: 100vh; /* fallback */
+  height: 100dvh; /* mobile browsers with dynamic toolbars */
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +15,7 @@
   will-change: opacity;
   backface-visibility: hidden;
   transform: translateZ(0);
+  overscroll-behavior: contain; /* keep scroll within modal */
 }
 
 .popup.visible {
@@ -26,18 +28,43 @@
 
 .popup-content {
   max-width: 95vw;
-  max-height: 85vh;
+  max-height: 92vh; /* fallback */
+  max-height: 92dvh; /* account for bottom browser bars */
   margin-bottom: 20px;
   position: relative;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: none; /* Let clicks on empty content area reach overlay to close */
+  pointer-events: auto; /* allow scrolling on the content */
   transform: scale(1);
   animation: content-pop-in var(--duration-content-in) var(--easing-popup-in) both;
   will-change: transform, opacity;
   backface-visibility: hidden;
   transform: translateZ(0);
+  overflow-y: auto; /* enable vertical scrolling when content exceeds max-height */
+  overflow-x: hidden; /* prevent horizontal scroll */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  padding-top: 8px; /* keep close button fully visible */
+  padding-right: 8px; /* keep close button fully visible */
+  padding-bottom: 16px; /* base padding */
+  padding-bottom: calc(16px + env(safe-area-inset-bottom)); /* add safe area when available */
+  scrollbar-width: thin; /* Firefox: show a thin scrollbar */
+  scrollbar-color: var(--color-accent) transparent; /* Firefox colors */
+}
+
+/* WebKit: styled scrollbar visuals */
+.popup-content::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.popup-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.popup-content::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 .closing .popup-content {
@@ -86,7 +113,8 @@
   height: auto;
   z-index: 10;
   display: block;
-  max-height: 60vh;
+  max-height: 60vh; /* fallback */
+  max-height: 60dvh; /* dynamic viewport */
   pointer-events: auto; /* clickable */
 }
 
@@ -108,8 +136,8 @@
 
 .popup-close {
   position: absolute;
-  top: -12px;
-  right: -12px;
+  top: 0px;
+  right: 0px;
   width: 36px;
   height: 36px;
   border-radius: 9999px;
@@ -155,6 +183,7 @@
   max-width: 100%;
   white-space: pre-line;
   pointer-events: auto; /* allow selecting/copying without closing */
+  overflow-wrap: anywhere; /* avoid horizontal overflow on long text */
 }
 
 /* Mobile styles (<=768px) */
