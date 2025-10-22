@@ -55,7 +55,7 @@
   display: flex;
   width: max-content;
   gap: 2rem;
-  animation: socio-marquee-scroll 18s linear infinite;
+  animation: socio-marquee-scroll 30s linear infinite;
 }
 
 .socio-marquee-track {
@@ -97,6 +97,13 @@
 @media (prefers-reduced-motion: reduce) {
   .socio-marquee-inner {
     animation: none;
+  }
+}
+
+/* Slow down marquee further on mobile for readability */
+@media only screen and (max-width: 768px) {
+  .socio-marquee-inner {
+    animation-duration: 40s;
   }
 }
 

@@ -28,8 +28,15 @@
   display: inline-flex;
   align-items: center;
   gap: 0;
-  animation: footer-scroll 40s linear infinite;
+  animation: footer-scroll 60s linear infinite;
   will-change: transform;
+}
+
+/* Pause marquee when user is interacting for easier tapping */
+.footer-nav:hover .footer-marquee,
+.footer-nav:focus-within .footer-marquee,
+.footer-nav:active .footer-marquee {
+  animation-play-state: paused;
 }
 
 .footer-segment-wrapper {
@@ -107,6 +114,13 @@
   }
   .footer-text {
     font-size: 0.95rem; /* match desktop */
+  }
+}
+
+/* Slow down further on mobile to improve clickability */
+@media only screen and (max-width: 768px) {
+  .footer-marquee {
+    animation-duration: 80s;
   }
 }
 
