@@ -68,7 +68,7 @@ function EventsContent({
         (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
       )[0];
       // const when = formatDayShortMonthPt(next.startAt);
-      return `${next.name} !`;
+      return `${next.name}!`;
     }
     const JOY_WORDS = [
       'muita cultura',
