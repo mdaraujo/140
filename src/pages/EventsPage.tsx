@@ -46,15 +46,20 @@ function EventsContent({
     () => (headerLines[1] === 'AGORA' ? 'theme-now' : 'theme-past'),
     [headerLines],
   );
+  const isHalloween = useMemo(() => {
+    const { nowEvents } = splitEvents(allEvents);
+    return nowEvents.some((e) => /halloween/i.test(e.name));
+  }, []);
 
   useEffect(() => {
     const html = document.documentElement;
-    html.classList.remove('theme-now', 'theme-past');
+    html.classList.remove('theme-now', 'theme-past', 'theme-halloween');
     html.classList.add(themeClass);
+    if (themeClass === 'theme-now' && isHalloween) html.classList.add('theme-halloween');
     return () => {
-      html.classList.remove('theme-now', 'theme-past');
+      html.classList.remove('theme-now', 'theme-past', 'theme-halloween');
     };
-  }, [themeClass]);
+  }, [themeClass, isHalloween]);
 
   // Build fun answer text
   const answerText = (() => {

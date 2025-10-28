@@ -72,6 +72,7 @@ const PopupModal: React.FC<PopupModalProps> = ({
 
   const hasTickets = !!movingObject.ticketsLink;
   const hasLocation = !!movingObject.location;
+  const displayImage = movingObject.modalImage || movingObject.image;
 
   return (
     <div
@@ -109,11 +110,11 @@ const PopupModal: React.FC<PopupModalProps> = ({
               })
             }
           >
-            <img src={movingObject.image} alt="Pop-up Poster" />
+            <img src={displayImage} alt="Pop-up Poster" />
           </a>
         ) : (
           <img
-            src={movingObject.image}
+            src={displayImage}
             alt="Pop-up Poster"
             role="button"
             tabIndex={0}
