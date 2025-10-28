@@ -28,7 +28,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0;
-  animation: footer-scroll 60s linear infinite;
+  animation: footer-scroll 48s linear infinite;
   will-change: transform;
 }
 
@@ -120,7 +120,7 @@
 /* Slow down further on mobile to improve clickability */
 @media only screen and (max-width: 768px) {
   .footer-marquee {
-    animation-duration: 80s;
+    animation-duration: 64s;
   }
 }
 
