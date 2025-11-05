@@ -57,6 +57,24 @@
   --navbar-menu-fg: var(--brand-red);
 }
 
+.theme-halloween {
+  /* Halloween theme: black background and orange accents */
+  --color-bg: #000000;
+  --color-foreground: var(--light-surface);
+  --color-accent: #ff7a00;
+  --color-overlay: #000000ea;
+  --color-accent-soft: #ff7a0026; /* ~15% */
+
+  /* Navbar to remain readable */
+  --navbar-menu-bg: var(--light-surface);
+  --navbar-menu-fg: #ff7a00;
+
+  /* Interactive */
+  --link-hover: var(--color-accent);
+  --focus-outline: var(--color-accent);
+  --shadow-accent: var(--color-accent);
+}
+
 .theme-past {
   /* Swap bg and foreground from main theme */
   --color-bg: var(--light-surface);

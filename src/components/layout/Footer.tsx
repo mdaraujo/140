@@ -44,7 +44,7 @@ function FooterSegment(): JSX.Element {
               })
             }
           >
-            <i className="fa fa-envelope" aria-hidden="true"></i>
+            <i className="fa fa-envelope-o" aria-hidden="true"></i>
           </a>
         </span>
       </span>

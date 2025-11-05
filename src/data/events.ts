@@ -21,6 +21,7 @@ import Aniversario_Exposicao from '../assets/25_09_26_Aniversario_Exposicao.jpg'
 import Aniversario_PequenoAlmoco from '../assets/25_09_27_Aniversario_PequenoAlmoco.jpg';
 import Aniversario_Raku from '../assets/25_09_27_Aniversario_Raku.jpg';
 import PoesiaEmConstrucao from '../assets/25_10_23_Poesia_Em_Construcao.jpg';
+import HalloweenPopUp from '../assets/25_10_31_HalloweenFestaPopUp.jpg';
 
 export const events: EventItem[] = [
   {
@@ -190,6 +191,16 @@ export const events: EventItem[] = [
     endAt: '2025-10-24T00:00:00',
     description: DESCRIPTIONS.poesiaEmConstrucao,
     location: LOCATIONS.pontoC,
+    weight: 1,
+  },
+  {
+    id: '2025-10-31-halloween-pop-up',
+    name: 'Halloween Pop-Up',
+    image: HalloweenPopUp,
+    startAt: '2025-10-31T22:00:00',
+    endAt: '2025-11-01T06:00:00',
+    description: DESCRIPTIONS.halloweenPopUp,
+    location: LOCATIONS.pontoX,
     weight: 1,
   },
 ];

@@ -55,7 +55,7 @@
   display: flex;
   width: max-content;
   gap: 2rem;
-  animation: socio-marquee-scroll 30s linear infinite;
+  animation: socio-marquee-scroll 24s linear infinite;
 }
 
 .socio-marquee-track {
@@ -79,11 +79,6 @@
   font-size: 0.9rem;
 }
 
-.socio-chip::before {
-  content: '·';
-  margin-right: 0.5rem;
-}
-
 @keyframes socio-marquee-scroll {
   0% {
     transform: translateX(0);
@@ -103,7 +98,7 @@
 /* Slow down marquee further on mobile for readability */
 @media only screen and (max-width: 768px) {
   .socio-marquee-inner {
-    animation-duration: 40s;
+    animation-duration: 32s;
   }
 }
 
