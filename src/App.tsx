@@ -5,6 +5,7 @@ import { AppProviders } from './providers/AppProviders';
 import Home from './pages/Home';
 import PastEvents from './pages/PastEvents';
 import Socio from './pages/Socio';
+import QuemSomos from './pages/QuemSomos';
 // Navbar is rendered inside each EventsPage to be part of restricted areas
 
 const App: React.FC = () => {
@@ -16,6 +17,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/foi" element={<PastEvents />} />
           <Route path="/socio" element={<Socio />} />
+          <Route path="/quem-somos" element={<QuemSomos />} />
         </Routes>
       </BrowserRouter>
     </AppProviders>
