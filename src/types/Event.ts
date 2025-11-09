@@ -3,6 +3,8 @@ export interface EventItem {
   name: string;
   description?: string;
   image: string;
+  /** Optional array of content items to render on the event detail page */
+  items?: import('./ContentItem').ContentItem[];
   formLink?: string | null;
   ticketsLink?: string | null;
   location?: string | null;

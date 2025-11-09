@@ -1,0 +1,25 @@
+.event-detail-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-detail-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  padding-bottom: 88px;
+}
+
+/* Page-level scroll enable + hide scrollbar when class is present on html */
+.page-scroll,
+.page-scroll body {
+  overflow: auto;
+}
+.page-scroll::-webkit-scrollbar,
+.page-scroll body::-webkit-scrollbar {
+  display: none;
+}
+*** End Patch***}  #-}
+</json> */
+
