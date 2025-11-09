@@ -1,12 +1,9 @@
 .about-page {
-  height: 100vh;
-  min-height: 0;
   display: flex;
   flex-direction: column;
   /* Navbar palette like Home */
   --navbar-menu-bg: var(--light-surface);
   --navbar-menu-fg: var(--brand-red);
-  overflow: hidden; /* contain inner scroll */
 }
 
 .about-content {
@@ -14,16 +11,16 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  padding-bottom: 88px; /* leave space above fixed footer */
-  overflow: auto; /* internal scroll (body is overflow hidden globally) */
-  -webkit-overflow-scrolling: touch;
-  flex: 1; /* fill remaining height under navbar + header */
-  min-height: 0; /* allow overflow inside flex item */
-  /* Hide scrollbar cross-browser while keeping scroll */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  padding-bottom: 88px; /* reserve space above fixed footer */
 }
-.about-content::-webkit-scrollbar {
+
+/* Page-level scroll enable + hide scrollbar when class is present on html */
+.page-scroll,
+.page-scroll body {
+  overflow: auto;
+}
+.page-scroll::-webkit-scrollbar,
+.page-scroll body::-webkit-scrollbar {
   display: none;
 }
 

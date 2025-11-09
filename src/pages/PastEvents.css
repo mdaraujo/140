@@ -1,0 +1,19 @@
+.past-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  padding-bottom: 88px;
+}
+
+/* Enable page-level scroll and hide scrollbar when .page-scroll is present on html */
+.page-scroll,
+.page-scroll body {
+  overflow: auto;
+}
+.page-scroll::-webkit-scrollbar,
+.page-scroll body::-webkit-scrollbar {
+  display: none;
+}
+*** End Patch***}``` md
+

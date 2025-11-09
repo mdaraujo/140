@@ -51,6 +51,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Use border-box sizing so paddings are included in element width */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .theme-now {
   /* Navbar inversion to match past page */
   --navbar-menu-bg: var(--light-surface);
