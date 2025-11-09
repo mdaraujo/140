@@ -21,11 +21,10 @@ import Aniversario_Exposicao from '../assets/25_09_26_Aniversario_Exposicao.jpg'
 import Aniversario_PequenoAlmoco from '../assets/25_09_27_Aniversario_PequenoAlmoco.jpg';
 import Aniversario_Raku from '../assets/25_09_27_Aniversario_Raku.jpg';
 import PoesiaEmConstrucao from '../assets/25_10_23_Poesia_Em_Construcao.jpg';
-import HalloweenPopUp from '../assets/25_10_31_HalloweenFestaPopUp.jpg';
 
 export const events: EventItem[] = [
   {
-    id: '2024-12-01-loja-pop-up-ola',
+    id: 'loja-pop-up-ola',
     name: 'Loja Pop Up - Olá',
     image: LojaPopUp_Ola,
     startAt: '2024-12-01T10:00:00',
@@ -34,7 +33,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2024-12-15-loja-pop-up-puro-l',
+    id: 'loja-pop-up-puro-l',
     name: 'Loja Pop Up - Puro L',
     image: LojaPopUp_PuroL,
     startAt: '2024-12-15T12:00:00',
@@ -43,7 +42,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2024-12-21-loja-pop-up-oficinas',
+    id: 'loja-pop-up-oficinas',
     name: 'Loja Pop Up - Oficinas',
     image: LojaPopUp_Oficinas,
     startAt: '2024-12-21T13:00:00',
@@ -52,7 +51,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2024-12-28-loja-pop-up',
+    id: 'loja-pop-up-ate-ja',
     name: 'Loja Pop Up - Até Já',
     image: LojaPopUp,
     startAt: '2024-12-28T14:00:00',
@@ -61,7 +60,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-01-11-beernissage-jam',
+    id: 'beernissage-jam',
     name: 'Beernissage - Jam',
     image: Beernissage_Jam,
     startAt: '2025-01-11T21:00:00',
@@ -70,7 +69,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-02-08-beernissage-bruxa',
+    id: 'beernissage-bruxa',
     name: 'Beernissage - Bruxa',
     image: Beernissage_Bruxa,
     startAt: '2025-02-08T21:00:00',
@@ -79,7 +78,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-03-01-vozes-que-rasgam',
+    id: 'vozes-que-rasgam',
     name: 'Vozes que rasgam',
     image: VozesQueRasgam,
     startAt: '2025-03-01T21:00:00',
@@ -88,7 +87,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-03-08-beernissage-claudia',
+    id: 'beernissage-claudia',
     name: 'Beernissage - Cláudia',
     image: Beernissage_Claudia,
     startAt: '2025-03-08T21:00:00',
@@ -97,7 +96,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-03-23-plantasia',
+    id: 'plantasia',
     name: "Mother Earth's Plantasia",
     image: MotherEarthsPlantasia,
     startAt: '2025-03-23T18:00:00',
@@ -106,7 +105,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-04-12-beernissage-lourenco',
+    id: 'beernissage-lourenco',
     name: 'Beernissage - Lourenço',
     image: Beernissage_Lourenco,
     startAt: '2025-04-12T21:00:00',
@@ -115,7 +114,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-04-25-abril-liberdade',
+    id: '25-abril-25',
     name: '25 de Abril - Liberdade',
     image: AbrilLiberdade,
     startAt: '2025-04-25T15:00:00',
@@ -124,7 +123,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-07-26-ohme-sessions-julho',
+    id: 'ohme-sessions-julho-25',
     name: 'Ohme Sessions - Julho',
     image: OhmeSessions,
     startAt: '2025-07-26T21:00:00',
@@ -133,7 +132,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-08-17-gumajazz',
+    id: 'guma-jazz-25',
     name: 'GumaJazz',
     description: DESCRIPTIONS.gumaJazz,
     image: GumaJazz,
@@ -143,7 +142,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-09-26-aniversario-capa',
+    id: 'aniversario-capa-25',
     name: 'Aniversário 140',
     image: Aniversario_Capa,
     startAt: '2025-09-26T17:30:00',
@@ -154,7 +153,7 @@ export const events: EventItem[] = [
     isHeaderOnly: true,
   },
   {
-    id: '2025-09-26-aniversario-exposicao',
+    id: 'aniversario-exposicao-25',
     name: 'Aniversário 140',
     image: Aniversario_Exposicao,
     startAt: '2025-09-26T17:30:00',
@@ -164,7 +163,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-09-27-aniversario-pequeno-almoco',
+    id: 'aniversario-pequeno-almoco-25',
     name: 'Aniversário 140',
     image: Aniversario_PequenoAlmoco,
     startAt: '2025-09-27T10:00:00',
@@ -174,7 +173,7 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-09-27-aniversario-raku',
+    id: 'aniversario-raku-25',
     name: 'Aniversário 140',
     image: Aniversario_Raku,
     startAt: '2025-09-27T17:00:00',
@@ -184,23 +183,13 @@ export const events: EventItem[] = [
     weight: 1,
   },
   {
-    id: '2025-10-23-poesia-em-construcao',
+    id: 'poesia-em-construcao',
     name: 'Poesia em Construção',
     image: PoesiaEmConstrucao,
     startAt: '2025-10-23T21:30:00',
     endAt: '2025-10-24T00:00:00',
     description: DESCRIPTIONS.poesiaEmConstrucao,
     location: LOCATIONS.pontoC,
-    weight: 1,
-  },
-  {
-    id: '2025-10-31-halloween-pop-up',
-    name: 'Halloween Pop-Up',
-    image: HalloweenPopUp,
-    startAt: '2025-10-31T22:00:00',
-    endAt: '2025-11-01T06:00:00',
-    description: DESCRIPTIONS.halloweenPopUp,
-    location: LOCATIONS.pontoX,
     weight: 1,
   },
 ];
