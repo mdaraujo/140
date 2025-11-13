@@ -80,6 +80,9 @@
   --link-hover: var(--color-accent);
   --focus-outline: var(--color-accent);
   --shadow-accent: var(--color-accent);
+
+  /* Footer safe space (used for padding-bottom on pages with fixed footer) */
+  --footer-safe: 96px;
 }
 
 .theme-past {

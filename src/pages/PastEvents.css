@@ -1,9 +1,9 @@
-.past-page {
+.past-content {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  padding-bottom: 88px;
+  padding-bottom: var(--footer-safe, 96px);
 }
 
 /* Enable page-level scroll and hide scrollbar when .page-scroll is present on html */
@@ -15,5 +15,3 @@
 .page-scroll body::-webkit-scrollbar {
   display: none;
 }
-*** End Patch***}``` md
-

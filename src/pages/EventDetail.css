@@ -8,7 +8,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  padding-bottom: 88px;
+  padding-bottom: var(--footer-safe, 96px);
 }
 
 /* Page-level scroll enable + hide scrollbar when class is present on html */
@@ -20,6 +20,3 @@
 .page-scroll body::-webkit-scrollbar {
   display: none;
 }
-*** End Patch***}  #-}
-</json> */
-

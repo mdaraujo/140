@@ -11,7 +11,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  padding-bottom: 88px; /* reserve space above fixed footer */
+  padding-bottom: var(--footer-safe, 96px); /* reserve space above fixed footer */
 }
 
 /* Page-level scroll enable + hide scrollbar when class is present on html */
