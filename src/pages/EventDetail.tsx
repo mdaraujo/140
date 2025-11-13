@@ -1,11 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import './EventDetail.css';
 import { useParams } from 'react-router-dom';
 import { Navbar, Footer } from '../components/layout';
 import { CardGrid, ImageCard, TextBlock } from '../components/grid';
 import { events } from '../data/events';
-import { PopupModal } from '../components/ui';
-import { MovingObject } from '../types/MovingObject';
 import { ContentItem } from '../types/ContentItem';
 
 function formatDateTimeSingle(start: string): string {
@@ -23,8 +21,6 @@ function formatDateTimeSingle(start: string): string {
 
 const EventDetail: React.FC = () => {
   const params = useParams();
-  const [modalObj, setModalObj] = useState<MovingObject | null>(null);
-
   const event = useMemo(() => events.find((ev) => ev.id === params.id), [params.id]);
 
   const gridItems: ContentItem[] = useMemo(() => {
@@ -54,21 +50,6 @@ const EventDetail: React.FC = () => {
       html.classList.remove('theme-past', 'page-scroll');
     };
   }, []);
-
-  const handleOpenModal = useCallback(
-    (src: string) => {
-      setModalObj({
-        image: src,
-        formLink: null,
-        ticketsLink: null,
-        location: null,
-        weight: 1,
-      });
-    },
-    [setModalObj],
-  );
-
-  const handleCloseModal = useCallback(() => setModalObj(null), []);
 
   if (!event) {
     return (
@@ -108,8 +89,7 @@ const EventDetail: React.FC = () => {
                 key={`event-img-${idx}`}
                 src={it.src}
                 alt={it.alt || event.name}
-                onClick={() => handleOpenModal(it.src)}
-                ariaLabel="Ampliar imagem do evento"
+                ariaLabel="Imagem do evento"
               />
             ) : (
               <TextBlock key={`event-tx-${idx}`} title={it.title}>
@@ -134,12 +114,6 @@ const EventDetail: React.FC = () => {
           )}
         </CardGrid>
       </main>
-      <PopupModal
-        isOpen={!!modalObj}
-        movingObject={modalObj}
-        onClose={handleCloseModal}
-        showCtaButton={false}
-      />
       <Footer />
     </div>
   );

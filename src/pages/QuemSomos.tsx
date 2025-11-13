@@ -1,15 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './QuemSomos.css';
 import { Navbar, QuestionHeader, Footer } from '../components/layout';
-import { PopupModal } from '../components/ui';
-import { MovingObject } from '../types/MovingObject';
 import { aboutItems } from '../data/about';
 import { CardGrid, ImageCard, TextBlock } from '../components/grid';
 
 const QuemSomos: React.FC = () => {
-  const [active, setActive] = useState<MovingObject | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-
   useEffect(() => {
     const html = document.documentElement;
     html.classList.remove('theme-now', 'theme-past', 'theme-halloween', 'page-scroll');
@@ -19,13 +14,6 @@ const QuemSomos: React.FC = () => {
       html.classList.remove('theme-now', 'theme-past', 'theme-halloween', 'page-scroll');
     };
   }, []);
-
-  const handleOpen = useCallback((item: MovingObject) => {
-    setActive(item);
-    setIsOpen(true);
-  }, []);
-
-  const handleClose = useCallback(() => setIsOpen(false), []);
 
   return (
     <div className="about-page">
@@ -44,16 +32,7 @@ const QuemSomos: React.FC = () => {
                 key={`about-img-${idx}`}
                 src={it.src}
                 alt={it.alt || 'Associação 140'}
-                onClick={() =>
-                  handleOpen({
-                    image: it.src,
-                    formLink: null,
-                    ticketsLink: null,
-                    location: null,
-                    weight: 1,
-                  })
-                }
-                ariaLabel="Ampliar imagem"
+                ariaLabel="Imagem"
               />
             ) : (
               <TextBlock key={`about-tx-${idx}`}>{it.text}</TextBlock>
@@ -62,12 +41,6 @@ const QuemSomos: React.FC = () => {
         </CardGrid>
       </main>
 
-      <PopupModal
-        isOpen={isOpen}
-        movingObject={active}
-        onClose={handleClose}
-        showCtaButton={false}
-      />
       <Footer />
     </div>
   );

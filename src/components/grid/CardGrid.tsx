@@ -58,13 +58,17 @@ export function ImageCard({
       </div>
     );
   }
-  return (
-    <div className="image-card shadow-link">
-      <button type="button" onClick={onClick} aria-label={ariaLabel || alt}>
-        {content}
-      </button>
-    </div>
-  );
+  if (onClick) {
+    return (
+      <div className="image-card shadow-link">
+        <button type="button" onClick={onClick} aria-label={ariaLabel || alt}>
+          {content}
+        </button>
+      </div>
+    );
+  }
+  // Non-interactive image card (no modal/navigation)
+  return <div className="image-card">{content}</div>;
 }
 
 interface TextBlockProps {
