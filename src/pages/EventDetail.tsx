@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
 import './EventDetail.css';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Navbar, Footer } from '../components/layout';
 import { CardGrid, ImageCard, TextBlock } from '../components/grid';
 import { events } from '../data/events';
 import { ContentItem } from '../types/ContentItem';
+import { splitEvents } from '../utils/events';
 
 function formatDateTimeSingle(start: string): string {
   const s = new Date(start);
@@ -22,6 +23,20 @@ function formatDateTimeSingle(start: string): string {
 const EventDetail: React.FC = () => {
   const params = useParams();
   const event = useMemo(() => events.find((ev) => ev.id === params.id), [params.id]);
+  const { pastEvents } = useMemo(() => splitEvents(events), []);
+  const sortedPast = useMemo(
+    () => [...pastEvents].sort((a, b) => new Date(b.endAt).getTime() - new Date(a.endAt).getTime()),
+    [pastEvents],
+  );
+  const currentIndex = useMemo(
+    () => sortedPast.findIndex((ev) => ev.id === params.id),
+    [sortedPast, params.id],
+  );
+  const prevEventId = currentIndex > 0 ? sortedPast[currentIndex - 1].id : null;
+  const nextEventId =
+    currentIndex >= 0 && currentIndex < sortedPast.length - 1
+      ? sortedPast[currentIndex + 1].id
+      : null;
 
   const gridItems: ContentItem[] = useMemo(() => {
     if (!event) return [];
@@ -78,6 +93,7 @@ const EventDetail: React.FC = () => {
   return (
     <div className="event-detail-page">
       <Navbar />
+
       <main className="event-detail-content" role="main" aria-labelledby="event-title">
         <h1 id="event-title" className="sr-only">
           {event.name}
@@ -113,6 +129,29 @@ const EventDetail: React.FC = () => {
             ),
           )}
         </CardGrid>
+
+        {/* Bottom navigation: back to list and prev/next */}
+        <nav className="event-detail-nav" aria-label="Navegação de eventos">
+          <Link to="/foi" className="event-btn" aria-label="Voltar à lista de eventos">
+            Fechar
+          </Link>
+          <div className="event-nav-group">
+            {prevEventId && (
+              <Link
+                to={`/evento/${prevEventId}`}
+                className="event-btn"
+                aria-label="Evento anterior"
+              >
+                Anterior
+              </Link>
+            )}
+            {nextEventId && (
+              <Link to={`/evento/${nextEventId}`} className="event-btn" aria-label="Próximo evento">
+                Seguinte
+              </Link>
+            )}
+          </div>
+        </nav>
       </main>
       <Footer />
     </div>

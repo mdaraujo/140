@@ -11,6 +11,40 @@
   padding-bottom: var(--footer-safe, 96px);
 }
 
+/* Bottom navigation */
+.event-detail-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.event-nav-group {
+  display: flex;
+  gap: 0.6rem;
+}
+.event-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border: 2px solid var(--color-foreground);
+  border-radius: 9999px;
+  text-decoration: none;
+  color: var(--color-foreground);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition:
+    transform var(--duration-transform),
+    filter var(--duration-shadow-hover);
+}
+.event-btn:hover,
+.event-btn:focus-visible {
+  transform: translateY(-1px);
+  filter: drop-shadow(6px 2px 0 var(--shadow-accent));
+  outline: none;
+}
+
 /* Page-level scroll enable + hide scrollbar when class is present on html */
 .page-scroll,
 .page-scroll body {
