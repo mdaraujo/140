@@ -8,9 +8,8 @@ import { PopupModal } from '../components/ui';
 import { MovingObject } from '../types/MovingObject';
 import { ContentItem } from '../types/ContentItem';
 
-function formatDateTimeRange(start: string, end: string): string {
+function formatDateTimeSingle(start: string): string {
   const s = new Date(start);
-  const e = new Date(end);
   const locale: Intl.LocalesArgument = 'pt-PT';
   const startStr = s.toLocaleString(locale, {
     weekday: 'short',
@@ -19,14 +18,7 @@ function formatDateTimeRange(start: string, end: string): string {
     hour: '2-digit',
     minute: '2-digit',
   });
-  const endStr = e.toLocaleString(locale, {
-    weekday: 'short',
-    day: '2-digit',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-  return `${startStr} – ${endStr}`;
+  return startStr;
 }
 
 const EventDetail: React.FC = () => {
@@ -38,8 +30,18 @@ const EventDetail: React.FC = () => {
   const gridItems: ContentItem[] = useMemo(() => {
     if (!event) return [];
     if (event.items && event.items.length > 0) return event.items;
+
     const items: ContentItem[] = [{ kind: 'image', src: event.image, alt: event.name }];
-    if (event.description) items.push({ kind: 'text', title: event.name, text: event.description });
+
+    if (event.description) {
+      items.push({ kind: 'text', title: event.name, text: event.description });
+    }
+
+    // Add combined Quando/Onde as a single text item in the grid
+    const whenText = formatDateTimeSingle(event.startAt);
+    const whenTitle = event.location ? 'Quando e Onde' : 'Quando?';
+    items.push({ kind: 'text', title: whenTitle, text: whenText });
+
     return items;
   }, [event]);
 
@@ -111,31 +113,26 @@ const EventDetail: React.FC = () => {
               />
             ) : (
               <TextBlock key={`event-tx-${idx}`} title={it.title}>
-                {it.text}
+                {event.location && it.title?.startsWith('Quando') ? (
+                  <>
+                    {it.text}
+                    <br />
+                    <a
+                      href={event.location}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="socio-inline-link"
+                    >
+                      Abrir no mapa
+                    </a>
+                  </>
+                ) : (
+                  it.text
+                )}
               </TextBlock>
             ),
           )}
         </CardGrid>
-
-        <div style={{ marginTop: '1rem', display: 'grid', gap: '0.75rem' }}>
-          <TextBlock title="Quando">
-            <p>{formatDateTimeRange(event.startAt, event.endAt)}</p>
-          </TextBlock>
-          {event.location ? (
-            <TextBlock title="Localização">
-              <p>
-                <a
-                  href={event.location}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="socio-inline-link"
-                >
-                  Ver no mapa
-                </a>
-              </p>
-            </TextBlock>
-          ) : null}
-        </div>
       </main>
       <PopupModal
         isOpen={!!modalObj}
