@@ -53,18 +53,32 @@
 }
 
 .text-block {
-  background: var(--color-accent-soft);
-  border-radius: 8px;
-  padding: 0.9rem 1rem;
+  background: transparent;
+  border-radius: 0;
+  /* center the text block content */
+  display: grid;
+  place-items: center;
+  text-align: center;
+  /* keep same footprint as poster cards */
+  aspect-ratio: 3 / 4;
+  padding: 0.5rem;
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  line-height: 1.4;
 }
 
 .text-block h3 {
-  margin: 0 0 0.4rem;
-  font-size: 1.05rem;
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.1rem, 2.6vw, 1.4rem);
 }
 
-.text-block p {
-  margin: 0.5rem 0 0;
-  font-size: 0.98rem;
-  line-height: 1.35;
+.text-block > * {
+  margin: 0;
+}
+
+/* Mobile: text blocks use natural height (no poster aspect) */
+@media only screen and (max-width: 768px) {
+  .text-block {
+    aspect-ratio: auto;
+    padding: 0.75rem 0.5rem;
+  }
 }
