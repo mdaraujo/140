@@ -16,8 +16,8 @@
 }
 
 .navbar-left .brand {
-  font-weight: 800;
-  letter-spacing: 0.3px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
   transition:
     transform var(--duration-transform),
     filter var(--duration-shadow-hover);
@@ -79,15 +79,58 @@
   border: 1px solid currentColor;
   border-radius: 4px;
   cursor: pointer;
+  transition:
+    transform var(--duration-transform),
+    filter var(--duration-shadow-hover);
 }
+.navbar-right .hamburger:hover,
+.navbar-right .hamburger:focus-visible {
+  transform: translateY(-1px);
+  filter: drop-shadow(4px 2px 0 var(--shadow-accent));
+  outline: none;
+}
+
+/* Hamburger → X micro-interaction (mobile) */
 .hamburger-bars {
+  position: relative;
   display: inline-block;
   width: 20px;
-  height: 12px;
-  background:
-    linear-gradient(currentColor 2px, transparent 0) 0 0/100% 33%,
-    linear-gradient(currentColor 2px, transparent 0) 0 50%/100% 33%,
-    linear-gradient(currentColor 2px, transparent 0) 0 100%/100% 33%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transition:
+    background var(--duration-shadow-hover) ease,
+    transform var(--duration-transform) ease;
+}
+.hamburger-bars::before,
+.hamburger-bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transition:
+    transform var(--duration-transform) ease,
+    opacity var(--duration-shadow-hover) ease;
+}
+.hamburger-bars::before {
+  top: -6px;
+}
+.hamburger-bars::after {
+  top: 6px;
+}
+
+/* When menu is open, morph to X using aria-expanded from the button */
+.hamburger[aria-expanded='true'] .hamburger-bars {
+  background: transparent;
+}
+.hamburger[aria-expanded='true'] .hamburger-bars::before {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger[aria-expanded='true'] .hamburger-bars::after {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 .navbar-menu {
