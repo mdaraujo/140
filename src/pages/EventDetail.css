@@ -37,12 +37,17 @@
   transition:
     transform var(--duration-transform),
     filter var(--duration-shadow-hover);
+  -webkit-tap-highlight-color: transparent;
 }
 .event-btn:hover,
 .event-btn:focus-visible {
   transform: translateY(-1px);
   filter: drop-shadow(8px 4px 0 var(--shadow-accent));
   outline: none;
+}
+.event-btn:active {
+  transform: translateY(-1px);
+  filter: drop-shadow(8px 4px 0 var(--shadow-accent));
 }
 
 .event-btn.disabled,

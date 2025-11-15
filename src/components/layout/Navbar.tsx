@@ -74,12 +74,17 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className }, ref) => {
         role="menu"
         aria-label="Navegação"
       >
-        <NavLink to="/" className="menu-link" role="menuitem" onClick={() => setIsMenuOpen(false)}>
+        <NavLink
+          to="/"
+          className={({ isActive }) => `menu-link${isActive ? ' active' : ''}`}
+          role="menuitem"
+          onClick={() => setIsMenuOpen(false)}
+        >
           E Agora?
         </NavLink>
         <NavLink
           to="/foi"
-          className="menu-link"
+          className={({ isActive }) => `menu-link${isActive ? ' active' : ''}`}
           role="menuitem"
           onClick={() => setIsMenuOpen(false)}
         >
@@ -87,7 +92,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className }, ref) => {
         </NavLink>
         <NavLink
           to="/quem-somos"
-          className="menu-link"
+          className={({ isActive }) => `menu-link${isActive ? ' active' : ''}`}
           role="menuitem"
           onClick={() => setIsMenuOpen(false)}
         >
@@ -95,7 +100,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className }, ref) => {
         </NavLink>
         <NavLink
           to="/socio"
-          className="menu-link"
+          className={({ isActive }) => `menu-link${isActive ? ' active' : ''}`}
           role="menuitem"
           onClick={() => setIsMenuOpen(false)}
         >

@@ -147,6 +147,11 @@
   padding: 0.5rem 0.25rem;
   color: var(--navbar-menu-fg);
 }
+.navbar-menu.open .menu-link.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
 .navbar-menu .menu-link:hover,
 .navbar-menu .menu-link:focus-visible {
   color: var(--link-hover);
@@ -182,4 +187,11 @@
 .theme-now .navbar,
 .theme-halloween .navbar {
   background: linear-gradient(180deg, var(--color-overlay) 0%, transparent 100%);
+}
+
+/* Mobile-specific tweaks */
+@media only screen and (max-width: 768px) {
+  .navbar {
+    border-bottom: none; /* remove dashed rule on mobile */
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import './EventDetail.css';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Navbar, Footer } from '../components/layout';
 import { CardGrid, ImageCard, TextBlock } from '../components/grid';
 import { events } from '../data/events';
@@ -22,6 +22,7 @@ function formatDateTimeSingle(start: string): string {
 
 const EventDetail: React.FC = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const event = useMemo(() => events.find((ev) => ev.id === params.id), [params.id]);
   const { pastEvents } = useMemo(() => splitEvents(events), []);
   const sortedPast = useMemo(
@@ -41,9 +42,19 @@ const EventDetail: React.FC = () => {
       : null;
   const laterEventId = currentIndex > 0 ? sortedPast[currentIndex - 1].id : null;
 
+  function handleDelayedNav(e: React.MouseEvent, path: string): void {
+    e.preventDefault();
+    window.setTimeout(() => navigate(path), 120);
+  }
+
   const NavControls: React.FC = () => (
     <nav className="event-detail-nav" aria-label="Navegação de eventos">
-      <Link to="/foi" className="event-btn" aria-label="Voltar à lista de eventos">
+      <Link
+        to="/foi"
+        className="event-btn"
+        aria-label="Voltar à lista de eventos"
+        onClick={(e) => handleDelayedNav(e, '/foi')}
+      >
         Fechar
       </Link>
       <div className="event-nav-group">
@@ -52,6 +63,7 @@ const EventDetail: React.FC = () => {
             to={`/evento/${laterEventId}`}
             className="event-btn"
             aria-label="Próximo evento (mais recente)"
+            onClick={(e) => handleDelayedNav(e, `/evento/${laterEventId}`)}
           >
             Seguinte
           </Link>
@@ -65,6 +77,7 @@ const EventDetail: React.FC = () => {
             to={`/evento/${earlierEventId}`}
             className="event-btn"
             aria-label="Evento anterior (mais antigo)"
+            onClick={(e) => handleDelayedNav(e, `/evento/${earlierEventId}`)}
           >
             Anterior
           </Link>
