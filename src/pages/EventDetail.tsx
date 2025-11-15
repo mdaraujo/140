@@ -32,11 +32,14 @@ const EventDetail: React.FC = () => {
     () => sortedPast.findIndex((ev) => ev.id === params.id),
     [sortedPast, params.id],
   );
-  const prevEventId = currentIndex > 0 ? sortedPast[currentIndex - 1].id : null;
-  const nextEventId =
+  // With sortedPast in DESC order (most recent first):
+  // - earlier (older) event is at index + 1
+  // - later (more recent) event is at index - 1
+  const earlierEventId =
     currentIndex >= 0 && currentIndex < sortedPast.length - 1
       ? sortedPast[currentIndex + 1].id
       : null;
+  const laterEventId = currentIndex > 0 ? sortedPast[currentIndex - 1].id : null;
 
   const NavControls: React.FC = () => (
     <nav className="event-detail-nav" aria-label="Navegação de eventos">
@@ -44,15 +47,31 @@ const EventDetail: React.FC = () => {
         Fechar
       </Link>
       <div className="event-nav-group">
-        {prevEventId && (
-          <Link to={`/evento/${prevEventId}`} className="event-btn" aria-label="Evento anterior">
-            Anterior
-          </Link>
-        )}
-        {nextEventId && (
-          <Link to={`/evento/${nextEventId}`} className="event-btn" aria-label="Próximo evento">
+        {laterEventId ? (
+          <Link
+            to={`/evento/${laterEventId}`}
+            className="event-btn"
+            aria-label="Próximo evento (mais recente)"
+          >
             Seguinte
           </Link>
+        ) : (
+          <span className="event-btn disabled" aria-disabled="true" role="link" tabIndex={-1}>
+            Seguinte
+          </span>
+        )}
+        {earlierEventId ? (
+          <Link
+            to={`/evento/${earlierEventId}`}
+            className="event-btn"
+            aria-label="Evento anterior (mais antigo)"
+          >
+            Anterior
+          </Link>
+        ) : (
+          <span className="event-btn disabled" aria-disabled="true" role="link" tabIndex={-1}>
+            Anterior
+          </span>
         )}
       </div>
     </nav>

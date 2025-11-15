@@ -41,8 +41,17 @@
 .event-btn:hover,
 .event-btn:focus-visible {
   transform: translateY(-1px);
-  filter: drop-shadow(6px 2px 0 var(--shadow-accent));
+  filter: drop-shadow(8px 4px 0 var(--shadow-accent));
   outline: none;
+}
+
+.event-btn.disabled,
+.event-btn[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+  transform: none;
+  filter: none;
 }
 
 /* Page-level scroll enable + hide scrollbar when class is present on html */
