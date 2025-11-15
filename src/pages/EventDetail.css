@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-top: 1rem;
+  margin: 0.75rem 0;
 }
 .event-nav-group {
   display: flex;

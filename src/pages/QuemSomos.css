@@ -78,3 +78,14 @@
   aspect-ratio: 3 / 4;
   object-fit: cover;
 }
+
+/* Force left alignment for text items on Quem Somos page */
+.about-page .card-grid .text-block,
+.about-page .card-grid .text-block:nth-of-type(even),
+.about-page .card-grid .text-block:nth-of-type(odd) {
+  text-align: left;
+  /* Vertically center text inside the ghost card area */
+  display: grid;
+  align-content: center;
+  justify-items: start;
+}

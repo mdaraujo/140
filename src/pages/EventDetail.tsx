@@ -38,6 +38,25 @@ const EventDetail: React.FC = () => {
       ? sortedPast[currentIndex + 1].id
       : null;
 
+  const NavControls: React.FC = () => (
+    <nav className="event-detail-nav" aria-label="Navegação de eventos">
+      <Link to="/foi" className="event-btn" aria-label="Voltar à lista de eventos">
+        Fechar
+      </Link>
+      <div className="event-nav-group">
+        {prevEventId && (
+          <Link to={`/evento/${prevEventId}`} className="event-btn" aria-label="Evento anterior">
+            Anterior
+          </Link>
+        )}
+        {nextEventId && (
+          <Link to={`/evento/${nextEventId}`} className="event-btn" aria-label="Próximo evento">
+            Seguinte
+          </Link>
+        )}
+      </div>
+    </nav>
+  );
   const gridItems: ContentItem[] = useMemo(() => {
     if (!event) return [];
     if (event.items && event.items.length > 0) return event.items;
@@ -95,6 +114,7 @@ const EventDetail: React.FC = () => {
       <Navbar />
 
       <main className="event-detail-content" role="main" aria-labelledby="event-title">
+        <NavControls />
         <h1 id="event-title" className="sr-only">
           {event.name}
         </h1>
@@ -130,28 +150,7 @@ const EventDetail: React.FC = () => {
           )}
         </CardGrid>
 
-        {/* Bottom navigation: back to list and prev/next */}
-        <nav className="event-detail-nav" aria-label="Navegação de eventos">
-          <Link to="/foi" className="event-btn" aria-label="Voltar à lista de eventos">
-            Fechar
-          </Link>
-          <div className="event-nav-group">
-            {prevEventId && (
-              <Link
-                to={`/evento/${prevEventId}`}
-                className="event-btn"
-                aria-label="Evento anterior"
-              >
-                Anterior
-              </Link>
-            )}
-            {nextEventId && (
-              <Link to={`/evento/${nextEventId}`} className="event-btn" aria-label="Próximo evento">
-                Seguinte
-              </Link>
-            )}
-          </div>
-        </nav>
+        <NavControls />
       </main>
       <Footer />
     </div>
