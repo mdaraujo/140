@@ -192,4 +192,14 @@ export const events: EventItem[] = [
     location: LOCATIONS.pontoC,
     weight: 1,
   },
+  /*{
+    id: 'sao-martinho-fest-25',
+    name: 'São Martinho Fest',
+    image: SaoMartinhoFest,
+    startAt: '2025-11-21T21:00:00',
+    endAt: '2025-11-22T02:00:00',
+    description: DESCRIPTIONS.saoMartinhoFest,
+    location: LOCATIONS.pontoC,
+    weight: 1,
+  },*/
 ];

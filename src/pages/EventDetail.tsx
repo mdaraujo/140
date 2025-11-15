@@ -58,32 +58,34 @@ const EventDetail: React.FC = () => {
         Fechar
       </Link>
       <div className="event-nav-group">
+        {/* Left: Anterior → navigate to the more recent event (list previous) */}
         {laterEventId ? (
           <Link
             to={`/evento/${laterEventId}`}
             className="event-btn"
-            aria-label="Próximo evento (mais recente)"
+            aria-label="Evento anterior (mais recente)"
             onClick={(e) => handleDelayedNav(e, `/evento/${laterEventId}`)}
           >
-            Seguinte
+            Anterior
           </Link>
         ) : (
           <span className="event-btn disabled" aria-disabled="true" role="link" tabIndex={-1}>
-            Seguinte
+            Anterior
           </span>
         )}
+        {/* Right: Seguinte → navigate to the older event (list next) */}
         {earlierEventId ? (
           <Link
             to={`/evento/${earlierEventId}`}
             className="event-btn"
-            aria-label="Evento anterior (mais antigo)"
+            aria-label="Próximo evento (mais antigo)"
             onClick={(e) => handleDelayedNav(e, `/evento/${earlierEventId}`)}
           >
-            Anterior
+            Seguinte
           </Link>
         ) : (
           <span className="event-btn disabled" aria-disabled="true" role="link" tabIndex={-1}>
-            Anterior
+            Seguinte
           </span>
         )}
       </div>

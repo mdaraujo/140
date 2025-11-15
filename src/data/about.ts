@@ -25,16 +25,14 @@ export const aboutItems: ContentItem[] = [
   { kind: 'image', src: QsLojaPopUp, alt: 'Loja Pop-Up' },
   {
     kind: 'text',
-    text: 'Comunidade 140: pessoas diferentes a construir em conjunto. A casa é de quem participa.',
+    text: 'Exposições, oficinas, jam sessions, cinema, conversas, concertos e lojas pop‑up: formatos diversos para públicos diversos.',
   },
 
   { kind: 'image', src: QsPublico, alt: 'Público' },
-  {
-    kind: 'text',
-    text: 'Exposições, oficinas, jam sessions, cinema, conversas e lojas pop‑up: formatos diversos para públicos diversos.',
-  },
-  { kind: 'image', src: QsFotoGrupo, alt: 'Grupo' },
   { kind: 'text', text: 'A missão é ligar a arte à comunidade: aparece, propõe, colabora.' },
+  { kind: 'image', src: QsFotoGrupo, alt: 'Grupo' },
+
+  { kind: 'text', text: 'Obrigado!' },
 ];
 
 export default aboutItems;

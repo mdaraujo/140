@@ -89,3 +89,8 @@
   align-content: center;
   justify-items: start;
 }
+/* Justify body text while keeping titles aligned left */
+.about-page .card-grid .text-block > div {
+  text-align: justify;
+  text-justify: inter-word;
+}
