@@ -71,8 +71,11 @@ const PopupModal: React.FC<PopupModalProps> = ({
   if (!isOpen || !movingObject) return null;
 
   const hasTickets = !!movingObject.ticketsLink;
-  const hasLocation = !!movingObject.location;
+  const hasLocation = !!movingObject.location?.url;
   const displayImage = movingObject.modalImage || movingObject.image;
+  const locationHref = movingObject.location?.url || undefined;
+  const locationName = hasTickets ? movingObject.location?.name || 'Localização' : 'Entrada Livre';
+  const ticketHref = movingObject.ticketsLink || undefined;
 
   return (
     <div
@@ -96,41 +99,23 @@ const PopupModal: React.FC<PopupModalProps> = ({
         >
           ×
         </button>
-        {hasTickets ? (
-          <a
-            href={movingObject.ticketsLink!}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            onClick={() =>
-              trackCtaClick({
-                context: 'modal',
-                ctaType: 'tickets',
-                linkUrl: movingObject.ticketsLink as string,
-                linkText: 'Poster',
-              })
-            }
-          >
-            <img src={displayImage} alt="Pop-up Poster" />
-          </a>
-        ) : (
-          <img
-            src={displayImage}
-            alt="Pop-up Poster"
-            role="button"
-            tabIndex={0}
-            aria-label="Fechar popup"
-            onClick={(e) => {
-              e.stopPropagation();
+        <img
+          src={displayImage}
+          alt="Pop-up Poster"
+          role="button"
+          tabIndex={0}
+          aria-label="Fechar popup"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleRequestClose();
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
               handleRequestClose();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleRequestClose();
-              }
-            }}
-          />
-        )}
+            }
+          }}
+        />
 
         {movingObject.description && (
           <p className="artist-description" onClick={handleDescriptionClick}>
@@ -138,43 +123,46 @@ const PopupModal: React.FC<PopupModalProps> = ({
           </p>
         )}
 
-        {showCtaButton &&
-          (hasTickets || hasLocation) &&
-          (hasTickets ? (
-            <a
-              href={movingObject.ticketsLink!}
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="button"
-              onClick={() =>
-                trackCtaClick({
-                  context: 'modal',
-                  ctaType: 'tickets',
-                  linkUrl: movingObject.ticketsLink as string,
-                  linkText: 'E agora? Bilhetes aqui',
-                })
-              }
-            >
-              E agora? Bilhetes aqui&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
-            </a>
-          ) : (
-            <a
-              href={movingObject.location!}
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="button"
-              onClick={() =>
-                trackCtaClick({
-                  context: 'modal',
-                  ctaType: 'location',
-                  linkUrl: movingObject.location as string,
-                  linkText: 'Entrada Livre',
-                })
-              }
-            >
-              Entrada Livre&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
-            </a>
-          ))}
+        {showCtaButton && (hasTickets || hasLocation) && (
+          <div className="button-row" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            {hasLocation && (
+              <a
+                href={locationHref}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="button"
+                onClick={() =>
+                  trackCtaClick({
+                    context: 'modal',
+                    ctaType: 'location',
+                    linkUrl: locationHref as string,
+                    linkText: locationName,
+                  })
+                }
+              >
+                {locationName}&nbsp; <i className="fa fa-map-marker" aria-hidden="true"></i>
+              </a>
+            )}
+            {hasTickets && (
+              <a
+                href={ticketHref}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="button"
+                onClick={() =>
+                  trackCtaClick({
+                    context: 'modal',
+                    ctaType: 'tickets',
+                    linkUrl: ticketHref as string,
+                    linkText: 'Comprar bilhetes',
+                  })
+                }
+              >
+                Comprar bilhetes&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
+              </a>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

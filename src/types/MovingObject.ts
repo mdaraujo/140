@@ -11,8 +11,8 @@ export interface MovingObject {
   formLink: string | null;
   /** Ticket purchase link (currently unused but reserved) */
   ticketsLink: string | null;
-  /** Google Maps location link */
-  location: string | null;
+  /** Location object (name + map URL) */
+  location?: import('../data/locations').LocationInfo | null;
   /** Detailed description shown in popup modal */
   description?: string;
   /** Weight for weighted random algorithm (higher = more likely to be picked) */

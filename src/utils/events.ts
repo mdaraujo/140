@@ -29,7 +29,7 @@ export function eventsToMovingObjects(events: EventItem[]): MovingObject[] {
     description: e.description,
     formLink: e.formLink ?? null,
     ticketsLink: e.ticketsLink ?? null,
-    location: e.location?.url ?? null,
+    location: e.location ?? null,
     weight: e.weight ?? 1,
   }));
 }
@@ -42,7 +42,7 @@ export function getHeaderMovingObject(events: EventItem[]): MovingObject | null 
     description: header.description,
     formLink: header.formLink ?? null,
     ticketsLink: header.ticketsLink ?? null,
-    location: header.location?.url ?? null,
+    location: header.location ?? null,
     weight: header.weight ?? 1,
   };
 }

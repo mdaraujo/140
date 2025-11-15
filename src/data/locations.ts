@@ -24,6 +24,10 @@ export const LOCATIONS = {
     name: 'Ponto X',
     url: 'https://maps.app.goo.gl/B6YXyTWVt1dKQuZD9',
   },
+  garagemCDDC: {
+    name: 'Garagem CDDC',
+    url: 'https://maps.app.goo.gl/gzdNZeS1rKfupFHV8',
+  },
 } as const;
 
 export type LocationKey = keyof typeof LOCATIONS;

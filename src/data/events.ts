@@ -21,6 +21,7 @@ import Aniversario_Exposicao from '../assets/25_09_26_Aniversario_Exposicao.jpg'
 import Aniversario_PequenoAlmoco from '../assets/25_09_27_Aniversario_PequenoAlmoco.jpg';
 import Aniversario_Raku from '../assets/25_09_27_Aniversario_Raku.jpg';
 import PoesiaEmConstrucao from '../assets/25_10_23_Poesia_Em_Construcao.jpg';
+import SaoMartinhoFest from '../assets/25_11_21_SaoMartinhoFest.jpg';
 
 export const events: EventItem[] = [
   {
@@ -192,14 +193,15 @@ export const events: EventItem[] = [
     location: LOCATIONS.pontoC,
     weight: 1,
   },
-  /*{
+  {
     id: 'sao-martinho-fest-25',
     name: 'São Martinho Fest',
     image: SaoMartinhoFest,
     startAt: '2025-11-21T21:00:00',
     endAt: '2025-11-22T02:00:00',
     description: DESCRIPTIONS.saoMartinhoFest,
-    location: LOCATIONS.pontoC,
+    location: LOCATIONS.garagemCDDC,
+    ticketsLink: 'mailto:bilhetes@140.pt',
     weight: 1,
-  },*/
+  },
 ];
