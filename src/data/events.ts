@@ -1,5 +1,5 @@
 import { EventItem } from '../types/Event';
-import { LOCATIONS } from './constants';
+import { LOCATIONS } from './locations';
 import { DESCRIPTIONS } from './descriptions';
 
 // Assets
@@ -136,7 +136,7 @@ export const events: EventItem[] = [
     name: 'GumaJazz',
     description: DESCRIPTIONS.gumaJazz,
     image: GumaJazz,
-    location: LOCATIONS.gumaJazz,
+    location: LOCATIONS.escolaGumaraes,
     startAt: '2025-08-17T15:00:00',
     endAt: '2025-08-17T23:59:00',
     weight: 1,

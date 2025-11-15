@@ -7,7 +7,8 @@ export interface EventItem {
   items?: import('./ContentItem').ContentItem[];
   formLink?: string | null;
   ticketsLink?: string | null;
-  location?: string | null;
+  /** Location info (name + map URL) */
+  location?: import('../data/locations').LocationInfo | null;
   startAt: string; // ISO 8601
   endAt: string; // ISO 8601
   weight?: number;

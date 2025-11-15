@@ -134,12 +134,12 @@ const EventDetail: React.FC = () => {
                     {it.text}
                     <br />
                     <a
-                      href={event.location}
+                      href={event.location.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="socio-inline-link"
                     >
-                      Abrir no mapa
+                      {event.location.name}
                     </a>
                   </>
                 ) : (
