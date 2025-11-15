@@ -186,6 +186,13 @@
   overflow-wrap: anywhere; /* avoid horizontal overflow on long text */
 }
 
+/* Buttons container (used for location + tickets) */
+.button-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 /* Mobile styles (<=768px) */
 @media only screen and (max-width: 768px) {
   .popup-content {
@@ -202,8 +209,14 @@
     margin: 0.75rem 0;
     text-align: left;
   }
-  .popup-content .button {
-    align-self: flex-start;
+  /* Place location + tickets side-by-side on mobile */
+  .button-row {
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+  .button-row .button {
+    flex: 1 1 0;
+    text-align: center;
   }
 }
 

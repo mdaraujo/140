@@ -37,4 +37,6 @@ export const DESCRIPTIONS = {
     '“Poesia em Construção" inserido na programação do Escritaria 2025, junta três vozes do rap nacional - Maze, Né e Denise - num momento onde a palavra é o foco. Acompanhados pelas texturas sonoras de Alexandre Centeio é um convite à escuta e reflexão. Uma parceira com Puro L no papel de HOST e a 140 na produção e cenografia. Um momento para sentir de uma forma diferente a poesia que nasce da rua e ecoa nos palcos.',
   halloweenPopUp:
     'Já estavam com saudades de uma festinha à moda 140? Nada temam, estamos de volta, desta vez para aterrorizar no Ponto X. Se há o “Dia das Bruxas” nos tratamos da noite, é só atirar para um caldeirão o Ininomac, demónio do caos musical, FeatherBoy a fazer chover tachos e tarolas, bebida da boa (com descontos para sócios) e está tudo pronto para fazer levantar os mortos. Contamos com vocês dia 31, pelas 22H, mascarados, ou não. E agora? Até vai meter medo.',
+  saoMartinhoFest:
+    'SÃO MARTINHO FEST\n\nSEXTA FEIRA DIA 21 de Novembro das 21h30 - 00h com Bastardos Mutantes e bcc (banda de call center)\n\n“10 anos depois voltamos a fazer barulho - porque o Armazém é onde nós quisermos.”',
 };

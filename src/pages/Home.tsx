@@ -27,14 +27,26 @@ const Home: React.FC = () => {
           weight: 0.7,
         }))
       : [];
-  const moving = usingFallback ? eventObjects : [...eventObjects, ...pumpkinObjects];
+  // Always show one logo first on Home, even when we have future events.
+  // Use a logo image that opens the next event popup (logo image + event modal data).
+  let moving = eventObjects;
+  if (!usingFallback) {
+    const nextEvent = [...nowEvents].sort(
+      (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
+    )[0];
+    const nextObj = eventsToMovingObjects([nextEvent])[0];
+    const logoImage = fallbackSocioObjects()[0].image;
+    const logoOpensNext = {
+      ...nextObj,
+      image: logoImage,
+      modalImage: nextObj.modalImage || nextObj.image,
+      formLink: null,
+    };
+    moving = [logoOpensNext, ...eventObjects, ...pumpkinObjects];
+  }
 
   return (
-    <EventsPage
-      headerLines={['E', 'AGORA', '?']}
-      movingObjects={moving}
-      randomizeFirst={usingFallback || nowEvents.length > 2}
-    />
+    <EventsPage headerLines={['E', 'AGORA', '?']} movingObjects={moving} randomizeFirst={false} />
   );
 };
 

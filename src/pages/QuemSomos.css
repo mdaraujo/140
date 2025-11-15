@@ -1,0 +1,96 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+  /* Navbar palette like Home */
+  --navbar-menu-bg: var(--light-surface);
+  --navbar-menu-fg: var(--brand-red);
+}
+
+.about-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  padding-bottom: var(--footer-safe, 96px); /* reserve space above fixed footer */
+}
+
+/* Page-level scroll enable + hide scrollbar when class is present on html */
+.page-scroll,
+.page-scroll body {
+  overflow: auto;
+}
+.page-scroll::-webkit-scrollbar,
+.page-scroll body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-content: start;
+}
+
+@media only screen and (min-width: 769px) {
+  .about-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* Keep 3 columns on large screens as requested */
+
+.about-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-foreground);
+  background: var(--color-accent-soft);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.about-card-button {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.about-card-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+/* Force left alignment for text items on Quem Somos page */
+.about-page .card-grid .text-block,
+.about-page .card-grid .text-block:nth-of-type(even),
+.about-page .card-grid .text-block:nth-of-type(odd) {
+  text-align: left;
+  /* Vertically center text inside the ghost card area */
+  display: grid;
+  align-content: center;
+  justify-items: start;
+}
+/* Justify body text while keeping titles aligned left */
+.about-page .card-grid .text-block > div {
+  text-align: justify;
+  text-justify: inter-word;
+}

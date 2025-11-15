@@ -43,6 +43,12 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className }, ref) => {
           <NavLink to="/foi" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
             E o que foi?
           </NavLink>
+          <NavLink
+            to="/quem-somos"
+            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+          >
+            E quem somos?
+          </NavLink>
           <NavLink to="/socio" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
             Torna-te sócio!
           </NavLink>
@@ -68,20 +74,33 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className }, ref) => {
         role="menu"
         aria-label="Navegação"
       >
-        <NavLink to="/" className="menu-link" role="menuitem" onClick={() => setIsMenuOpen(false)}>
+        <NavLink
+          to="/"
+          className={({ isActive }) => `menu-link${isActive ? ' active' : ''}`}
+          role="menuitem"
+          onClick={() => setIsMenuOpen(false)}
+        >
           E Agora?
         </NavLink>
         <NavLink
           to="/foi"
-          className="menu-link"
+          className={({ isActive }) => `menu-link${isActive ? ' active' : ''}`}
           role="menuitem"
           onClick={() => setIsMenuOpen(false)}
         >
           E o que foi?
         </NavLink>
         <NavLink
+          to="/quem-somos"
+          className={({ isActive }) => `menu-link${isActive ? ' active' : ''}`}
+          role="menuitem"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          E quem somos?
+        </NavLink>
+        <NavLink
           to="/socio"
-          className="menu-link"
+          className={({ isActive }) => `menu-link${isActive ? ' active' : ''}`}
           role="menuitem"
           onClick={() => setIsMenuOpen(false)}
         >
