@@ -7,6 +7,10 @@ export interface MovingObject {
   image: string;
   /** Optional image to use inside the modal (fallbacks to image) */
   modalImage?: string;
+  /** Optional title of the event (used in CTAs, emails, etc.) */
+  title?: string;
+  /** Optional ISO date for the event start (for email prefill, etc.) */
+  startAt?: string;
   /** External form link (opens in new tab) - if null, image opens popup instead */
   formLink: string | null;
   /** Ticket purchase link (currently unused but reserved) */

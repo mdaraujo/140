@@ -28,6 +28,10 @@ export const LOCATIONS = {
     name: 'Garagem CDDC',
     url: 'https://maps.app.goo.gl/gzdNZeS1rKfupFHV8',
   },
+  gtnNovelas: {
+    name: 'GTN Novelas',
+    url: 'https://maps.app.goo.gl/TTN8YcuQw97oDoAD6',
+  },
 } as const;
 
 export type LocationKey = keyof typeof LOCATIONS;

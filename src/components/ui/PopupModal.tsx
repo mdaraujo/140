@@ -75,7 +75,36 @@ const PopupModal: React.FC<PopupModalProps> = ({
   const displayImage = movingObject.modalImage || movingObject.image;
   const locationHref = movingObject.location?.url || undefined;
   const locationName = hasTickets ? movingObject.location?.name || 'Localização' : 'Entrada Livre';
-  const ticketHref = movingObject.ticketsLink || undefined;
+  // Build ticket href; if it's a mailto, prefill subject/body in PT
+  const buildMailto = (base: string): string => {
+    const address = base.toLowerCase().startsWith('mailto:') ? base.slice(7).split('?')[0] : base;
+    const subject = `Bilhetes | ${movingObject.title || 'Evento'}`;
+    const when = movingObject.startAt
+      ? new Date(movingObject.startAt).toLocaleString('pt-PT', {
+          weekday: 'short',
+          day: '2-digit',
+          month: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      : '';
+    const bodyLines = [
+      'Olá,',
+      `\nGostaria de comprar bilhetes para o "${movingObject.title || 'o evento'}".`,
+      when ? `Data: ${when}` : undefined,
+      '\nQuantidade sócio: ',
+      'Quantidade não sócio: ',
+      'Nome completo: ',
+      '\nObrigado!',
+    ].filter(Boolean);
+    const body = bodyLines.join('\n');
+    return `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+  const ticketHrefRaw = movingObject.ticketsLink || undefined;
+  const ticketHref =
+    ticketHrefRaw && ticketHrefRaw.toLowerCase().startsWith('mailto:')
+      ? buildMailto(ticketHrefRaw)
+      : ticketHrefRaw;
 
   return (
     <div
@@ -154,11 +183,11 @@ const PopupModal: React.FC<PopupModalProps> = ({
                     context: 'modal',
                     ctaType: 'tickets',
                     linkUrl: ticketHref as string,
-                    linkText: 'Comprar bilhetes',
+                    linkText: 'Bilhetes',
                   })
                 }
               >
-                Comprar bilhetes&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
+                Bilhetes&nbsp; <i className="fa fa-ticket" aria-hidden="true"></i>
               </a>
             )}
           </div>

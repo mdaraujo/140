@@ -26,6 +26,8 @@ export function splitEvents(
 export function eventsToMovingObjects(events: EventItem[]): MovingObject[] {
   return events.map((e) => ({
     image: e.image,
+    title: e.name,
+    startAt: e.startAt,
     description: e.description,
     formLink: e.formLink ?? null,
     ticketsLink: e.ticketsLink ?? null,
@@ -39,6 +41,8 @@ export function getHeaderMovingObject(events: EventItem[]): MovingObject | null 
   if (!header) return null;
   return {
     image: header.image,
+    title: header.name,
+    startAt: header.startAt,
     description: header.description,
     formLink: header.formLink ?? null,
     ticketsLink: header.ticketsLink ?? null,
