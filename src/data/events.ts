@@ -200,7 +200,7 @@ export const events: EventItem[] = [
     startAt: '2025-11-21T21:30:00',
     endAt: '2025-11-22T02:00:00',
     description: DESCRIPTIONS.saoMartinhoFest,
-    location: LOCATIONS.gtnNovelas,
+    location: LOCATIONS.garagemCDDC,
     ticketsLink: 'mailto:bilhetes@140.pt',
     weight: 1,
   },
