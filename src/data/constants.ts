@@ -1,11 +1,3 @@
-export const LOCATIONS = {
-  cafeSociedade: 'https://maps.app.goo.gl/6b4hyN2v7zgYSLDb7',
-  fidelis: 'https://maps.app.goo.gl/vGUHBfTgUpr96E7z7',
-  gumaJazz: 'https://maps.app.goo.gl/KbuSZ5HesDFNqh5J9',
-  pontoC: 'https://maps.app.goo.gl/A42NBU42qjfrDHg18',
-  pontoX: 'https://maps.app.goo.gl/B6YXyTWVt1dKQuZD9',
-};
-
 export const FORMS = {
   // Original share link (used for fallback/open in new tab)
   fichaSocio: 'https://forms.gle/dgnQgUeGjRHgjG2E7',

@@ -2,8 +2,10 @@
   position: sticky;
   top: 0;
   z-index: 3;
+  /* keep transparent on light pages to avoid grey tint */
   background: transparent;
   color: var(--color-foreground);
+  border-bottom: 1px dashed currentColor;
 }
 
 .navbar-inner {
@@ -15,7 +17,16 @@
 
 .navbar-left .brand {
   font-weight: 700;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
+  transition:
+    transform var(--duration-transform),
+    filter var(--duration-shadow-hover);
+}
+.navbar-left .brand:hover,
+.navbar-left .brand:focus-visible {
+  transform: rotate(-2deg) scale(1.02);
+  filter: drop-shadow(6px 2px 0 var(--shadow-accent));
+  outline: none;
 }
 
 .navbar-center {
@@ -24,13 +35,38 @@
 }
 
 .nav-link {
-  padding: 0.35rem 0.6rem;
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  transition:
+    transform var(--duration-transform),
+    filter var(--duration-shadow-hover),
+    background-color var(--duration-shadow-hover),
+    border-color var(--duration-shadow-hover);
 }
 .nav-link.active {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  border-color: currentColor;
+  background: transparent;
+  position: relative;
+}
+.nav-link.active::after {
+  /* bouncing dot next to active page */
+  content: '•';
+  margin-left: 6px;
+  display: inline-block;
+  transform-origin: bottom;
+  animation: nav-bounce 1.6s ease-in-out infinite;
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  background: transparent;
+  border-color: currentColor;
+  transform: translateY(-1px);
+  filter: drop-shadow(6px 2px 0 var(--shadow-accent));
+  outline: none;
 }
 
 .navbar-right .hamburger {
@@ -43,15 +79,58 @@
   border: 1px solid currentColor;
   border-radius: 4px;
   cursor: pointer;
+  transition:
+    transform var(--duration-transform),
+    filter var(--duration-shadow-hover);
 }
+.navbar-right .hamburger:hover,
+.navbar-right .hamburger:focus-visible {
+  transform: translateY(-1px);
+  filter: drop-shadow(4px 2px 0 var(--shadow-accent));
+  outline: none;
+}
+
+/* Hamburger → X micro-interaction (mobile) */
 .hamburger-bars {
+  position: relative;
   display: inline-block;
   width: 20px;
-  height: 12px;
-  background:
-    linear-gradient(currentColor 2px, transparent 0) 0 0/100% 33%,
-    linear-gradient(currentColor 2px, transparent 0) 0 50%/100% 33%,
-    linear-gradient(currentColor 2px, transparent 0) 0 100%/100% 33%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transition:
+    background var(--duration-shadow-hover) ease,
+    transform var(--duration-transform) ease;
+}
+.hamburger-bars::before,
+.hamburger-bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transition:
+    transform var(--duration-transform) ease,
+    opacity var(--duration-shadow-hover) ease;
+}
+.hamburger-bars::before {
+  top: -6px;
+}
+.hamburger-bars::after {
+  top: 6px;
+}
+
+/* When menu is open, morph to X using aria-expanded from the button */
+.hamburger[aria-expanded='true'] .hamburger-bars {
+  background: transparent;
+}
+.hamburger[aria-expanded='true'] .hamburger-bars::before {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger[aria-expanded='true'] .hamburger-bars::after {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 .navbar-menu {
@@ -68,6 +147,11 @@
   padding: 0.5rem 0.25rem;
   color: var(--navbar-menu-fg);
 }
+.navbar-menu.open .menu-link.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
 .navbar-menu .menu-link:hover,
 .navbar-menu .menu-link:focus-visible {
   color: var(--link-hover);
@@ -83,5 +167,31 @@
   }
   .navbar-menu {
     display: none !important;
+  }
+}
+
+@keyframes nav-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-2px);
+  }
+  60% {
+    transform: translateY(0);
+  }
+}
+
+/* Use a subtle translucent strip only on colored themes */
+.theme-now .navbar,
+.theme-halloween .navbar {
+  background: linear-gradient(180deg, var(--color-overlay) 0%, transparent 100%);
+}
+
+/* Mobile-specific tweaks */
+@media only screen and (max-width: 768px) {
+  .navbar {
+    border-bottom: none; /* remove dashed rule on mobile */
   }
 }

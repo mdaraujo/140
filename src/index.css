@@ -51,6 +51,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Use border-box sizing so paddings are included in element width */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .theme-now {
   /* Navbar inversion to match past page */
   --navbar-menu-bg: var(--light-surface);
@@ -73,6 +80,9 @@
   --link-hover: var(--color-accent);
   --focus-outline: var(--color-accent);
   --shadow-accent: var(--color-accent);
+
+  /* Footer safe space (used for padding-bottom on pages with fixed footer) */
+  --footer-safe: 96px;
 }
 
 .theme-past {
